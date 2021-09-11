@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget{
     return Scaffold(
       body: Column(
         children: [
-          MainAppbar(appBar: "test")
+          MainAppbar(appBar: "test77")
         ],
       )
     );
