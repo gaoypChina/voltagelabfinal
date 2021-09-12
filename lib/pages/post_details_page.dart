@@ -1,6 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:voltagelab/model/post_model.dart';
 
 class PostDetailsPage extends StatefulWidget {
@@ -29,14 +29,14 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
               ),
             ),
           ),
-          SliverList(delegate: SliverChildBuilderDelegate((context, index) {
-            return Container(
-              margin: EdgeInsets.all(10),
-              height: 30.0,
-              width: double.infinity,
-              color: Colors.green,
-            );
-          }))
+          SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              
+              child: Html(
+                data: widget.postdata.content!.rendered,
+              ),
+            ),
+          )
         ],
       ),
     );

@@ -13,7 +13,7 @@ class Postprovider extends ChangeNotifier {
   Future getpost(int id, int perpage) async {
     isloading = true;
     String url =
-        "https://blog.voltagelab.com/wp-json/wp/v2/posts?categories=${id}&per_page=${perpage}&offset=1&_fields[]=id&_fields[]=title&_fields[]=content&_fields[]=yoast_head_json.og_image&_fields[]=date&_fields[]=";
+        "https://blog.voltagelab.com/wp-json/wp/v2/posts?categories=${id}&per_page=${perpage}&offset=0&_fields[]=id&_fields[]=title&_fields[]=content&_fields[]=yoast_head_json.og_image&_fields[]=date&_fields[]=";
     try {
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
