@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:voltagelab/model/category_model.dart';
+import 'package:voltagelab/model/subcategory.dart';
 
 class CategoryProvider extends ChangeNotifier {
   bool isloading = false;
+  int? categoryindex;
   List<Categories> category = [];
+  List<SubCategory> subcategory = [];
 
   Future getcategory() async {
     isloading = true;
@@ -24,5 +27,25 @@ class CategoryProvider extends ChangeNotifier {
       print(e);
       notifyListeners();
     }
+  }
+
+  Future getsubcategory(int categoryid) async {
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
+    try {
+      var response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        var jsondata = response.body;
+        subcategory = subCategoryFromJson(jsondata);
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  setcategoryindex(int index) {
+    categoryindex = index;
+    notifyListeners();
   }
 }

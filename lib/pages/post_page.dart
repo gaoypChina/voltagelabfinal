@@ -165,6 +165,11 @@ class _PostPageState extends State<PostPage> {
                       SizedBox(height: 10),
                       Row(
                         children: [
+                          Icon(
+                            Icons.timer,
+                            size: 18,
+                          ),
+                          SizedBox(width: 2),
                           Text("${post.postdata[index].date!.hour} Hours Ago"),
                           Spacer(),
                           IconButton(

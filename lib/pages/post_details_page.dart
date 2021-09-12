@@ -34,6 +34,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
               
               child: Html(
                 data: widget.postdata.content!.rendered,
+                shrinkWrap: true,
+                
               ),
             ),
           )
