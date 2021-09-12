@@ -52,7 +52,9 @@ class _PostPageState extends State<PostPage> {
       child: post.isloading == true
           ? Container(
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CupertinoActivityIndicator(
+                  radius: 10,
+                ),
               ),
             )
           : Scrollbar(

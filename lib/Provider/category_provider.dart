@@ -9,7 +9,7 @@ class CategoryProvider extends ChangeNotifier {
   Future getcategory() async {
     isloading = true;
     String url =
-        "https://blog.voltagelab.com/wp-json/wp/v2/categories?per_page=100";
+        "https://blog.voltagelab.com/wp-json/wp/v2/categories?include=15,16,5323,1741,2908,92,1800&_fields[]=id&_fields[]=name";
     try {
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
