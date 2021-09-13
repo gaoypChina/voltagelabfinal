@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
-import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/listcategory_page.dart';
 import 'package:voltagelab/widget/drawer.dart';
 
@@ -62,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(100),
                           ),
+                          // ignore: unnecessary_brace_in_string_interps
                           child: Image.asset("images/img${index}.png",
                               fit: BoxFit.cover),
                         ),

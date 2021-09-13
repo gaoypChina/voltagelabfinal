@@ -6,7 +6,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
-import 'package:voltagelab/model/subcategory.dart';
 import 'package:voltagelab/pages/categories_page.dart';
 
 class ListcategoryPage extends StatefulWidget {

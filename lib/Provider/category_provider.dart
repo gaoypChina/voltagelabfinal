@@ -28,6 +28,7 @@ class CategoryProvider extends ChangeNotifier {
   Future getsubcategory(int categoryid) async {
     isloading = true;
     String url =
+        // ignore: unnecessary_brace_in_string_interps
         "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
     try {
       var response = await http.get(Uri.parse(url));

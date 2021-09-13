@@ -4,15 +4,15 @@ import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/model/category_model.dart';
 import 'package:voltagelab/model/subcategory.dart';
 import 'package:voltagelab/pages/post_details_page.dart';
 
 class PostPage extends StatefulWidget {
   final SubCategory subcategory;
+  final int categoryid;
   const PostPage({
     Key? key,
-    required this.subcategory,
+    required this.subcategory, required this.categoryid,
   }) : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class _PostPageState extends State<PostPage> {
   Future loadmorepost() async {
     perpagepost = perpagepost + 10;
     Provider.of<Postprovider>(context, listen: false)
-        .getpost(widget.subcategory.id!, perpagepost);
+        .getpost(widget.categoryid, perpagepost);
     previewpostlength =
         Provider.of<Postprovider>(context, listen: false).postdata.length;
   }
@@ -37,7 +37,7 @@ class _PostPageState extends State<PostPage> {
   @override
   void initState() {
     Provider.of<Postprovider>(context, listen: false)
-        .getpost(widget.subcategory.id!, perpagepost);
+        .getpost(widget.categoryid, perpagepost);
     scrollController = ScrollController();
     super.initState();
   }
@@ -51,7 +51,7 @@ class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
-    print(widget.subcategory.id);
+    print(widget.categoryid);
     return Container(
       child: post.isloading == true
           ? Container(
