@@ -8,11 +8,10 @@ import 'package:voltagelab/model/subcategory.dart';
 import 'package:voltagelab/pages/post_details_page.dart';
 
 class PostPage extends StatefulWidget {
-
   final int categoryid;
   const PostPage({
     Key? key,
-     required this.categoryid,
+    required this.categoryid,
   }) : super(key: key);
 
   @override
@@ -64,36 +63,40 @@ class _PostPageState extends State<PostPage> {
           : Scrollbar(
               child: LazyLoadScrollView(
                 onEndOfPage: loadmorepost,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: post.postdata.length,
-                  itemBuilder: (context, index) {
-                    if (index == post.postdata.length - 1) {
-                      if (post.postdata.length == previewpostlength) {
-                        return Container();
-                      } else if (post.postdata.length != previewpostlength) {
-                        return Column(
-                          children: [
-                            Container(
-                              height: 30,
-                              width: 50,
-                              child: LoadingIndicator(
-                                indicatorType: Indicator.lineScalePulseOutRapid,
-                                colors: const [
-                                  Colors.red,
-                                  Colors.deepOrange,
-                                  Colors.yellowAccent,
-                                  Colors.green,
-                                  Colors.indigo
-                                ],
+                child: SingleChildScrollView(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: post.postdata.length,
+                    itemBuilder: (context, index) {
+                      if (index == post.postdata.length - 1) {
+                        if (post.postdata.length == previewpostlength) {
+                          return Container();
+                        } else if (post.postdata.length != previewpostlength) {
+                          return Column(
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 50,
+                                child: LoadingIndicator(
+                                  indicatorType:
+                                      Indicator.lineScalePulseOutRapid,
+                                  colors: const [
+                                    Colors.red,
+                                    Colors.deepOrange,
+                                    Colors.yellowAccent,
+                                    Colors.green,
+                                    Colors.indigo
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        );
+                            ],
+                          );
+                        }
                       }
-                    }
-                    return postdata(post, index);
-                  },
+                      return postdata(post, index);
+                    },
+                  ),
                 ),
               ),
             ),
