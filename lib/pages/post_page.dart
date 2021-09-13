@@ -8,11 +8,11 @@ import 'package:voltagelab/model/subcategory.dart';
 import 'package:voltagelab/pages/post_details_page.dart';
 
 class PostPage extends StatefulWidget {
-  final SubCategory subcategory;
+
   final int categoryid;
   const PostPage({
     Key? key,
-    required this.subcategory, required this.categoryid,
+     required this.categoryid,
   }) : super(key: key);
 
   @override

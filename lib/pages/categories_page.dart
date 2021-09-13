@@ -13,32 +13,14 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  int? subcategorylength;
-
-  subcategoryfilter() {
-    final category = Provider.of<CategoryProvider>(context, listen: false);
-    if (category.subcategory.length == 0) {
-      setState(() {
-        subcategorylength = 0;
-      });
-    } else {
-      setState(() {
-        subcategorylength = category.subcategory.length;
-      });
-    }
-  }
-
   @override
   void initState() {
-    subcategoryfilter();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final category = Provider.of<CategoryProvider>(context);
-    subcategoryfilter();
-    print(category.subcategory.length);
     return category.isloading == true
         ? Scaffold(
             appBar: AppBar(
@@ -51,20 +33,19 @@ class _CategoryPageState extends State<CategoryPage> {
             ),
           )
         : DefaultTabController(
-            length: category.subcategory.length == 0
-                ? 0
-                : category.subcategory.length,
+            length:
+                category.subcategory.isEmpty ? 1 : category.subcategory.length,
             child: Scaffold(
               appBar: AppBar(
                 elevation: 0,
                 title: Text(widget.categories.name!),
                 bottom: TabBar(
                   tabs: List.generate(
-                      category.subcategory.length == 0
-                          ? 0
+                      category.subcategory.isEmpty
+                          ? 1
                           : category.subcategory.length,
                       (index) => Tab(
-                            child: Text(category.subcategory.length == 0
+                            child: Text(category.subcategory.isEmpty
                                 ? widget.categories.name!
                                 : category.subcategory[index].name!),
                           )),
@@ -75,12 +56,11 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
               body: TabBarView(
                 children: List.generate(
-                  category.subcategory.length == 0
-                      ? 0
+                  category.subcategory.isEmpty
+                      ? 1
                       : category.subcategory.length,
                   (index) => PostPage(
-                    subcategory: category.subcategory[index],
-                    categoryid: category.subcategory.length == 0
+                    categoryid: category.subcategory.isEmpty
                         ? widget.categories.id!
                         : category.subcategory[index].id!,
                   ),
