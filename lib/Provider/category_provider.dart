@@ -10,7 +10,6 @@ class CategoryProvider extends ChangeNotifier {
   List<SubCategory> subcategory = [];
 
   Future getcategory() async {
-    isloading = true;
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/categories?include=15,16,5323,1741,2908,92,1800&_fields[]=id&_fields[]=name";
     try {
@@ -18,18 +17,16 @@ class CategoryProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         var jsondata = response.body;
         category = categoriesFromJson(jsondata);
-        isloading = false;
         notifyListeners();
       }
     } catch (e) {
-      isloading = false;
-
       print(e);
       notifyListeners();
     }
   }
 
   Future getsubcategory(int categoryid) async {
+    isloading = true;
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
     try {
@@ -37,9 +34,12 @@ class CategoryProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         var jsondata = response.body;
         subcategory = subCategoryFromJson(jsondata);
+        isloading = false;
         notifyListeners();
       }
     } catch (e) {
+      isloading = false;
+      notifyListeners();
       print(e);
     }
   }

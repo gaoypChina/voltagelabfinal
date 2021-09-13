@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/pages/categories_page.dart';
+import 'package:voltagelab/pages/listcategory_page.dart';
+import 'package:voltagelab/widget/drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: DrawerPage(),
         appBar: AppBar(
           title: Text("Voltage Lab"),
         ),
@@ -49,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => CategoryPage(),
+                                builder: (context) => ListcategoryPage(),
                               ));
                         },
                         child: Container(

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:voltagelab/model/post_model.dart';
+import 'package:share/share.dart';
 
 class PostDetailsPage extends StatefulWidget {
   final Postdata postdata;
@@ -12,30 +14,103 @@ class PostDetailsPage extends StatefulWidget {
 }
 
 class _PostDetailsPageState extends State<PostDetailsPage> {
+  List htmldata = [];
+  var htmldata2;
+
+  // htmlremove() {
+  //   htmldata.clear();
+  //   var documents = parse(widget.postdata.content!.rendered);
+  //   documents
+  //       .getElementsByTagName("p,h2,h3,ul,div,")
+  //       .map((e) => e.outerHtml)
+  //       .toList();
+  // }
+
+  void postshare(BuildContext context, String link) async {
+    final String text = link;
+    final RenderBox box = context.findRenderObject() as RenderBox;
+
+    await Share.share(text,
+        subject: "Voltage Lab",
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.postdata.link);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text(widget.postdata.title!.rendered!),
+            elevation: 0,
+            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.black),
+            title: Text(
+              widget.postdata.title!.rendered!,
+              style: TextStyle(color: Colors.black),
+            ),
             pinned: true,
-            expandedHeight: 300,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                widget.postdata.yoastHeadJson!.ogImage![0].url!,
-                height: 200,
-                fit: BoxFit.cover,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    postshare(context, widget.postdata.link!);
+                  },
+                  icon: Icon(Icons.share)),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.network(
+                  widget.postdata.yoastHeadJson!.ogImage![0].url!,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
           SliverToBoxAdapter(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Text(
+                      widget.postdata.title!.rendered!,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Icon(Icons.bookmark_border),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              margin: EdgeInsets.only(left: 10, right: 10),
+              child: Divider(),
+            ),
+          ),
+          SliverToBoxAdapter(
             child: SingleChildScrollView(
-              
-              child: Html(
-                data: widget.postdata.content!.rendered,
-                shrinkWrap: true,
-                
+              child: Container(
+                child: Html(
+                  data: widget.postdata.content!.rendered,
+                  style: {"figure": Style(height: 300)},
+                ),
               ),
             ),
           )

@@ -12,6 +12,7 @@ class Postdata {
     Postdata({
         this.id,
         this.date,
+        this.link,
         this.title,
         this.content,
         this.yoastHeadJson,
@@ -19,6 +20,7 @@ class Postdata {
 
     int? id;
     DateTime? date;
+    String? link;
     Title? title;
     Content? content;
     YoastHeadJson? yoastHeadJson;
@@ -26,6 +28,7 @@ class Postdata {
     factory Postdata.fromJson(Map<String, dynamic> json) => Postdata(
         id: json["id"],
         date: DateTime.parse(json["date"]),
+        link: json["link"],
         title: Title.fromJson(json["title"]),
         content: Content.fromJson(json["content"]),
         yoastHeadJson: YoastHeadJson.fromJson(json["yoast_head_json"]),
@@ -34,6 +37,7 @@ class Postdata {
     Map<String, dynamic> toJson() => {
         "id": id,
         "date": date!.toIso8601String(),
+        "link": link,
         "title": title!.toJson(),
         "content": content!.toJson(),
         "yoast_head_json": yoastHeadJson!.toJson(),
