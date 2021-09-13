@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/model/post_model.dart';
@@ -16,7 +17,7 @@ class PostDetailsPage extends StatefulWidget {
 }
 
 class _PostDetailsPageState extends State<PostDetailsPage> {
-  List htmldata = [];
+  Box? box;
 
   // htmlremove() {
   //   htmldata.clear();
@@ -38,6 +39,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
 
   @override
   void initState() {
+    box = Hive.box('bookmark');
     super.initState();
   }
 
@@ -93,18 +95,22 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   ),
                   InkWell(
                     onTap: () {
-                       post.savepost(
-                          id: widget.postdata.id!,
-                          date: widget.postdata.date!.toString(),
-                          link: widget.postdata.link!,
-                          title: widget.postdata.title!.rendered!,
-                          content: widget.postdata.content!.rendered!,
-                          yoastHeadJson:
-                              widget.postdata.yoastHeadJson!.ogImage![0].url!);
+                      post.savepost(
+                        id: widget.postdata.id!,
+                        date: widget.postdata.date!.toString(),
+                        link: widget.postdata.link!,
+                        title: widget.postdata.title!.rendered!,
+                        content: widget.postdata.content!.rendered!,
+                        yoastHeadJson:
+                            widget.postdata.yoastHeadJson!.ogImage![0].url!,
+                      );
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 10),
-                      child: Icon(Icons.bookmark_border),
+                      child: Icon(box!.values.any(
+                              (element) => element['id'] == widget.postdata.id)
+                          ? Icons.bookmark_sharp
+                          : Icons.bookmark_border),
                     ),
                   )
                 ],
