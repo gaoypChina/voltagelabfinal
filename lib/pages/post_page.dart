@@ -50,7 +50,6 @@ class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
-    print(widget.categoryid);
     return Container(
       child: post.isloading == true
           ? Container(
