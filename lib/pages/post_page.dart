@@ -9,9 +9,11 @@ import 'package:voltagelab/pages/post_details_page.dart';
 
 class PostPage extends StatefulWidget {
   final int categoryid;
+  final String categoryname;
   const PostPage({
     Key? key,
     required this.categoryid,
+    required this.categoryname,
   }) : super(key: key);
 
   @override
@@ -104,15 +106,18 @@ class _PostPageState extends State<PostPage> {
 
   postdata(Postprovider post, int index) {
     return Card(
-      elevation: 5,
+      elevation: 3,
       margin: EdgeInsets.only(bottom: 5, left: 10, right: 10, top: 10),
       child: InkWell(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  PostDetailsPage(postdata: post.postdata[index]),
+              builder: (context) => PostDetailsPage(
+                postdata: post.postdata[index],
+                categoryid: widget.categoryid,
+                categoryname: widget.categoryname,
+              ),
             ),
           );
         },
@@ -127,6 +132,7 @@ class _PostPageState extends State<PostPage> {
                     Container(
                       height: 120,
                       width: 120,
+                      margin: EdgeInsets.all(5),
                       child: ClipRRect(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(5),

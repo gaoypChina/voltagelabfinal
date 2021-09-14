@@ -39,20 +39,22 @@ class _CategoryPageState extends State<CategoryPage> {
               appBar: AppBar(
                 elevation: 0,
                 title: Text(widget.categories.name!),
-                bottom: TabBar(
-                  tabs: List.generate(
-                      category.subcategory.isEmpty
-                          ? 1
-                          : category.subcategory.length,
-                      (index) => Tab(
-                            child: Text(category.subcategory.isEmpty
-                                ? widget.categories.name!
-                                : category.subcategory[index].name!),
-                          )),
-                  isScrollable: true,
-                  enableFeedback: true,
-                  indicatorColor: Colors.green,
-                ),
+                bottom: category.subcategory.isEmpty
+                    ? null
+                    : TabBar(
+                        tabs: List.generate(
+                            category.subcategory.isEmpty
+                                ? 1
+                                : category.subcategory.length,
+                            (index) => Tab(
+                                  child: Text(category.subcategory.isEmpty
+                                      ? widget.categories.name!
+                                      : category.subcategory[index].name!),
+                                )),
+                        isScrollable: true,
+                        enableFeedback: true,
+                        indicatorColor: Colors.green,
+                      ),
               ),
               body: TabBarView(
                 children: List.generate(
@@ -60,6 +62,9 @@ class _CategoryPageState extends State<CategoryPage> {
                       ? 1
                       : category.subcategory.length,
                   (index) => PostPage(
+                    categoryname: category.subcategory.isEmpty
+                        ? widget.categories.name!
+                        : category.subcategory[index].name!,
                     categoryid: category.subcategory.isEmpty
                         ? widget.categories.id!
                         : category.subcategory[index].id!,

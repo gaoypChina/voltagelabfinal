@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voltagelab/pages/bookmark_page.dart';
+import 'package:voltagelab/Bookmark/bookmarkcategory_page.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _DrawerPageState extends State<DrawerPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BookMarkPage(),
+                    builder: (context) => BookMarkCategoryPage(),
                   ));
             },
             child: Container(
