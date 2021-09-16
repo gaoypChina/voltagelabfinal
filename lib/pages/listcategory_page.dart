@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab_v4/Provider/category_provider.dart';
 import 'package:voltagelab_v4/Provider/post_provider.dart';
+import 'package:voltagelab_v4/pages/search_page.dart';
 
 import 'categories_page.dart';
 
@@ -59,51 +60,61 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 20, right: 20, bottom: 20),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white.withOpacity(0.7),
-                            prefixIcon: const Icon(Icons.search),
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                            focusedBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              borderSide: BorderSide(
-                                  width: 0, color: Colors.transparent),
-                            ),
-                            disabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              borderSide: BorderSide(
-                                  width: 0, color: Colors.transparent),
-                            ),
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              borderSide: BorderSide(
-                                  width: 0, color: Colors.transparent),
-                            ),
-                            border: const OutlineInputBorder(
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SearchPage(),
+                              ));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 20),
+                          child: TextFormField(
+                            enabled: false,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.7),
+                              prefixIcon: const Icon(Icons.search),
+                              contentPadding:
+                                  const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                              focusedBorder: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                                 borderSide: BorderSide(
-                                  width: 0,
-                                )),
-                            errorBorder: const OutlineInputBorder(
+                                    width: 0, color: Colors.transparent),
+                              ),
+                              disabledBorder: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                                 borderSide: BorderSide(
-                                    width: 0, color: Colors.transparent)),
-                            focusedErrorBorder: const OutlineInputBorder(
+                                    width: 0, color: Colors.transparent),
+                              ),
+                              enabledBorder: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                                 borderSide: BorderSide(
-                                    width: 0, color: Colors.transparent)),
-                            hintText: "Search Anything",
+                                    width: 0, color: Colors.transparent),
+                              ),
+                              border: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                  )),
+                              errorBorder: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                  borderSide: BorderSide(
+                                      width: 0, color: Colors.transparent)),
+                              focusedErrorBorder: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                  borderSide: BorderSide(
+                                      width: 0, color: Colors.transparent)),
+                              hintText: "Search Anything",
+                            ),
                           ),
                         ),
                       )

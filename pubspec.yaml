@@ -45,6 +45,7 @@ dependencies:
   cached_network_image: ^3.1.0
   sqflite: ^2.0.0+4
   webview_flutter: ^2.0.13
+  units_converter: ^0.4.0
 
 dev_dependencies:
   flutter_test:

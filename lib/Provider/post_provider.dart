@@ -8,14 +8,20 @@ import 'package:voltagelab_v4/Sqflite/Model/post_model.dart';
 import 'package:voltagelab_v4/Sqflite/post_db.dart';
 import 'package:voltagelab_v4/model/post_details_model.dart';
 import 'package:voltagelab_v4/model/post_model.dart';
+import 'package:voltagelab_v4/model/search_post_model.dart';
+import 'package:voltagelab_v4/model/searchpost_details_model.dart';
 
 class Postprovider extends ChangeNotifier {
   bool isloading = false;
   bool loadmoredata = false;
+  bool searchpostloading = false;
 
   SqlPostDB sqlPostDB = SqlPostDB();
   List<Postdata> postdata = [];
- PostDetails? postDetails;
+  List<SearchPost> searchpost = [];
+
+  PostDetails? postDetails;
+  SearchPostDetails? searchPostDetails;
 
   List<Savepost> savepost = [];
 
@@ -51,12 +57,10 @@ class Postprovider extends ChangeNotifier {
   }
 
   Future<PostDetails?> getpostdetails(int postid) async {
-   
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-     
       var jsondata = response.body;
       postDetails = postDetailsFromJson(jsondata);
       notifyListeners();
@@ -65,16 +69,41 @@ class Postprovider extends ChangeNotifier {
   }
 
   Future<PostDetails?> firstpostdetails() async {
-    
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/posts/23063?_fields[]=content&_fields[]=link";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      
       var jsondata = response.body;
       postDetails = postDetailsFromJson(jsondata);
       notifyListeners();
       return postDetails;
+    }
+  }
+
+  Future<List<SearchPost>?> getsearchpost(String keyword) async {
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/search?search=${keyword}&_fields[]=id&_fields[]=title";
+
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsondata = response.body;
+      searchpost = searchPostFromJson(jsondata);
+      notifyListeners();
+      return searchpost;
+    }
+  }
+
+  Future<SearchPostDetails?> getsearchpostdetails(int postid) async {
+    searchpostloading = true;
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=id&per_page=1&_fields[]=title&_fields[]=content&_fields[]=yoast_head_json.og_image&_fields[]=link&_fields[]=";
+
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      searchPostDetails = searchPostDetailsFromJson(response.body);
+       searchpostloading = false;
+      notifyListeners();
+      return searchPostDetails;
     }
   }
 
