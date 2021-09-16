@@ -8,7 +8,6 @@ class Savepost {
         required this.postid,
         required this.categoryid,
         required this.posttitle,
-        required this.postdate,
         required this.postlink,
         required this.postcontent,
         required this.postimage,
@@ -18,7 +17,6 @@ class Savepost {
     int postid;
     int categoryid;
     String posttitle;
-    String postdate;
     String postlink;
     String postcontent;
     String postimage;
@@ -28,7 +26,7 @@ class Savepost {
         postid: json["postid"],
         categoryid: json["categoryid"],
         posttitle: json["posttitle"],
-        postdate: json["postdate"],
+  
         postlink: json["postlink"],
         postcontent: json["postcontent"],
         postimage: json["postimage"],
@@ -39,7 +37,7 @@ class Savepost {
         "postid": postid,
         "categoryid": categoryid,
         "posttitle": posttitle,
-        "postdate": postdate,
+  
         "postlink": postlink,
         "postcontent": postcontent,
         "postimage": postimage,

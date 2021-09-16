@@ -1,3 +1,5 @@
+// ignore_for_file: iterable_contains_unrelated_type, avoid_print
+
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,13 +9,15 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/Sqflite/Model/category_model.dart';
-import 'package:voltagelab/Sqflite/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/category_db.dart';
-import 'package:voltagelab/Sqflite/post_db.dart';
-import 'package:voltagelab/model/post_model.dart';
+
 import 'package:share/share.dart';
+import 'package:voltagelab_v4/Provider/post_provider.dart';
+import 'package:voltagelab_v4/Sqflite/Model/category_model.dart';
+import 'package:voltagelab_v4/Sqflite/Model/post_model.dart';
+import 'package:voltagelab_v4/Sqflite/category_db.dart';
+import 'package:voltagelab_v4/Sqflite/post_db.dart';
+import 'package:voltagelab_v4/model/post_model.dart';
+import 'package:voltagelab_v4/web_View/web_view.dart';
 
 class PostDetailsPage extends StatefulWidget {
   final String categoryname;
@@ -31,8 +35,9 @@ class PostDetailsPage extends StatefulWidget {
 }
 
 class _PostDetailsPageState extends State<PostDetailsPage> {
-
   bool bookmark = false;
+
+  bool isloading = false;
 
   SqlCategoryDB? sqldbprovider;
   SqlPostDB? sqlPostDB;
@@ -85,45 +90,41 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           SliverAppBar(
             elevation: 0,
             backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: Colors.black),
+            iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
-              widget.postdata.title!.rendered!,
-              style: TextStyle(color: Colors.black),
+              widget.postdata.title.rendered,
+              style: const TextStyle(color: Colors.black),
             ),
             pinned: true,
             actions: [
               IconButton(
                   onPressed: () {
-                    
                     SaveCategory saveCategory = SaveCategory(
                         categoryname: widget.categoryname,
                         categoryid: widget.categoryid);
-
                     if (savecategorylist.any(
                         (element) => element.categoryid == widget.categoryid)) {
                       print("category allrady added");
                     } else {
                       sqldbprovider!.insertdata(saveCategory);
                     }
-
                     Savepost savepost = Savepost(
-                        postid: widget.postdata.id!,
+                        postid: widget.postdata.id,
                         categoryid: widget.categoryid,
-                        posttitle: widget.postdata.title!.rendered!,
-                        postdate: widget.postdata.date.toString(),
-                        postlink: widget.postdata.link!,
-                        postcontent: widget.postdata.content!.rendered!,
+                        posttitle: widget.postdata.title.rendered,
+                        postlink: post.postDetails!.link,
+                        postcontent: post.postDetails!.content.rendered,
                         postimage:
-                            widget.postdata.yoastHeadJson!.ogImage![0].url!);
+                            widget.postdata.yoastHeadJson.ogImage[0].url);
 
                     if (savepostlist.any(
                         (element) => element.postid == widget.postdata.id)) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("This Post Already save")));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("This Post Already save")));
                     } else {
                       sqlPostDB!.insertdata(savepost);
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text("Save Post")));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Save Post")));
                     }
                     post.getsavepost();
                   },
@@ -133,19 +134,19 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                       : Icons.bookmark_border)),
               IconButton(
                   onPressed: () {
-                    postshare(context, widget.postdata.link!);
+                    postshare(context, post.postDetails!.link);
                   },
-                  icon: Icon(Icons.share)),
+                  icon: const Icon(Icons.share)),
             ],
           ),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: CachedNetworkImage(
                   key: UniqueKey(),
-                  imageUrl: widget.postdata.yoastHeadJson!.ogImage![0].url!,
+                  imageUrl: widget.postdata.yoastHeadJson.ogImage[0].url,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -153,14 +154,14 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           ),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(
                     child: Text(
-                      widget.postdata.title!.rendered!,
-                      style: TextStyle(
+                      widget.postdata.title.rendered,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
                       ),
@@ -172,29 +173,25 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           ),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.only(left: 10, right: 10),
-              child: Divider(),
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              child: const Divider(),
             ),
           ),
           SliverToBoxAdapter(
             child: SingleChildScrollView(
-              child: Container(
-                child: Html(
-                  data: widget.postdata.content!.rendered,
-                  onLinkTap: (url, _, __, ___) async {
-                    if (await canLaunch(url!)) {
-                      await launch(
-                        url,
-                      );
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
-                  onImageTap: (url, context, attributes, element) {
-                    CachedNetworkImage(imageUrl: url!);
-                  },
-                ),
-              ),
+              child: Html(
+                      data: post.postDetails!.content.rendered,
+                      onLinkTap: (url, _, __, ___) async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WebViewPage(url: url!),
+                            ));
+                      },
+                      onImageTap: (url, context, attributes, element) {
+                        CachedNetworkImage(imageUrl: url!);
+                      },
+                    ),
             ),
           )
         ],

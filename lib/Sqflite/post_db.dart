@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:voltagelab/Sqflite/Model/post_model.dart';
+
+import 'Model/post_model.dart';
 
 class SqlPostDB {
   static Database? _database;
@@ -24,7 +25,6 @@ class SqlPostDB {
        postid INTEGER,
        categoryid INTEGER,
        posttitle TEXT,
-       postdate TEXT,
        postlink TEXT,
        postcontent TEXT,
        postimage TEXT

@@ -1,23 +1,6 @@
-# voltagelab
+# voltagelab_v4
 
-A new Flutter project for Voltage Lab Community. Category could be add.
-
-Voltage lab Blog
-Emtiaz blog
-Diploma
-Formula
-MCQ
-Electrical calculator
-Routine
-Bookmark
-Pro version
-Pro version Consist:
-
-Video lecture from Youtube
-Offline post save
-Emtiaz Video use.
-JOB instruction - Internship, Career guideline.
-Job preparation mcq.
+A new Flutter project.
 
 ## Getting Started
 
@@ -31,13 +14,3 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-
-
-Grid: 
-
-1. Blog - Subcategory - Electrical ....> Electrical > Tabbar category (Machine, Sub station, ....  )
-2. Converter
-3. Blog 
-4. Converte
-
-

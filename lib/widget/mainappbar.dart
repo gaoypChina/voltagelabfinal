@@ -15,7 +15,7 @@ class MainAppbar extends StatelessWidget {
       color: Colors.blue,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: const [
           Text("Title",style: TextStyle(color: Colors.white),),
           Text("SEcond", style: TextStyle(color: Colors.blue),)
         ],

@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Provider/category_provider.dart';
-import 'package:voltagelab/model/category_model.dart';
-import 'package:voltagelab/pages/post_page.dart';
+import 'package:voltagelab_v4/Provider/category_provider.dart';
+import 'package:voltagelab_v4/model/category_model.dart';
+import 'package:voltagelab_v4/model/subcategory.dart';
+import 'package:voltagelab_v4/pages/post_page.dart';
 
 class CategoryPage extends StatefulWidget {
   final Categories categories;
@@ -13,26 +16,21 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
+  List<SubCategory> subcategory = [];
+
   @override
   void initState() {
+    Future.delayed(Duration.zero, () {
+      Provider.of<CategoryProvider>(context, listen: false)
+          .getsubcategory(widget.categories.id!);
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final category = Provider.of<CategoryProvider>(context);
-    return category.isloading == true
-        ? Scaffold(
-            appBar: AppBar(
-              title: Text(widget.categories.name!),
-            ),
-            body: Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          )
-        : DefaultTabController(
+    return  DefaultTabController(
             length:
                 category.subcategory.isEmpty ? 1 : category.subcategory.length,
             child: Scaffold(
@@ -53,19 +51,18 @@ class _CategoryPageState extends State<CategoryPage> {
                                 )),
                         isScrollable: true,
                         enableFeedback: true,
-                        indicatorColor: Colors.green,
                       ),
               ),
               body: TabBarView(
                 children: List.generate(
-                  category.subcategory.isEmpty
+                  category.subcategory.length == 0
                       ? 1
                       : category.subcategory.length,
                   (index) => PostPage(
                     categoryname: category.subcategory.isEmpty
                         ? widget.categories.name!
                         : category.subcategory[index].name!,
-                    categoryid: category.subcategory.isEmpty
+                    categoryid: category.subcategory.length == 0
                         ? widget.categories.id!
                         : category.subcategory[index].id!,
                   ),

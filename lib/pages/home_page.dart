@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Provider/category_provider.dart';
-import 'package:voltagelab/pages/listcategory_page.dart';
-import 'package:voltagelab/widget/drawer.dart';
+import 'package:voltagelab_v4/Provider/category_provider.dart';
+import 'package:voltagelab_v4/widget/drawer.dart';
+
+import 'listcategory_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,9 +32,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: DrawerPage(),
+        drawer: const DrawerPage(),
         appBar: AppBar(
-          title: Text("Voltage Lab"),
+          title: const Text("Voltage Lab"),
         ),
         body: CustomScrollView(
           shrinkWrap: true,
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisCount: 2,
               children: List.generate(gridnamelist.length, (index) {
                 return Container(
-                  margin: EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(5),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ListcategoryPage(),
+                                builder: (context) => const ListcategoryPage(),
                               ));
                         },
                         child: Container(
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                               fit: BoxFit.cover),
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                         gridnamelist[index],
                       )

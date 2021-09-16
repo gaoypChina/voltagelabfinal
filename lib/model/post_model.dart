@@ -10,66 +10,34 @@ String postdataToJson(List<Postdata> data) => json.encode(List<dynamic>.from(dat
 
 class Postdata {
     Postdata({
-        this.id,
-        this.date,
-        this.link,
-        this.title,
-        this.content,
-        this.yoastHeadJson,
+        required this.id,
+        required this.title,
+        required this.yoastHeadJson,
     });
 
-    int? id;
-    DateTime? date;
-    String? link;
-    Title? title;
-    Content? content;
-    YoastHeadJson? yoastHeadJson;
+    int id;
+    Title title;
+    YoastHeadJson yoastHeadJson;
 
     factory Postdata.fromJson(Map<String, dynamic> json) => Postdata(
         id: json["id"],
-        date: DateTime.parse(json["date"]),
-        link: json["link"],
         title: Title.fromJson(json["title"]),
-        content: Content.fromJson(json["content"]),
         yoastHeadJson: YoastHeadJson.fromJson(json["yoast_head_json"]),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "date": date!.toIso8601String(),
-        "link": link,
-        "title": title!.toJson(),
-        "content": content!.toJson(),
-        "yoast_head_json": yoastHeadJson!.toJson(),
-    };
-}
-
-class Content {
-    Content({
-        this.rendered,
-        this.protected,
-    });
-
-    String? rendered;
-    bool? protected;
-
-    factory Content.fromJson(Map<String, dynamic> json) => Content(
-        rendered: json["rendered"],
-        protected: json["protected"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "rendered": rendered,
-        "protected": protected,
+        "title": title.toJson(),
+        "yoast_head_json": yoastHeadJson.toJson(),
     };
 }
 
 class Title {
     Title({
-        this.rendered,
+        required this.rendered,
     });
 
-    String? rendered;
+    String rendered;
 
     factory Title.fromJson(Map<String, dynamic> json) => Title(
         rendered: json["rendered"],
@@ -82,42 +50,42 @@ class Title {
 
 class YoastHeadJson {
     YoastHeadJson({
-        this.ogImage,
+        required this.ogImage,
     });
 
-    List<OgImage>? ogImage;
+    List<OgImage> ogImage;
 
     factory YoastHeadJson.fromJson(Map<String, dynamic> json) => YoastHeadJson(
         ogImage: List<OgImage>.from(json["og_image"].map((x) => OgImage.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
-        "og_image": List<dynamic>.from(ogImage!.map((x) => x.toJson())),
+        "og_image": List<dynamic>.from(ogImage.map((x) => x.toJson())),
     };
 }
 
 class OgImage {
     OgImage({
-        this.width,
-        this.height,
-        this.url,
-        this.path,
-        this.size,
-        this.id,
-        this.alt,
-        this.pixels,
-        this.type,
+        required this.width,
+        required this.height,
+        required this.url,
+        required this.path,
+        required this.size,
+        required this.id,
+        required this.alt,
+        required this.pixels,
+        required this.type,
     });
 
-    int? width;
-    int? height;
-    String? url;
-    String? path;
-    String? size;
-    int? id;
-    String? alt;
-    int? pixels;
-    String? type;
+    int width;
+    int height;
+    String url;
+    String path;
+    String size;
+    int id;
+    String alt;
+    int pixels;
+    String type;
 
     factory OgImage.fromJson(Map<String, dynamic> json) => OgImage(
         width: json["width"],

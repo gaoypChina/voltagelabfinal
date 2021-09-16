@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:voltagelab/Sqflite/Model/category_model.dart';
+
+import 'Model/category_model.dart';
 
 class SqlCategoryDB {
   static Database? _database;

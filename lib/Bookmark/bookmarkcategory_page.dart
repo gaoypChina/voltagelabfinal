@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:voltagelab/Bookmark/bookmarkpost_page.dart';
-import 'package:voltagelab/Sqflite/Model/category_model.dart';
-import 'package:voltagelab/Sqflite/category_db.dart';
+import 'package:voltagelab_v4/Sqflite/Model/category_model.dart';
+import 'package:voltagelab_v4/Sqflite/category_db.dart';
+
+import 'bookmarkpost_page.dart';
+
 
 class BookMarkCategoryPage extends StatefulWidget {
   const BookMarkCategoryPage({Key? key}) : super(key: key);
@@ -30,62 +32,60 @@ class _BookMarkCategoryPageState extends State<BookMarkCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bookmark"),
+        title: const Text("Bookmark"),
       ),
-      body: Container(
-        child: ListView.builder(
-          itemCount: category.length,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(6)),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BookmarkPostpage(
-                            categorymainid: category[index].id!,
-                            categoryid: category[index].categoryid,
-                          ),
-                        )).then((value) {
-                      setState(() {
-                        getdata();
-                      });
-                    });
-                  },
-                  borderRadius: BorderRadius.circular(6),
-                  child: Container(
-                    padding: EdgeInsets.all(30),
-                    child: Row(
-                      children: [
-                        Text(
-                          category[index].categoryname,
-                          style: TextStyle(fontSize: 17),
+      body: ListView.builder(
+        itemCount: category.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(6)),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BookmarkPostpage(
+                          categorymainid: category[index].id!,
+                          categoryid: category[index].categoryid,
                         ),
-                        Spacer(),
-                        Container(
-                          padding: EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                              color: Colors.grey[400],
-                              borderRadius: BorderRadius.circular(100)),
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 18,
-                          ),
-                        )
-                      ],
-                    ),
+                      )).then((value) {
+                    setState(() {
+                      getdata();
+                    });
+                  });
+                },
+                borderRadius: BorderRadius.circular(6),
+                child: Container(
+                  padding: const EdgeInsets.all(30),
+                  child: Row(
+                    children: [
+                      Text(
+                        category[index].categoryname,
+                        style: const TextStyle(fontSize: 17),
+                      ),
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(100)),
+                        child: const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

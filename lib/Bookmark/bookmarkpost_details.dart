@@ -4,13 +4,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:voltagelab/Provider/post_provider.dart';
+
 import 'package:share/share.dart';
+import 'package:voltagelab_v4/Provider/post_provider.dart';
 
 class BookmarkPostDetails extends StatefulWidget {
   final int categoryid;
   final int id;
-  final String date;
   final String link;
   final String title;
   final String content;
@@ -19,7 +19,6 @@ class BookmarkPostDetails extends StatefulWidget {
     Key? key,
     required this.categoryid,
     required this.id,
-    required this.date,
     required this.link,
     required this.title,
     required this.content,
@@ -61,10 +60,10 @@ class _BookmarkPostDetailsState extends State<BookmarkPostDetails> {
           SliverAppBar(
             elevation: 0,
             backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: Colors.black),
+            iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
               widget.title,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
             pinned: true,
             actions: [
@@ -72,12 +71,12 @@ class _BookmarkPostDetailsState extends State<BookmarkPostDetails> {
                   onPressed: () {
                     postshare(context, widget.link);
                   },
-                  icon: Icon(Icons.share)),
+                  icon: const Icon(Icons.share)),
             ],
           ),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: CachedNetworkImage(
@@ -88,14 +87,14 @@ class _BookmarkPostDetailsState extends State<BookmarkPostDetails> {
           ),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(
                     child: Text(
                       widget.title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
                       ),
@@ -107,25 +106,23 @@ class _BookmarkPostDetailsState extends State<BookmarkPostDetails> {
           ),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.only(left: 10, right: 10),
-              child: Divider(),
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              child: const Divider(),
             ),
           ),
           SliverToBoxAdapter(
             child: SingleChildScrollView(
-              child: Container(
-                child: Html(
-                  data: widget.content,
-                  onLinkTap: (url, _, __, ___) async {
-                    if (await canLaunch(url!)) {
-                      await launch(
-                        url,
-                      );
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
-                ),
+              child: Html(
+                data: widget.content,
+                onLinkTap: (url, _, __, ___) async {
+                  if (await canLaunch(url!)) {
+                    await launch(
+                      url,
+                    );
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
               ),
             ),
           )

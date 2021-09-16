@@ -1,38 +1,36 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:voltagelab/Sqflite/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/post_db.dart';
-import 'package:voltagelab/model/post_model.dart';
+import 'package:voltagelab_v4/Sqflite/Model/post_model.dart';
+import 'package:voltagelab_v4/Sqflite/post_db.dart';
+import 'package:voltagelab_v4/model/post_details_model.dart';
+import 'package:voltagelab_v4/model/post_model.dart';
 
 class Postprovider extends ChangeNotifier {
-  List<Postdata> postdata = [];
-
   bool isloading = false;
   bool loadmoredata = false;
 
   SqlPostDB sqlPostDB = SqlPostDB();
+  List<Postdata> postdata = [];
+ PostDetails? postDetails;
 
   List<Savepost> savepost = [];
 
   Future getpost(int subcategoryid, int perpage) async {
     isloading = true;
     String url =
-        "https://blog.voltagelab.com/wp-json/wp/v2/posts?categories=${subcategoryid}&per_page=${perpage}&offset=0&_fields[]=id&_fields[]=title&_fields[]=content&_fields[]=yoast_head_json.og_image&_fields[]=date&_fields[]=link&_fields[]=";
-
-    try {
-      var response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        var jsondata = response.body;
-        postdata = postdataFromJson(jsondata);
-        isloading = false;
-        notifyListeners();
-      }
-    } catch (e) {
+        "https://blog.voltagelab.com/wp-json/wp/v2/posts?categories=${subcategoryid}&_fields[]=id&per_page=${perpage}&_fields[]=title&_fields[]=yoast_head_json.og_image&_fields[]=";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
       isloading = false;
-      print(e);
+      var jsondata = response.body;
+      postdata = postdataFromJson(jsondata);
+
       notifyListeners();
+      return postdata;
     }
   }
 
@@ -50,6 +48,34 @@ class Postprovider extends ChangeNotifier {
   savepostremove(int id) {
     sqlPostDB.delete(id);
     notifyListeners();
+  }
+
+  Future<PostDetails?> getpostdetails(int postid) async {
+   
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+     
+      var jsondata = response.body;
+      postDetails = postDetailsFromJson(jsondata);
+      notifyListeners();
+      return postDetails;
+    }
+  }
+
+  Future<PostDetails?> firstpostdetails() async {
+    
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/posts/23063?_fields[]=content&_fields[]=link";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      
+      var jsondata = response.body;
+      postDetails = postDetailsFromJson(jsondata);
+      notifyListeners();
+      return postDetails;
+    }
   }
 
   // savepost(

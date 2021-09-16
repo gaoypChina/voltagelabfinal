@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Provider/category_provider.dart';
-import 'package:voltagelab/pages/categories_page.dart';
+import 'package:voltagelab_v4/Provider/category_provider.dart';
+import 'package:voltagelab_v4/Provider/post_provider.dart';
+
+import 'categories_page.dart';
 
 class ListcategoryPage extends StatefulWidget {
   const ListcategoryPage({Key? key}) : super(key: key);
@@ -21,6 +23,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
 
   @override
   void initState() {
+    Provider.of<Postprovider>(context, listen: false).firstpostdetails();
     super.initState();
   }
 
@@ -34,9 +37,10 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
-            title: Text("Category"),
+            title: const Text("Category"),
             actions: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.notifications))
             ],
           ),
           SliverToBoxAdapter(
@@ -45,7 +49,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                 Container(
                   height: 120,
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.indigoAccent,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
@@ -56,45 +60,45 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Container(
-                        margin:
-                            EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 20),
                         child: TextFormField(
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white.withOpacity(0.7),
-                            prefixIcon: Icon(Icons.search),
+                            prefixIcon: const Icon(Icons.search),
                             contentPadding:
                                 const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
                               borderSide: BorderSide(
                                   width: 0, color: Colors.transparent),
                             ),
-                            disabledBorder: OutlineInputBorder(
+                            disabledBorder: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
                               borderSide: BorderSide(
                                   width: 0, color: Colors.transparent),
                             ),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
                               borderSide: BorderSide(
                                   width: 0, color: Colors.transparent),
                             ),
-                            border: OutlineInputBorder(
+                            border: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                                 borderSide: BorderSide(
                                   width: 0,
                                 )),
-                            errorBorder: OutlineInputBorder(
+                            errorBorder: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                                 borderSide: BorderSide(
                                     width: 0, color: Colors.transparent)),
-                            focusedErrorBorder: OutlineInputBorder(
+                            focusedErrorBorder: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                                 borderSide: BorderSide(
@@ -111,9 +115,9 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
           ),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(20),
-              child: Text(
+              margin: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.all(20),
+              child: const Text(
                 "Categories",
                 style: TextStyle(
                     fontSize: 18,
@@ -139,6 +143,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                       onTap: () {
                         Provider.of<CategoryProvider>(context, listen: false)
                             .getsubcategory(category.category[index].id!);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -147,44 +152,42 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                             ));
                       },
                       borderRadius: BorderRadius.circular(40),
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Image.asset(
-                                  'images/icon.jpg',
-                                  fit: BoxFit.cover,
-                                ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.asset(
+                                'images/icon.jpg',
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              category.category[index].name!,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: color.withOpacity(1),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            category.category[index].name!,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: color.withOpacity(1),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   );
                 },
                 childCount: category.category.length,
               ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 2 / 2,
               ))
