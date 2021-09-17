@@ -1,4 +1,4 @@
-package com.example.voltagelab_v4
+package com.example.voltagelab
 
 import io.flutter.embedding.android.FlutterActivity
 

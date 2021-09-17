@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab_v4/Provider/post_provider.dart';
-import 'package:voltagelab_v4/pages/search_post_details.dart';
+import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/pages/search_post_details.dart';
+
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);

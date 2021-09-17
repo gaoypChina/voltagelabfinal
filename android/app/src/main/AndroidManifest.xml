@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.voltagelab_v4">
-     <queries>
+    package="com.example.voltagelab">
+         <queries>
     <intent>
       <action android:name="android.intent.action.VIEW" />
       <data android:scheme="https" />
@@ -11,7 +11,7 @@
     </intent>
   </queries>
    <application
-        android:label="voltagelab_v4"
+        android:label="voltagelab"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab_v4/Provider/category_provider.dart';
-import 'package:voltagelab_v4/Provider/post_provider.dart';
-import 'package:voltagelab_v4/pages/search_page.dart';
+import 'package:voltagelab/Provider/category_provider.dart';
+import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/pages/search_page.dart';
+
 
 import 'categories_page.dart';
 

@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab_v4/Provider/post_provider.dart';
-import 'package:voltagelab_v4/model/post_model.dart';
-import 'package:voltagelab_v4/pages/post_details_page.dart';
+import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/pages/post_details_page.dart';
+
 
 class PostPage extends StatefulWidget {
   final int categoryid;

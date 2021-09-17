@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab_v4/Provider/category_provider.dart';
-import 'package:voltagelab_v4/model/category_model.dart';
-import 'package:voltagelab_v4/model/subcategory.dart';
-import 'package:voltagelab_v4/pages/post_page.dart';
+import 'package:voltagelab/Provider/category_provider.dart';
+import 'package:voltagelab/model/category_model.dart';
+import 'package:voltagelab/model/subcategory.dart';
+import 'package:voltagelab/pages/post_page.dart';
+
 
 class CategoryPage extends StatefulWidget {
   final Categories categories;

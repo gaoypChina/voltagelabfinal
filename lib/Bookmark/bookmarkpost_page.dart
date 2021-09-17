@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:voltagelab_v4/Sqflite/Model/post_model.dart';
-import 'package:voltagelab_v4/Sqflite/category_db.dart';
-import 'package:voltagelab_v4/Sqflite/post_db.dart';
+import 'package:voltagelab/Sqflite/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/category_db.dart';
+import 'package:voltagelab/Sqflite/post_db.dart';
 
 
 import 'bookmarkpost_details.dart';

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
-import 'package:voltagelab_v4/Provider/post_provider.dart';
+import 'package:voltagelab/Provider/post_provider.dart';
 
 class BookmarkPostDetails extends StatefulWidget {
   final int categoryid;

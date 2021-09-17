@@ -1,6 +1,6 @@
 {
-    "name": "voltagelab_v4",
-    "short_name": "voltagelab_v4",
+    "name": "voltagelab",
+    "short_name": "voltagelab",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
