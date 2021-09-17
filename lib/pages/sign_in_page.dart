@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/google_signin_provider.dart';
-
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -77,12 +77,15 @@ class _SignInPageState extends State<SignInPage> {
                     color: Colors.blueAccent,
                     child: InkWell(
                       onTap: () {
-                        // FacebookAuth.instance.webInitialize(
-                        //   appId: "1194407561081411",
-                        //   cookie: true,
-                        //   xfbml: true,
-                        //   version: "v11.0",
-                        // );
+                        signin.facebooklogin().then((value) {
+                          FacebookAuth.getInstance()
+                              .getUserData()
+                              .then((userdata) {
+                            setState(() {
+                              print(userdata);
+                            });
+                          });
+                        });
                       },
                       child: Row(
                         children: [

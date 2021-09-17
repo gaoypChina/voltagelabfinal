@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -55,5 +56,12 @@ class GoogleSignInProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       print("Insert data successfull");
     }
+  }
+
+  Future facebooklogin() async {
+    final LoginResult result = await FacebookAuth.instance
+        .login(permissions: ['email', 'public_profile']);
+    notifyListeners();
+    return result;
   }
 }
