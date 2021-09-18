@@ -5,9 +5,10 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
+import 'package:voltagelab/Sign_in_Screen/pages/verification_email.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
-import 'Provider/google_signin_provider.dart';
+import 'Provider/signin_provider.dart';
 import 'Provider/post_provider.dart';
 import 'Provider/webview_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,7 +25,7 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => CategoryProvider()),
       ChangeNotifierProvider(create: (context) => Postprovider()),
       ChangeNotifierProvider(create: (context) => Webcontroll()),
-      ChangeNotifierProvider(create: (context) => GoogleSignInProvider())
+      ChangeNotifierProvider(create: (context) => SignInProvider())
     ],
     child: const MyApp(),
   ));
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const HomePage2(),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Bookmark/bookmarkcategory_page.dart';
-import 'package:voltagelab/Provider/google_signin_provider.dart';
+import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/pages/profile_page.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _DrawerPageState extends State<DrawerPage> {
   }
   @override
   Widget build(BuildContext context) {
-    final signin = Provider.of<GoogleSignInProvider>(context);
+    final signin = Provider.of<SignInProvider>(context);
     return Drawer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

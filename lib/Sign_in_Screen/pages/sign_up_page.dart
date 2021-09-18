@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:voltagelab/Provider/signin_provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -27,11 +29,12 @@ class _SignUpState extends State<SignUp> {
 
   String? fullname, email, password, confirmpassword;
 
-  validationchack() {
+  validationchack(BuildContext context) {
+    final signin = Provider.of<SignInProvider>(context, listen: false);
     final from = _formkey.currentState;
     if (from!.validate()) {
       from.save();
-      print(confirmpassword);
+      signin.fromregistation(fullname!, email, password, context);
     }
   }
 
@@ -46,6 +49,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final signin = Provider.of<SignInProvider>(context);
     return Container(
       padding: const EdgeInsets.only(top: 23.0),
       child: Column(
@@ -115,7 +119,6 @@ class _SignUpState extends State<SignUp> {
                             style: const TextStyle(
                                 fontSize: 16.0, color: Colors.black),
                             decoration: const InputDecoration(
-                              border: InputBorder.none,
                               prefixIcon: Icon(
                                 FontAwesomeIcons.envelope,
                                 color: Colors.black,
@@ -127,11 +130,6 @@ class _SignUpState extends State<SignUp> {
                             //   focusNodePassword.requestFocus();
                             // },
                           ),
-                        ),
-                        Container(
-                          width: 250.0,
-                          height: 1.0,
-                          color: Colors.grey[400],
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -158,7 +156,6 @@ class _SignUpState extends State<SignUp> {
                             style: const TextStyle(
                                 fontSize: 16.0, color: Colors.black),
                             decoration: InputDecoration(
-                              border: InputBorder.none,
                               prefixIcon: const Icon(
                                 FontAwesomeIcons.lock,
                                 color: Colors.black,
@@ -177,11 +174,6 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-                        ),
-                        Container(
-                          width: 250.0,
-                          height: 1.0,
-                          color: Colors.grey[400],
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -238,43 +230,47 @@ class _SignUpState extends State<SignUp> {
                 margin: const EdgeInsets.only(top: 310.0),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Color(0xFFD6D6D6),
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                    BoxShadow(
-                      color: Color(0xFF4153F7),
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                  ],
-                  gradient: LinearGradient(
-                      colors: <Color>[Color(0xFFD6D6D6), Color(0xFF4144F7)],
-                      begin: FractionalOffset(0.2, 0.2),
-                      end: FractionalOffset(1.0, 1.0),
-                      stops: <double>[0.0, 1.0],
-                      tileMode: TileMode.clamp),
+                  // boxShadow: <BoxShadow>[
+                  //   BoxShadow(
+                  //     color: Color(0xFFD6D6D6),
+                  //     offset: Offset(1.0, 6.0),
+                  //     blurRadius: 20.0,
+                  //   ),
+                  //   BoxShadow(
+                  //     color: Color(0xFF4153F7),
+                  //     offset: Offset(1.0, 6.0),
+                  //     blurRadius: 20.0,
+                  //   ),
+                  // ],
+                  // gradient: LinearGradient(
+                  //     colors: <Color>[Color(0xFFD6D6D6), Color(0xFF4144F7)],
+                  //     begin: FractionalOffset(0.2, 0.2),
+                  //     end: FractionalOffset(1.0, 1.0),
+                  //     stops: <double>[0.0, 1.0],
+                  //     tileMode: TileMode.clamp),
                 ),
-                child: MaterialButton(
-                  highlightColor: Colors.transparent,
-                  splashColor: const Color(0xFF4441F7),
-                  //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                  onPressed: () {
-                    validationchack();
-                  },
-                  child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
-                    child: Text('SIGN UP',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                        )),
-                  ),
-                  // onPressed: () => _toggleSignUpButton(),
-                ),
+                child:  ElevatedButton(
+                        // highlightColor: Colors.transparent,
+                        // splashColor: const Color(0xFF4441F7),
+                        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                        onPressed: () {
+                         
+                          validationchack(context);
+                          
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 42.0),
+                          child: Text(
+                            'SIGN UP',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        // onPressed: () => _toggleSignUpButton(),
+                      ),
               )
             ],
           ),

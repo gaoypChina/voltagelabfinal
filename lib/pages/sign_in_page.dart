@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Provider/google_signin_provider.dart';
+import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class SignInPage extends StatefulWidget {
@@ -15,7 +15,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    final signin = Provider.of<GoogleSignInProvider>(context);
+    final signin = Provider.of<SignInProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sign In"),
@@ -45,7 +45,7 @@ class _SignInPageState extends State<SignInPage> {
                     color: Colors.blueAccent,
                     child: InkWell(
                       onTap: () {
-                        signin.signInWithGoogle();
+                        signin.signInWithGoogle(context);
                       },
                       child: Row(
                         children: [

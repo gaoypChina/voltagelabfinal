@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:voltagelab/Provider/signin_provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -21,10 +23,12 @@ class _SignInState extends State<SignIn> {
 
   String? email, password;
 
-  validationchack() {
+  validationchack(BuildContext context) {
+    final signin = Provider.of<SignInProvider>(context, listen: false);
     final from = _formkey.currentState;
     if (from!.validate()) {
       from.save();
+      signin.fromlogin(email!, password, context);
     }
   }
 
@@ -37,6 +41,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final signin = Provider.of<SignInProvider>(context);
     return Container(
       padding: const EdgeInsets.only(top: 23.0),
       child: Column(
@@ -156,11 +161,11 @@ class _SignInState extends State<SignIn> {
                       stops: <double>[0.0, 1.0],
                       tileMode: TileMode.clamp),
                 ),
-                child: MaterialButton(
-                  highlightColor: Colors.transparent,
-                  splashColor: const Color(0xFFf7418c),
+                child: ElevatedButton(
+                  // highlightColor: Colors.transparent,
+                  // splashColor: const Color(0xFFf7418c),
                   onPressed: () {
-                    validationchack();
+                    validationchack(context);
                   },
                   child: const Padding(
                     padding:
@@ -264,8 +269,9 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  // onTap: () => CustomSnackBar(
-                  //     context, const Text('Google button pressed')),
+                  onTap: () {
+                    signin.signInWithGoogle(context);
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: const BoxDecoration(

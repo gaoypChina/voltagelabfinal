@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Provider/google_signin_provider.dart';
+import 'package:voltagelab/Provider/signin_provider.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final signin = Provider.of<GoogleSignInProvider>(context);
+    final signin = Provider.of<SignInProvider>(context);
     var box = Hive.box("userdata");
 
     return Scaffold(
