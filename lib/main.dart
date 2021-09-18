@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:voltagelab/Sign_in_Screen/login.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
 import 'Provider/google_signin_provider.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
-      home: const HomePage2(),
+      home: const LoginPage(),
     );
   }
 }
