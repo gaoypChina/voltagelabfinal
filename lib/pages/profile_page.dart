@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: Image.network(
+                                child:box.get('photo')=="" ? Image.asset('images/img5.png') : Image.network(
                                   box.get('photo'),
                                   fit: BoxFit.cover,
                                 ),
@@ -124,10 +124,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           Text(box.get('email'),
                               style: const TextStyle(color: Colors.grey)),
                           const SizedBox(height: 20),
-                          const Text('Id'),
+                          // const Text('Id'),
                           const SizedBox(height: 2),
-                          Text(box.get('id'),
-                              style: const TextStyle(color: Colors.grey)),
+                          // Text(box.get('id'),
+                          //     style: const TextStyle(color: Colors.grey)),
                         ],
                       ),
                     )

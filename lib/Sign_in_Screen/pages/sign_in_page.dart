@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
@@ -248,24 +249,33 @@ class _SignInState extends State<SignIn> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0, right: 40.0),
-                child: GestureDetector(
-                  // onTap: () => CustomSnackBar(
-                  //     context, const Text('Facebook button pressed')),
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: const Icon(
-                      FontAwesomeIcons.facebookF,
-                      color: Color(0xFF0084ff),
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 10.0, right: 40.0),
+              //   child: GestureDetector(
+              //     onTap: () async {
+              //      signin.facebooklogin().then((value) {
+              //             FacebookAuth.getInstance()
+              //                 .getUserData()
+              //                 .then((userdata) {
+              //               setState(() {
+              //                 print(userdata);
+              //               });
+              //             });
+              //           });
+              //     },
+              //     child: Container(
+              //       padding: const EdgeInsets.all(15.0),
+              //       decoration: const BoxDecoration(
+              //         shape: BoxShape.circle,
+              //         color: Colors.white,
+              //       ),
+              //       child: const Icon(
+              //         FontAwesomeIcons.facebookF,
+              //         color: Color(0xFF0084ff),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: GestureDetector(

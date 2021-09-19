@@ -1,3 +1,5 @@
+
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/verification_email.dart';
+import 'package:voltagelab/pages/home_page.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
 import 'Provider/signin_provider.dart';
@@ -27,21 +30,24 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => Webcontroll()),
       ChangeNotifierProvider(create: (context) => SignInProvider())
     ],
-    child: const MyApp(),
+    child: MyApp(),
   ));
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  const MyApp({
+   MyApp({
     Key? key,
   }) : super(key: key);
+
+  var box = Hive.box("userdata");
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
-      home: const HomePage2(),
+      home:  box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),
     );
   }
 }

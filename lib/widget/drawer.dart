@@ -59,7 +59,7 @@ class _DrawerPageState extends State<DrawerPage> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  signin.logout();
+                  signin.logout(context);
                 },
                 child: Container(
                   alignment: Alignment.center,

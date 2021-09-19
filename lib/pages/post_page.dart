@@ -52,7 +52,9 @@ class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
-    return post.isloading
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.categoryname),),
+      body: post.isloading
         ? const Center(
             child: CircularProgressIndicator(),
           )
@@ -188,7 +190,8 @@ class _PostPageState extends State<PostPage> {
                 },
               ),
             ),
-          );
+          ),
+    );
   }
 }
 

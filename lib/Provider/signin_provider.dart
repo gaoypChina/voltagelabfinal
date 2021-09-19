@@ -6,7 +6,6 @@ import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -24,28 +23,22 @@ class SignInProvider extends ChangeNotifier {
   Userinformation? userinformation;
 
   Future signInWithGoogle(BuildContext context) async {
-    var box = Hive.box("userdata");
+    googlesignin.signOut();
     final googleUser = await googlesignin.signIn();
     if (googleUser != null) {
       user = googleUser;
-      box.put('name', user!.displayName);
-      box.put('email', user!.email);
-      box.put('photo', user!.photoUrl);
-      box.put('id', user!.id);
-
       //type = 0 is google
 
-      if (await userinfoverify(user!.email, 1) == false &&
-          await userinfoverify(user!.email, 2) == false) {
+      if (await userinfoverify(user!.email, 1) == false && await userinfoverify(user!.email, 2) == false) {
         if (await userinfoverify(user!.email, 0) == false) {
-          await insertuserdata(user!.displayName!, user!.email, "",
-              user!.photoUrl, user!.id, 0, context);
+          await insertuserdata(user!.displayName!, user!.email, "", user!.photoUrl, user!.id, 0, context);
           final googleAuth = await googleUser.authentication;
           final credential = GoogleAuthProvider.credential(
             accessToken: googleAuth.accessToken,
             idToken: googleAuth.idToken,
           );
           await FirebaseAuth.instance.signInWithCredential(credential);
+          singleuserdatabyemail(user!.email);
           notifyListeners();
         }
         final googleAuth = await googleUser.authentication;
@@ -54,58 +47,61 @@ class SignInProvider extends ChangeNotifier {
           idToken: googleAuth.idToken,
         );
         await FirebaseAuth.instance.signInWithCredential(credential);
+        singleuserdatabyemail(user!.email);
         notifyListeners();
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Email already use")));
+        snakbar(context, 'Email already use');
         notifyListeners();
       }
     }
     notifyListeners();
   }
 
-  Future logout() async {
+  Future logout(BuildContext context) async {
     var box = Hive.box("userdata");
-    await googlesignin.disconnect();
+    if(box.get('types') == "0"){
+      await googlesignin.disconnect();
     FirebaseAuth.instance.signOut();
     box.clear();
+    }else{
+      box.clear();
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+    }
+    
     notifyListeners();
   }
 
-  Future fromregistation(
-      String _fullname, _email, _password, BuildContext context) async {
-    await insertuserdata(_fullname, _email, _password, "", "", 2, context);
+  Future fromregistation( String _fullname, _email, _password, BuildContext context) async {
+    //type = 2 is from registation
+    if (await userinfoverify(_email, 0) == false){
+      gmailotpsend(_email);
+      snakbar(context, "email send");
+      Navigator.push(context, MaterialPageRoute(builder: (context) => EmailVerificationPage(fullname: _fullname,email: _email,password: _password,)));
+    }else{
+      snakbar(context, "This email already use");
+    }
+    
     notifyListeners();
   }
 
   Future gmailotpsend(String useremail) async {
-    emailAuth = EmailAuth(
-      sessionName: "Sample session",
-    );
-    bool result =
-        await emailAuth!.sendOtp(recipientMail: useremail, otpLength: 6);
+    emailAuth = EmailAuth(sessionName: "Sample session");
+    bool result = await emailAuth!.sendOtp(recipientMail: useremail, otpLength: 6);
     return result;
   }
 
-  Future gmailotpverify(
-      String useremail, String otp, BuildContext context) async {
-    bool result =
-        emailAuth!.validateOtp(recipientMail: useremail, userOtp: otp);
+  Future gmailotpverify(String _fullname, _email, _password, String otp, BuildContext context) async {
+    bool result = emailAuth!.validateOtp(recipientMail: _email, userOtp: otp);
     if (result == true) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ));
+      await insertuserdata(_fullname, _email, _password, "", "", 2, context);
+      
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Otp verification failed")));
+      snakbar(context, 'Otp verification failed');
     }
     return result;
   }
 
-  Future insertuserdata(String _fullname, _email, _password, _photourl,
-      _accountid, int _types, BuildContext context) async {
+  Future insertuserdata(String _fullname, _email, _password, _photourl, _accountid, int _types, BuildContext context) async {
     // type = 2 is from
     String url = "http://192.168.0.107/tanvir/user_input_data.php";
     var response = await http.post(Uri.parse(url),
@@ -124,54 +120,36 @@ class SignInProvider extends ChangeNotifier {
       } else if (_types == 1) {
         print("Facebook login successfull");
       } else {
-        gmailotpsend(_email).then((value) {
-          if (value == true) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EmailVerificationPage(
-                    useremail: _email,
-                  ),
-                ));
-          }
-        });
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Otp Send Your Gmail")));
+        userinfosave(_fullname, _email, "", "", "2");
+        snakbar(context, 'Registation Successfull');
+        redirectpage(context);
+        
         notifyListeners();
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("This email already use")));
+      snakbar(context, 'This email already use');
       notifyListeners();
     }
   }
 
-  Future<Userinformation?> fromlogin(
-      String _email, _password, BuildContext context) async {
-    String url =
-        "http://192.168.0.107/tanvir/getuserdatabyemail.php?email=$_email&passwords=$_password";
+  Future<Userinformation?> fromlogin( String _email, _password, BuildContext context) async {
+    String url = "http://192.168.0.107/tanvir/getuserdatabyemailandpassword.php?email=$_email&passwords=$_password";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
       userinformation = userinformationFromJson(jsondata);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Login Successfull")));
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ));
+      userinfosave(userinformation!.fullName, userinformation!.email, userinformation!.photoUrl, userinformation!.accountId, userinformation!.types);
+      snakbar(context, 'Login Successfull');
+      redirectpage(context);
       notifyListeners();
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Account not Found")));
+      snakbar(context, "Account Not Found");
       notifyListeners();
     }
   }
 
   Future<bool> userinfoverify(String _email, int _type) async {
-    String url =
-        "http://192.168.0.107/tanvir/userinfoverify.php?email=${_email}&types=${_type}";
+    String url = "http://192.168.0.107/tanvir/userinfoverify.php?email=${_email}&types=${_type}";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       return true;
@@ -180,10 +158,46 @@ class SignInProvider extends ChangeNotifier {
     }
   }
 
-  Future facebooklogin() async {
-    final LoginResult result = await FacebookAuth.instance
-        .login(permissions: ['email', 'public_profile']);
-    notifyListeners();
-    return result;
+  Future<Userinformation?> singleuserdatabyemail(String email) async {
+    
+    String url = "http://192.168.0.107/tanvir/getuserdatabyemail.php?email=${email}";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      userinformation = userinformationFromJson(response.body);
+      userinfosave(userinformation!.fullName, userinformation!.email, userinformation!.photoUrl, userinformation!.accountId, userinformation!.types);
+      notifyListeners();
+      return userinformation;
+    }
   }
+
+
+  void redirectpage(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ));
+  }
+
+  void snakbar(BuildContext context, String text){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
+  void userinfosave(String name,email,photourl,accountid,types) {
+      var box = Hive.box('userdata');
+      box.put('name', name);
+      box.put('email', email);
+      box.put('photo', photourl);
+      box.put('id', accountid);
+      box.put('types', types);
+      notifyListeners();
+
+  }
+
+  // Future facebooklogin() async {
+   
+  //   final LoginResult result = await FacebookAuth.i.login(permissions: ['email', 'public_profile']);
+  //   notifyListeners();
+  //   return result;
+  // }
 }

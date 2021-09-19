@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Voltage Lab</string>
-  <string name="facebook_app_id">1194407561081411</string>
-  <string name="fb_login_protocol_scheme">fb1194407561081411</string>
+  <string name="app_name">Voltage Lab V2</string>
+  <string name="facebook_app_id">1905965752915193</string>
+  <string name="fb_login_protocol_scheme">fb1905965752915193</string>
 </resources>

@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 
 class EmailVerificationPage extends StatefulWidget {
-  final String useremail;
-  const EmailVerificationPage({Key? key, required this.useremail})
+  final String fullname, email, password;
+  const EmailVerificationPage({Key? key, required this.fullname, required this.email, required this.password, })
       : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
     final from = _formkey.currentState;
     if (from!.validate()) {
       from.save();
-      signin.gmailotpverify(widget.useremail, otp!,context);
+      signin.gmailotpverify(widget.fullname, widget.email, widget.password, otp!,context);
     }
   }
 

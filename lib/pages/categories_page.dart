@@ -17,7 +17,8 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  List<SubCategory> subcategory = [];
+  double crossAxisSpacing = 8, mainAxisSpacing = 8, aspectRatio = 2;
+  int crossAxisCount = 3;
 
   @override
   void initState() {
@@ -31,45 +32,97 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     final category = Provider.of<CategoryProvider>(context);
-    return  DefaultTabController(
-            length:
-                category.subcategory.isEmpty ? 1 : category.subcategory.length,
-            child: Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                title: Text(widget.categories.name!),
-                bottom: category.subcategory.isEmpty
-                    ? null
-                    : TabBar(
-                        tabs: List.generate(
-                            category.subcategory.isEmpty
-                                ? 1
-                                : category.subcategory.length,
-                            (index) => Tab(
-                                  child: Text(category.subcategory.isEmpty
-                                      ? widget.categories.name!
-                                      : category.subcategory[index].name!),
-                                )),
-                        isScrollable: true,
-                        enableFeedback: true,
-                      ),
-              ),
-              body: TabBarView(
-                children: List.generate(
-                  category.subcategory.length == 0
-                      ? 1
-                      : category.subcategory.length,
-                  (index) => PostPage(
-                    categoryname: category.subcategory.isEmpty
-                        ? widget.categories.name!
-                        : category.subcategory[index].name!,
-                    categoryid: category.subcategory.length == 0
-                        ? widget.categories.id!
-                        : category.subcategory[index].id!,
+    double screenWidth = MediaQuery.of(context).size.width;
+    var width = (screenWidth - ((crossAxisCount - 1) * crossAxisSpacing)) / crossAxisCount;
+    var height = width / aspectRatio;
+    return category.subcategory!.isEmpty ? PostPage(categoryid: widget.categories.id!, categoryname: widget.categories.name!)
+     : Scaffold(
+      appBar: AppBar(title: Text(widget.categories.name!),),
+      body: category.loading ? const Center(child: CircularProgressIndicator()) :  SingleChildScrollView(
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: crossAxisSpacing,
+          mainAxisSpacing: mainAxisSpacing,
+          childAspectRatio: aspectRatio,
+          ),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: category.subcategory!.length,
+          itemBuilder: (context, index) {
+            return Container(
+              height: height,
+              width: width,
+              color: Colors.grey[300],
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage(categoryid: category.subcategory![index].id!, categoryname: category.subcategory![index].name!)));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(category.subcategory![index].name!),
+                      ],
+                    ),
+                    
                   ),
                 ),
               ),
-            ),
-          );
+            );
+          },
+        ),
+      ),
+    );
   }
 }
+
+
+
+
+
+// DefaultTabController(
+//             length:
+//                 category.subcategory.isEmpty ? 1 : category.subcategory.length,
+//             child: Scaffold(
+//               appBar: AppBar(
+//                 elevation: 0,
+//                 title: Text(widget.categories.name!),
+//                 bottom: category.subcategory.isEmpty
+//                     ? null
+//                     : TabBar(
+//                         tabs: List.generate(
+//                             category.subcategory.isEmpty
+//                                 ? 1
+//                                 : category.subcategory.length,
+//                             (index) => Tab(
+//                                   child: Text(category.subcategory.isEmpty
+//                                       ? widget.categories.name!
+//                                       : category.subcategory[index].name!),
+//                                 )),
+//                         isScrollable: true,
+//                         enableFeedback: true,
+//                       ),
+//               ),
+//               body: TabBarView(
+//                 children: List.generate(
+//                   category.subcategory.length == 0
+//                       ? 1
+//                       : category.subcategory.length,
+//                   (index) => PostPage(
+//                     categoryname: category.subcategory.isEmpty
+//                         ? widget.categories.name!
+//                         : category.subcategory[index].name!,
+//                     categoryid: category.subcategory.length == 0
+//                         ? widget.categories.id!
+//                         : category.subcategory[index].id!,
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           );

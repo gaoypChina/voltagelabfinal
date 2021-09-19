@@ -6,9 +6,9 @@ import 'package:voltagelab/model/subcategory.dart';
 class CategoryProvider extends ChangeNotifier {
   int? categoryindex;
   List<Categories> category = [];
-  List<SubCategory> subcategory = [];
+  List<SubCategory>? subcategory = [];
 
-  bool fullscreenloading = false;
+  bool loading = false;
 
   Future getcategory() async {
     String url =
@@ -23,14 +23,15 @@ class CategoryProvider extends ChangeNotifier {
   }
 
   Future getsubcategory(int categoryid) async {
-
+    loading = true;
     String url =
         // ignore: unnecessary_brace_in_string_interps
-        "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
+"https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
       subcategory = subCategoryFromJson(jsondata);
+      loading = false;
       notifyListeners();
       return subcategory;
     }

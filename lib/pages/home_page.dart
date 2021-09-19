@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/widget/drawer.dart';
@@ -15,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  var box;
   List gridnamelist = [
     "Blog",
     "Converter",
@@ -26,12 +29,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    box = Hive.box('userdata');
     Provider.of<CategoryProvider>(context, listen: false).getcategory();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    
+    
     return Scaffold(
         drawer: const DrawerPage(),
         appBar: AppBar(
@@ -50,6 +56,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       InkWell(
                         onTap: () {
+                          
                           Navigator.push(
                               context,
                               MaterialPageRoute(
