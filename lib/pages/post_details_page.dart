@@ -38,7 +38,6 @@ class PostDetailsPage extends StatefulWidget {
 
 class _PostDetailsPageState extends State<PostDetailsPage> {
   bool bookmark = false;
-
   bool isloading = false;
 
   SqlCategoryDB? sqldbprovider;
