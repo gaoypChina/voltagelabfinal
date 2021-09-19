@@ -50,7 +50,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   getsavecategoryandpost() async {
     savecategorylist = await sqldbprovider!.getdata();
     savepostlist = await sqlPostDB!.getdata();
-    setState(() {});
+ 
   }
 
   bookmarkdata() {
@@ -62,7 +62,6 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   }
 
   void postshare(BuildContext context, String link) async {
-    final scaffoldkey = GlobalKey<ScaffoldState>();
     final String text = link;
     final RenderBox box = context.findRenderObject() as RenderBox;
     await Share.share(text,
@@ -70,7 +69,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
-  _launchURL(String _url) async {
+  launchURL(String _url) async {
     await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
   }
 
@@ -86,7 +85,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
-    post.postDetails!.content;
+    getsavecategoryandpost();
     return Scaffold(
       body: CustomScrollView(
         slivers: [
