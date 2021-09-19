@@ -9,8 +9,7 @@ import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/pages/search_page.dart';
 
-
-import 'categories_page.dart';
+import '../pages/categories_page.dart';
 
 class ListcategoryPage extends StatefulWidget {
   const ListcategoryPage({Key? key}) : super(key: key);
@@ -22,6 +21,8 @@ class ListcategoryPage extends StatefulWidget {
 class _ListcategoryPageState extends State<ListcategoryPage> {
   int? categoryindex;
   bool subcategoryshow = false;
+
+  String sitename = 'voltagelab';
 
   @override
   void initState() {
@@ -66,7 +67,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const SearchPage(),
+                                builder: (context) =>  SearchPage(sitename: sitename),
                               ));
                         },
                         child: Container(
@@ -154,13 +155,16 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                     child: InkWell(
                       onTap: () {
                         Provider.of<CategoryProvider>(context, listen: false)
-                            .getsubcategory(category.category[index].id!);
+                            .getsubcategory(category.category[index].id!,sitename);
 
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => CategoryPage(
-                                  categories: category.category[index]),
+                                sitename: sitename,
+                                categoryid: category.category[index].id!,
+                                categoryname: category.category[index].name!,
+                              ),
                             ));
                       },
                       borderRadius: BorderRadius.circular(40),

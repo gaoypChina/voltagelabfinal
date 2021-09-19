@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/pages/search_post_details.dart';
 
-
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  final String sitename;
+  const SearchPage({Key? key, required this.sitename}) : super(key: key);
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -19,7 +19,7 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         title: TextFormField(
           onChanged: (value) {
-            searchpost.getsearchpost(value);
+            searchpost.getsearchpost(value, widget.sitename);
           },
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.fromLTRB(0, 15, 10, 10),
@@ -43,7 +43,7 @@ class _SearchPageState extends State<SearchPage> {
                     borderRadius: BorderRadius.circular(5)),
                 onTap: () {
                   Provider.of<Postprovider>(context, listen: false)
-                      .getsearchpostdetails(searchpost.searchpost[index].id);
+                      .getsearchpostdetails(searchpost.searchpost[index].id, widget.sitename);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

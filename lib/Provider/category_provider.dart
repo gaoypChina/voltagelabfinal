@@ -1,6 +1,9 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:voltagelab/model/category_model.dart';
+import 'package:voltagelab/model/polytecnic_category.dart';
 import 'package:voltagelab/model/subcategory.dart';
 
 class CategoryProvider extends ChangeNotifier {
@@ -8,8 +11,11 @@ class CategoryProvider extends ChangeNotifier {
   List<Categories> category = [];
   List<SubCategory>? subcategory = [];
 
+  List<PolytechnicCategory> polytechniccategory = [];
+
   bool loading = false;
 
+  //voltagelap main category.....................................
   Future getcategory() async {
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/categories?include=15,16,5323,1741,2908,92,1800&_fields[]=id&_fields[]=name";
@@ -22,23 +28,58 @@ class CategoryProvider extends ChangeNotifier {
     }
   }
 
-  Future getsubcategory(int categoryid) async {
-    loading = true;
-    String url =
-        // ignore: unnecessary_brace_in_string_interps
-"https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
-    var response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var jsondata = response.body;
-      subcategory = subCategoryFromJson(jsondata);
-      loading = false;
-      notifyListeners();
-      return subcategory;
+  //voltagelap sub category.....................................
+  Future getsubcategory(int categoryid, String sitename) async {
+    if (sitename == 'voltagelab') {
+      loading = true;
+      String url =
+          "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
+      var response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        var jsondata = response.body;
+        subcategory = subCategoryFromJson(jsondata);
+        loading = false;
+        print("voltagelab category");
+        notifyListeners();
+        return subcategory;
+      }
+    } else if (sitename == 'polytechnicbd') {
+      await polytechnicbdsubcategory(categoryid);
     }
   }
 
   setcategoryindex(int index) {
     categoryindex = index;
     notifyListeners();
+  }
+
+  //https://polytechnicbd.com/ main category.............................................
+
+  Future polytechnicbdcategory() async {
+    String url =
+        "https://polytechnicbd.com/wp-json/wp/v2/categories?_fields[]=id&_fields[]=name";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsondata = response.body;
+      polytechniccategory = polytechnicCategoryFromJson(jsondata);
+      notifyListeners();
+      return polytechniccategory;
+    }
+  }
+
+  Future polytechnicbdsubcategory(int categoryid) async {
+    subcategory!.clear();
+    loading = true;
+    String url =
+        "https://polytechnicbd.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsondata = response.body;
+      subcategory = subCategoryFromJson(jsondata);
+      loading = false;
+      print("polytechnic sub category");
+      notifyListeners();
+      return subcategory;
+    }
   }
 }

@@ -19,16 +19,17 @@ import 'package:voltagelab/Sqflite/post_db.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 
-
 class PostDetailsPage extends StatefulWidget {
   final String categoryname;
   final int categoryid;
   final Postdata postdata;
+  final String sitename;
   const PostDetailsPage(
       {Key? key,
       required this.postdata,
       required this.categoryname,
-      required this.categoryid})
+      required this.categoryid,
+      required this.sitename})
       : super(key: key);
 
   @override
@@ -85,6 +86,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
+    post.postDetails!.content;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -181,18 +183,18 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           SliverToBoxAdapter(
             child: SingleChildScrollView(
               child: Html(
-                      data: post.postDetails!.content.rendered,
-                      onLinkTap: (url, _, __, ___) async {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WebViewPage(url: url!),
-                            ));
-                      },
-                      onImageTap: (url, context, attributes, element) {
-                        CachedNetworkImage(imageUrl: url!);
-                      },
-                    ),
+                data: post.postDetails!.content.rendered,
+                onLinkTap: (url, _, __, ___) async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WebViewPage(url: url!),
+                      ));
+                },
+                onImageTap: (url, context, attributes, element) {
+                  CachedNetworkImage(imageUrl: url!);
+                },
+              ),
             ),
           )
         ],
