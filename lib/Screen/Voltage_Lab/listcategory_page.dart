@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
 import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
 
@@ -42,7 +43,15 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
             title: const Text("Category"),
             actions: [
               IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.notifications))
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const VoltagelabBookMarkCategoryPage(),
+                        ));
+                  },
+                  icon: const Icon(Icons.bookmark_outline))
             ],
           ),
           SliverToBoxAdapter(
@@ -66,7 +75,8 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>  SearchPage(sitename: sitename),
+                                builder: (context) =>
+                                    SearchPage(sitename: sitename),
                               ));
                         },
                         child: Container(
@@ -154,7 +164,8 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                     child: InkWell(
                       onTap: () {
                         Provider.of<CategoryProvider>(context, listen: false)
-                            .getsubcategory(category.category[index].id!,sitename);
+                            .getsubcategory(
+                                category.category[index].id!, sitename);
 
                         Navigator.push(
                             context,

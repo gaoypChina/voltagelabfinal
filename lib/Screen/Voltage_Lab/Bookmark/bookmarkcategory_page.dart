@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/category_db.dart';
-
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
 
 import 'bookmarkpost_page.dart';
 
-
-class BookMarkCategoryPage extends StatefulWidget {
-  const BookMarkCategoryPage({Key? key}) : super(key: key);
+class VoltagelabBookMarkCategoryPage extends StatefulWidget {
+  const VoltagelabBookMarkCategoryPage({Key? key}) : super(key: key);
 
   @override
-  _BookMarkCategoryPageState createState() => _BookMarkCategoryPageState();
+  _VoltagelabBookMarkCategoryPageState createState() =>
+      _VoltagelabBookMarkCategoryPageState();
 }
 
-class _BookMarkCategoryPageState extends State<BookMarkCategoryPage> {
-  SqlCategoryDB? sqldbprovider;
-  List<SaveCategory> category = [];
+class _VoltagelabBookMarkCategoryPageState
+    extends State<VoltagelabBookMarkCategoryPage> {
+  SqlVoltageLabCategoryDB? sqldbprovider;
+  List<VoltageLabSaveCategory> category = [];
 
   getdata() async {
     category = await sqldbprovider!.getdata();
@@ -24,7 +24,7 @@ class _BookMarkCategoryPageState extends State<BookMarkCategoryPage> {
 
   @override
   void initState() {
-    sqldbprovider = SqlCategoryDB();
+    sqldbprovider = SqlVoltageLabCategoryDB();
     getdata();
     super.initState();
   }
@@ -33,7 +33,7 @@ class _BookMarkCategoryPageState extends State<BookMarkCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bookmark"),
+        title: const Text("Voltage Lab Bookmark"),
       ),
       body: ListView.builder(
         itemCount: category.length,
@@ -50,7 +50,7 @@ class _BookMarkCategoryPageState extends State<BookMarkCategoryPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BookmarkPostpage(
+                        builder: (context) => VoltagelabBookmarkPostpage(
                           categorymainid: category[index].id!,
                           categoryid: category[index].categoryid,
                         ),

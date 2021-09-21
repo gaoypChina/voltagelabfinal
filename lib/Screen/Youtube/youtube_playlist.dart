@@ -14,7 +14,7 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
   @override
   void initState() {
     super.initState();
-   Provider.of<YoutubeApiprovider>(context, listen: false)
+    Provider.of<YoutubeApiprovider>(context, listen: false)
         .getyoutubeallplaylist();
   }
 
@@ -23,6 +23,7 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
     final youtube = Provider.of<YoutubeApiprovider>(context);
     return Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.black),
           elevation: 0,
           backgroundColor: Colors.white,
           title: const Text(

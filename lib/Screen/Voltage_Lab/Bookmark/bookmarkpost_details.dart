@@ -8,14 +8,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 
-class BookmarkPostDetails extends StatefulWidget {
+class VoltagelabBookmarkPostDetails extends StatefulWidget {
   final int categoryid;
   final int id;
   final String link;
   final String title;
   final String content;
   final String yoastHeadJson;
-  const BookmarkPostDetails({
+  const VoltagelabBookmarkPostDetails({
     Key? key,
     required this.categoryid,
     required this.id,
@@ -26,10 +26,10 @@ class BookmarkPostDetails extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BookmarkPostDetailsState createState() => _BookmarkPostDetailsState();
+  _VoltagelabBookmarkPostDetailsState createState() => _VoltagelabBookmarkPostDetailsState();
 }
 
-class _BookmarkPostDetailsState extends State<BookmarkPostDetails> {
+class _VoltagelabBookmarkPostDetailsState extends State<VoltagelabBookmarkPostDetails> {
 
   void postshare(BuildContext context, String link) async {
     final scaffoldkey = GlobalKey<ScaffoldState>();

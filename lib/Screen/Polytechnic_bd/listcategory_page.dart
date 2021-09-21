@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/Screen/Polytechnic_bd/Bookmark/bookmarkcategory_page.dart';
 import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
 
@@ -44,7 +45,15 @@ class _PolytechnicListcategoryPageState
             title: const Text("Polytechnic Category"),
             actions: [
               IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.notifications))
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const PolytechnicBookMarkCategoryPage(),
+                        ));
+                  },
+                  icon: const Icon(Icons.bookmark_border))
             ],
           ),
           SliverToBoxAdapter(
@@ -68,7 +77,9 @@ class _PolytechnicListcategoryPageState
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>  SearchPage(sitename: sitename,),
+                                builder: (context) => SearchPage(
+                                  sitename: sitename,
+                                ),
                               ));
                         },
                         child: Container(
@@ -156,7 +167,9 @@ class _PolytechnicListcategoryPageState
                     child: InkWell(
                       onTap: () {
                         Provider.of<CategoryProvider>(context, listen: false)
-                            .getsubcategory(category.polytechniccategory[index].id, sitename);
+                            .getsubcategory(
+                                category.polytechniccategory[index].id,
+                                sitename);
 
                         Navigator.push(
                             context,

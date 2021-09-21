@@ -4,8 +4,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:voltagelab/Sqflite/Polytechnicbd/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/Polytechnicbd/db/post_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/post_db.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
 import 'package:voltagelab/model/post_details_model.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/model/search_post_model.dart';
@@ -16,14 +18,17 @@ class Postprovider extends ChangeNotifier {
   bool loadmoredata = false;
   bool searchpostloading = false;
 
-  SqlPostDB sqlPostDB = SqlPostDB();
+  SqlVoltagelabPostDB sqlPostDB = SqlVoltagelabPostDB();
+  SqlPolytechnicPostDB sqlPolytechnicPostDB = SqlPolytechnicPostDB();
+
   List<Postdata> postdata = [];
   List<SearchPost> searchpost = [];
 
   PostDetails? postDetails;
   SearchPostDetails? searchPostDetails;
 
-  List<Savepost> savepost = [];
+  List<VoltageLabSavepost> savevoltagelabpost = [];
+  List<PolytechnicSavepost> polytechnicsavepost = [];
 
   //voltagelab post..............................................
   Future getpost(int subcategoryid, int perpage, String sitename) async {
@@ -50,9 +55,15 @@ class Postprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  getsavepost() async {
-    savepost.clear();
-    savepost = await sqlPostDB.getdata();
+  getvoltagelabsavepost() async {
+    savevoltagelabpost.clear();
+    savevoltagelabpost = await sqlPostDB.getdata();
+    notifyListeners();
+  }
+
+  getpolytechnicsavepost() async {
+    polytechnicsavepost.clear();
+    polytechnicsavepost = await sqlPolytechnicPostDB.getdata();
     notifyListeners();
   }
 

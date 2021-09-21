@@ -1,48 +1,55 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:voltagelab/Sqflite/Polytechnicbd/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/Polytechnicbd/db/category_db.dart';
+import 'package:voltagelab/Sqflite/Polytechnicbd/db/post_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/category_db.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/post_db.dart';
-
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
 
 import 'bookmarkpost_details.dart';
 
-
-class BookmarkPostpage extends StatefulWidget {
+class PolytechnicBookmarkPostpage extends StatefulWidget {
   final int categoryid;
   final int categorymainid;
-  const BookmarkPostpage(
+  const PolytechnicBookmarkPostpage(
       {Key? key, required this.categoryid, required this.categorymainid})
       : super(key: key);
 
   @override
-  _BookmarkPostpageState createState() => _BookmarkPostpageState();
+  _PolytechnicBookmarkPostpageState createState() =>
+      _PolytechnicBookmarkPostpageState();
 }
 
-class _BookmarkPostpageState extends State<BookmarkPostpage> {
-  List<Savepost> savepost = [];
-  SqlPostDB? sqlPostDB;
-  SqlCategoryDB? sqlCategoryDB;
+class _PolytechnicBookmarkPostpageState
+    extends State<PolytechnicBookmarkPostpage> {
+
+
+  List<PolytechnicSavepost> polytechnicsavepost = [];
+
+  SqlPolytechnicPostDB? sqlPolytechnicPostDB;
+  SqlPolytechnicCategoryDB? sqlPolytechnicCategoryDB;
 
   getsavepost() async {
-    savepost = await sqlPostDB!.getdata();
+   
+    polytechnicsavepost = await sqlPolytechnicPostDB!.getdata();
     setState(() {});
   }
 
   @override
   void initState() {
-    sqlPostDB = SqlPostDB();
-    sqlCategoryDB = SqlCategoryDB();
+    sqlPolytechnicPostDB = SqlPolytechnicPostDB();
+    sqlPolytechnicCategoryDB = SqlPolytechnicCategoryDB();
     getsavepost();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Savepost> postlist = [];
-    savepost
+    List<PolytechnicSavepost> postlist = [];
+    polytechnicsavepost
         .where((element) => element.categoryid == widget.categoryid)
         .forEach((element) => postlist.add(element));
     return Scaffold(
@@ -64,10 +71,9 @@ class _BookmarkPostpageState extends State<BookmarkPostpage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BookmarkPostDetails(
+                        builder: (context) => PolytechnicBookmarkPostDetails(
                             categoryid: postlist[index].categoryid,
                             id: postlist[index].postid,
-                            
                             link: postlist[index].postlink,
                             title: postlist[index].posttitle,
                             content: postlist[index].postcontent,
@@ -89,13 +95,13 @@ class _BookmarkPostpageState extends State<BookmarkPostpage> {
                       InkWell(
                         onTap: () {
                           if (postlist.length == 1) {
-                            sqlPostDB!.delete(postlist[index].id!);
+                            sqlPolytechnicPostDB!.delete(postlist[index].id!);
                             getsavepost();
-                            sqlCategoryDB!.delete(widget.categorymainid);
+                            sqlPolytechnicCategoryDB!.delete(widget.categorymainid);
                             Navigator.pop(context);
                             print("category deletc");
                           } else {
-                            sqlPostDB!.delete(postlist[index].id!);
+                            sqlPolytechnicPostDB!.delete(postlist[index].id!);
                             getsavepost();
                           }
                         },

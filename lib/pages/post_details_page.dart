@@ -12,10 +12,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/Sqflite/Polytechnicbd/Model/category_model.dart';
+import 'package:voltagelab/Sqflite/Polytechnicbd/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/Polytechnicbd/db/category_db.dart';
+import 'package:voltagelab/Sqflite/Polytechnicbd/db/post_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/category_db.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/post_db.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 
@@ -40,25 +44,40 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   bool bookmark = false;
   bool isloading = false;
 
-  SqlCategoryDB? sqldbprovider;
-  SqlPostDB? sqlPostDB;
+  SqlVoltageLabCategoryDB? sqlVoltagelabcategorydb;
+  SqlVoltagelabPostDB? sqlVoltagelabpostdb;
 
-  List<SaveCategory> savecategorylist = [];
-  List<Savepost> savepostlist = [];
+  SqlPolytechnicPostDB? sqlPolytechnicPostDB;
+  SqlPolytechnicCategoryDB? sqlPolytechnicCategoryDB;
+
+  List<VoltageLabSaveCategory> savevoltagelabcategorylist = [];
+  List<VoltageLabSavepost> savevoltagelabpostlist = [];
+
+  List<PolytechnicSaveCategory> polytechnicSaveCategory = [];
+  List<PolytechnicSavepost> polytechnicSavepost = [];
 
   getsavecategoryandpost() async {
-    savecategorylist = await sqldbprovider!.getdata();
-    savepostlist = await sqlPostDB!.getdata();
- 
+    savevoltagelabcategorylist = await sqlVoltagelabcategorydb!.getdata();
+    savevoltagelabpostlist = await sqlVoltagelabpostdb!.getdata();
+    polytechnicSaveCategory = await sqlPolytechnicCategoryDB!.getdata();
+    polytechnicSavepost = await sqlPolytechnicPostDB!.getdata();
   }
 
-  bookmarkdata() {
-    if (savepostlist.contains(widget.postdata.id)) {
-      setState(() {
-        bookmark = true;
-      });
-    }
-  }
+  // bookmarkdata() {
+  //   if (widget.sitename == 'polytechnicbd') {
+  //     if (polytechnicSavepost.contains(widget.postdata.id)) {
+  //       setState(() {
+  //         bookmark = true;
+  //       });
+  //     }
+  //   } else {
+  //     if (savevoltagelabpostlist.contains(widget.postdata.id)) {
+  //       setState(() {
+  //         bookmark = true;
+  //       });
+  //     }
+  //   }
+  // }
 
   void postshare(BuildContext context, String link) async {
     final String text = link;
@@ -72,11 +91,75 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
     await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
   }
 
+  void voltagelabsavecategory() {
+    VoltageLabSaveCategory saveCategory = VoltageLabSaveCategory(
+        categoryname: widget.categoryname, categoryid: widget.categoryid);
+    if (savevoltagelabcategorylist
+        .any((element) => element.categoryid == widget.categoryid)) {
+      print("voltageLab category allrady added");
+    } else {
+      sqlVoltagelabcategorydb!.insertdata(saveCategory);
+    }
+  }
+
+  void voltagelabsavepost(Postprovider post) {
+    VoltageLabSavepost savepost = VoltageLabSavepost(
+        postid: widget.postdata.id,
+        categoryid: widget.categoryid,
+        posttitle: widget.postdata.title.rendered,
+        postlink: post.postDetails!.link,
+        postcontent: post.postDetails!.content.rendered,
+        postimage: widget.postdata.yoastHeadJson.ogImage[0].url);
+
+    if (savevoltagelabpostlist
+        .any((element) => element.postid == widget.postdata.id)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("This Post Already save")));
+    } else {
+      sqlVoltagelabpostdb!.insertdata(savepost);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Save Post")));
+    }
+  }
+
+  void polytechnicsavecategorydb() {
+    PolytechnicSaveCategory polytechnicCategory = PolytechnicSaveCategory(
+        categoryname: widget.categoryname, categoryid: widget.categoryid);
+    if (polytechnicSaveCategory
+        .any((element) => element.categoryid == widget.categoryid)) {
+      print("polyechnic category allrady added");
+    } else {
+      sqlPolytechnicCategoryDB!.insertdata(polytechnicCategory);
+    }
+  }
+
+  void polytechnicsavepostdb(Postprovider post) {
+    PolytechnicSavepost savepost = PolytechnicSavepost(
+        postid: widget.postdata.id,
+        categoryid: widget.categoryid,
+        posttitle: widget.postdata.title.rendered,
+        postlink: post.postDetails!.link,
+        postcontent: post.postDetails!.content.rendered,
+        postimage: widget.postdata.yoastHeadJson.ogImage[0].url);
+
+    if (polytechnicSavepost
+        .any((element) => element.postid == widget.postdata.id)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("This Post Already save")));
+    } else {
+      sqlPolytechnicPostDB!.insertdata(savepost);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Save Post")));
+    }
+  }
+
   @override
   void initState() {
-    Provider.of<Postprovider>(context, listen: false).getsavepost();
-    sqldbprovider = SqlCategoryDB();
-    sqlPostDB = SqlPostDB();
+    Provider.of<Postprovider>(context, listen: false).getvoltagelabsavepost();
+    sqlVoltagelabcategorydb = SqlVoltageLabCategoryDB();
+    sqlVoltagelabpostdb = SqlVoltagelabPostDB();
+    sqlPolytechnicCategoryDB = SqlPolytechnicCategoryDB();
+    sqlPolytechnicPostDB = SqlPolytechnicPostDB();
     getsavecategoryandpost();
     super.initState();
   }
@@ -100,37 +183,49 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             actions: [
               IconButton(
                   onPressed: () {
-                    SaveCategory saveCategory = SaveCategory(
-                        categoryname: widget.categoryname,
-                        categoryid: widget.categoryid);
-                    if (savecategorylist.any(
-                        (element) => element.categoryid == widget.categoryid)) {
-                      print("category allrady added");
+                    if (widget.sitename == 'polytechnicbd') {
+                      polytechnicsavecategorydb();
+                      polytechnicsavepostdb(post);
                     } else {
-                      sqldbprovider!.insertdata(saveCategory);
+                      voltagelabsavecategory();
+                      voltagelabsavepost(post);
                     }
-                    Savepost savepost = Savepost(
-                        postid: widget.postdata.id,
-                        categoryid: widget.categoryid,
-                        posttitle: widget.postdata.title.rendered,
-                        postlink: post.postDetails!.link,
-                        postcontent: post.postDetails!.content.rendered,
-                        postimage:
-                            widget.postdata.yoastHeadJson.ogImage[0].url);
+                    post.getvoltagelabsavepost();
+                    post.getpolytechnicsavepost();
 
-                    if (savepostlist.any(
-                        (element) => element.postid == widget.postdata.id)) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("This Post Already save")));
-                    } else {
-                      sqlPostDB!.insertdata(savepost);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Save Post")));
-                    }
-                    post.getsavepost();
+                    // VoltageLabSaveCategory saveCategory =
+                    //     VoltageLabSaveCategory(
+                    //         categoryname: widget.categoryname,
+                    //         categoryid: widget.categoryid);
+                    // if (savevoltagelabcategorylist.any(
+                    //     (element) => element.categoryid == widget.categoryid)) {
+                    //   print("category allrady added");
+                    // } else {
+                    //   sqlVoltagelabcategorydb!.insertdata(saveCategory);
+                    // }
+                    // VoltageLabSavepost savepost = VoltageLabSavepost(
+                    //     postid: widget.postdata.id,
+                    //     categoryid: widget.categoryid,
+                    //     posttitle: widget.postdata.title.rendered,
+                    //     postlink: post.postDetails!.link,
+                    //     postcontent: post.postDetails!.content.rendered,
+                    //     postimage:
+                    //         widget.postdata.yoastHeadJson.ogImage[0].url);
+
+                    // if (savevoltagelabpostlist.any(
+                    //     (element) => element.postid == widget.postdata.id)) {
+                    //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    //       content: Text("This Post Already save")));
+                    // } else {
+                    //   sqlVoltagelabpostdb!.insertdata(savepost);
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //       const SnackBar(content: Text("Save Post")));
+                    // }
                   },
-                  icon: Icon(post.savepost.any(
-                          (element) => element.postid == widget.postdata.id)
+                  icon: Icon(post.savevoltagelabpost.any((element) =>
+                          element.postid == widget.postdata.id ||
+                          post.polytechnicsavepost.any((element) =>
+                              element.postid == widget.postdata.id))
                       ? Icons.bookmark
                       : Icons.bookmark_border)),
               IconButton(

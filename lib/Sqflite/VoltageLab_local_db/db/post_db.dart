@@ -3,9 +3,10 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'Model/category_model.dart';
+import '../Model/post_model.dart';
 
-class SqlCategoryDB {
+
+class SqlVoltagelabPostDB {
   static Database? _database;
   Future<Database?> get database async {
     if (_database != null) return _database;
@@ -15,39 +16,43 @@ class SqlCategoryDB {
 
   Future<Database> initdb() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "Category.db");
+    String path = join(documentsDirectory.path, "VoltagelabPost.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (database, version) async {
       await database.execute("""
        CREATE TABLE MYTable (
        id INTEGER PRIMARY KEY AUTOINCREMENT,
+       postid INTEGER,
        categoryid INTEGER,
-       categoryname TEXT
+       posttitle TEXT,
+       postlink TEXT,
+       postcontent TEXT,
+       postimage TEXT
       )
 
       """);
     });
   }
 
-  Future<bool> insertdata(SaveCategory saveCategory) async {
+  Future<bool> insertdata(VoltageLabSavepost savepost) async {
     final db = await initdb();
-    db.insert("MYTable", saveCategory.toMap());
+    db.insert("MYTable", savepost.toMap());
     return true;
   }
 
-  Future<List<SaveCategory>> getdata() async {
+  Future<List<VoltageLabSavepost>> getdata() async {
     final db = await initdb();
     final List<Map<String, Object?>> datas = await db.query("MYTable");
-    return datas.map((e) => SaveCategory.fromMap(e)).toList();
+    return datas.map((e) => VoltageLabSavepost.fromMap(e)).toList();
   }
 
-  update(SaveCategory saveCategory) async {
-    final db = await initdb();
-    var result = await db.update("MYTable", saveCategory.toMap(),
-        where: "id = ?", whereArgs: [saveCategory.id]);
-    return result;
-  }
+  // update(Savepost savepost) async {
+  //   final db = await initdb();
+  //   var result = await db.update("MYTable", saveCategory.toMap(),
+  //       where: "id = ?", whereArgs: [saveCategory.id]);
+  //   return result;
+  // }
 
   // orderupdate(SaveCategory saveCategory) async {
   //   final db = await initdb();
@@ -55,6 +60,9 @@ class SqlCategoryDB {
   //       where: "id = ?", whereArgs: [saveCategory.orderno]);
   //   return result;
   // }
+
+
+
 
   Future delete(int id) async {
     final db = await initdb();

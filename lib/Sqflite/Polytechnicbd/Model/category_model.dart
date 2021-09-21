@@ -2,20 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-class VoltageLabSaveCategory {
+class PolytechnicSaveCategory {
   int? id;
   final int categoryid;
   final String categoryname;
 
-    VoltageLabSaveCategory({
+    PolytechnicSaveCategory({
     Key? key,
     this.id,
     required this.categoryname,
     required this.categoryid,
   });
 
-   factory VoltageLabSaveCategory.fromMap(Map<String, dynamic> json) {
-    return VoltageLabSaveCategory(
+   factory PolytechnicSaveCategory.fromMap(Map<String, dynamic> json) {
+    return PolytechnicSaveCategory(
       id: json["id"],
       categoryid: json['categoryid'],
       categoryname: json['categoryname']
