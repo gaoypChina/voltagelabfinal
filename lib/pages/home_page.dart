@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Polytechnic_bd/listcategory_page.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
-import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/model/polytecnic_category.dart';
+import 'package:voltagelab/Screen/Polytechnic_bd/listcategory_page.dart';
+import 'package:voltagelab/Screen/Voltage_Lab/listcategory_page.dart';
+import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
 import 'package:voltagelab/widget/drawer.dart';
 
-import '../Voltage_Lab/listcategory_page.dart';
+
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -107,6 +108,38 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 5),
                   const Text(
                     'Polytechnicbd Lab Blog',
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                     
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const YoutubePlaylistPage(),
+                          ));
+                    },
+                    child: Container(
+                      height: 80.0,
+                      width: 80.0,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      // ignore: unnecessary_brace_in_string_interps
+                      child: Image.asset("images/img1.png", fit: BoxFit.cover),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'Youtube',
                   )
                 ],
               ),

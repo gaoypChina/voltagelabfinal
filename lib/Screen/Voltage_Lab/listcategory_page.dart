@@ -7,9 +7,8 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
-
-import '../pages/categories_page.dart';
 
 class ListcategoryPage extends StatefulWidget {
   const ListcategoryPage({Key? key}) : super(key: key);
