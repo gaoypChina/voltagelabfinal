@@ -22,9 +22,11 @@ class _NewHomePageState extends State<NewHomePage> {
   @override
   void initState() {
     Provider.of<CategoryProvider>(context, listen: false).getcategory();
-    Provider.of<CategoryProvider>(context, listen: false).polytechnicbdcategory();
+    Provider.of<CategoryProvider>(context, listen: false)
+        .polytechnicbdcategory();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     var box = Hive.box("userdata");
@@ -76,18 +78,18 @@ class _NewHomePageState extends State<NewHomePage> {
                     padding: const EdgeInsets.only(
                       top: 15,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "What are you",
-                          style: TextStyle(fontSize: 23, color: Colors.grey),
-                        ),
-                        const SizedBox(height: 5),
-                        const Text("up to today?",
-                            style: TextStyle(fontSize: 23, color: Colors.grey)),
-                      ],
-                    ),
+                    // child: Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     const Text(
+                    //       "What are you",
+                    //       style: TextStyle(fontSize: 23, color: Colors.grey),
+                    //     ),
+                    //     const SizedBox(height: 5),
+                    //     const Text("up to today?",
+                    //         style: TextStyle(fontSize: 23, color: Colors.grey)),
+                    //   ],
+                    // ),
                   ),
                   GridView(
                     gridDelegate:
