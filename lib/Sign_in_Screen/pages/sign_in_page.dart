@@ -3,6 +3,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
+import 'package:voltagelab/Sign_in_Screen/pages/Recover_Password/recovery_password.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -188,7 +189,13 @@ class _SignInState extends State<SignIn> {
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RecoveryPasswordPage(),
+                      ));
+                },
                 child: const Text(
                   'Forgot Password?',
                   style: TextStyle(

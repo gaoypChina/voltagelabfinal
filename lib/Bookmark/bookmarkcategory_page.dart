@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:voltagelab/Sqflite/Model/category_model.dart';
-import 'package:voltagelab/Sqflite/category_db.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/category_db.dart';
 
 
 import 'bookmarkpost_page.dart';

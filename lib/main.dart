@@ -4,9 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
-import 'package:voltagelab/Sign_in_Screen/login.dart';
-import 'package:voltagelab/Sign_in_Screen/pages/verification_email.dart';
+import 'package:voltagelab/Extra_Page/new_homepage.dart';
 import 'package:voltagelab/pages/home_page.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
@@ -49,9 +47,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
-      home: const YoutubePlaylistPage(),
+      home: const NewHomePage(),
     );
   }
 }
 
+// box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),
 // box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),

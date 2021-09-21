@@ -4,8 +4,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:voltagelab/Sqflite/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/post_db.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/post_db.dart';
 import 'package:voltagelab/model/post_details_model.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/model/search_post_model.dart';

@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'Model/post_model.dart';
 
+
 class SqlPostDB {
   static Database? _database;
   Future<Database?> get database async {

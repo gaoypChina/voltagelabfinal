@@ -12,10 +12,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/Sqflite/Model/category_model.dart';
-import 'package:voltagelab/Sqflite/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/category_db.dart';
-import 'package:voltagelab/Sqflite/post_db.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/category_db.dart';
+import 'package:voltagelab/Sqflite/VoltageLab_local_db/post_db.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 
