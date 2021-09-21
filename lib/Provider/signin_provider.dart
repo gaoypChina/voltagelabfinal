@@ -120,7 +120,7 @@ class SignInProvider extends ChangeNotifier {
   Future insertuserdata(String _fullname, _email, _password, _photourl,
       _accountid, int _types, BuildContext context) async {
     // type = 2 is from
-    String url = "http://192.168.0.107/tanvir/user_input_data.php";
+    String url = "http://api.voltagelab.com/vl-app/user_input_data.php";
     var response = await http.post(Uri.parse(url),
         body: jsonEncode({
           "full_name": _fullname,
@@ -152,7 +152,7 @@ class SignInProvider extends ChangeNotifier {
   Future<Userinformation?> fromlogin(
       String _email, _password, BuildContext context) async {
     String url =
-        "http://192.168.0.107/tanvir/getuserdatabyemailandpassword.php?email=$_email&passwords=$_password";
+        "http://api.voltagelab.com/vl-app/getuserdatabyemailandpassword.php?email=$_email&passwords=$_password";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -174,7 +174,7 @@ class SignInProvider extends ChangeNotifier {
 
   Future<bool> userinfoverify(String _email, int _type) async {
     String url =
-        "http://192.168.0.107/tanvir/userinfoverify.php?email=${_email}&types=${_type}";
+        "http://api.voltagelab.com/vl-app/userinfoverify.php?email=${_email}&types=${_type}";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       return true;
@@ -185,7 +185,7 @@ class SignInProvider extends ChangeNotifier {
 
   Future<Userinformation?> singleuserdatabyemail(String email) async {
     String url =
-        "http://192.168.0.107/tanvir/getuserdatabyemail.php?email=${email}";
+        "http://api.voltagelab.com/vl-app/getuserdatabyemail.php?email=${email}";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       userinformation = userinformationFromJson(response.body);
@@ -225,7 +225,7 @@ class SignInProvider extends ChangeNotifier {
   Future userpassswordupdate(String _email, int _types, String _newpassword,
       BuildContext context) async {
     String url =
-        "http://192.168.0.107/tanvir/updatepasswordbyemail.php?email=${_email}&types=${_types}";
+        "http://api.voltagelab.com/vl-app/updatepasswordbyemail.php?email=${_email}&types=${_types}";
     var response = await http.post(
       Uri.parse(url),
       body: jsonEncode(

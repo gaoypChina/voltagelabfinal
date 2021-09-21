@@ -4,6 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:voltagelab/Provider/category_provider.dart';
+import 'package:voltagelab/Screen/Polytechnic_bd/listcategory_page.dart';
+import 'package:voltagelab/Screen/Voltage_Lab/listcategory_page.dart';
+import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
 import 'package:voltagelab/widget/drawer.dart';
 
 class NewHomePage extends StatefulWidget {
@@ -14,6 +19,12 @@ class NewHomePage extends StatefulWidget {
 }
 
 class _NewHomePageState extends State<NewHomePage> {
+  @override
+  void initState() {
+    Provider.of<CategoryProvider>(context, listen: false).getcategory();
+    Provider.of<CategoryProvider>(context, listen: false).polytechnicbdcategory();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var box = Hive.box("userdata");
@@ -92,30 +103,44 @@ class _NewHomePageState extends State<NewHomePage> {
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // Container(
-                            //   margin: EdgeInsets.only(top: 20, left: 20),
-                            //   child: const Text(
-                            //     "Voltage Lab",
-                            //     style: TextStyle(
-                            //         color: Colors.white,
-                            //         fontWeight: FontWeight.bold),
-                            //   ),
-                            // ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ListcategoryPage(),
+                                  ));
+                            },
+                            borderRadius: BorderRadius.circular(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'images/voltagelab.png',
-                                  height: 90,
+                                // Container(
+                                //   margin: EdgeInsets.only(top: 20, left: 20),
+                                //   child: const Text(
+                                //     "Voltage Lab",
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                // ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'images/voltagelab.png',
+                                      height: 90,
+                                    )
+                                  ],
                                 )
                               ],
-                            )
-                          ],
+                            ),
+                          ),
                         ),
                       ),
                       Container(
@@ -123,30 +148,47 @@ class _NewHomePageState extends State<NewHomePage> {
                         decoration: BoxDecoration(
                             color: Colors.orange,
                             borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // Container(
-                            //   margin: EdgeInsets.only(top: 20, left: 20),
-                            //   child: const Text(
-                            //     "Voltage Lab",
-                            //     style: TextStyle(
-                            //         color: Colors.white,
-                            //         fontWeight: FontWeight.bold),
-                            //   ),
-                            // ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              Provider.of<CategoryProvider>(context,
+                                      listen: false)
+                                  .polytechnicbdcategory();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PolytechnicListcategoryPage(),
+                                  ));
+                            },
+                            borderRadius: BorderRadius.circular(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'images/plytechnicbd.png',
-                                  height: 100,
+                                // Container(
+                                //   margin: EdgeInsets.only(top: 20, left: 20),
+                                //   child: const Text(
+                                //     "Voltage Lab",
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                // ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'images/plytechnicbd.png',
+                                      height: 100,
+                                    )
+                                  ],
                                 )
                               ],
-                            )
-                          ],
+                            ),
+                          ),
                         ),
                       ),
                       Container(
@@ -154,30 +196,44 @@ class _NewHomePageState extends State<NewHomePage> {
                         decoration: BoxDecoration(
                             color: Colors.deepOrange,
                             borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // Container(
-                            //   margin: EdgeInsets.only(top: 20, left: 20),
-                            //   child: const Text(
-                            //     "Voltage Lab",
-                            //     style: TextStyle(
-                            //         color: Colors.white,
-                            //         fontWeight: FontWeight.bold),
-                            //   ),
-                            // ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const YoutubePlaylistPage(),
+                                  ));
+                            },
+                            borderRadius: BorderRadius.circular(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'images/youtube.png',
-                                  height: 125,
+                                // Container(
+                                //   margin: EdgeInsets.only(top: 20, left: 20),
+                                //   child: const Text(
+                                //     "Voltage Lab",
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                // ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'images/youtube.png',
+                                      height: 125,
+                                    )
+                                  ],
                                 )
                               ],
-                            )
-                          ],
+                            ),
+                          ),
                         ),
                       ),
                     ],

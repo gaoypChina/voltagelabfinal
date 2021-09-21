@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:voltagelab/Extra_Page/new_homepage.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
 
 import 'home_page.dart';
@@ -23,7 +24,7 @@ class _HomePage2State extends State<HomePage2> {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData) {
-            return const HomePage();
+            return const NewHomePage();
           } else if (snapshot.hasError) {
             return const Text("something Wrong");
           } else {

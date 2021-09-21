@@ -47,7 +47,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
-      home: box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),
+      home: box.get('email') != '' && box.get('types') == '2'
+          ? const NewHomePage()
+          : const HomePage2(),
     );
   }
 }
