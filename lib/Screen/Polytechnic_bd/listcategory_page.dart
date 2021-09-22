@@ -1,9 +1,12 @@
 import 'dart:math';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
@@ -29,12 +32,16 @@ class _PolytechnicListcategoryPageState
   @override
   void initState() {
     Provider.of<Postprovider>(context, listen: false).firstpostdetails();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('Polytechnicbadge');
+    // Provider.of<Postprovider>(context).getpolytechnicpostcount();
     final category = Provider.of<CategoryProvider>(context);
+    final post = Provider.of<Postprovider>(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -46,6 +53,8 @@ class _PolytechnicListcategoryPageState
             actions: [
               IconButton(
                   onPressed: () {
+                    box.clear();
+                    
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -53,7 +62,10 @@ class _PolytechnicListcategoryPageState
                               const PolytechnicBookMarkCategoryPage(),
                         ));
                   },
-                  icon: const Icon(Icons.bookmark_border))
+                  icon: Badge(
+                      badgeContent: Text(
+                          '${post.polytechnicsavepostbadge}'),
+                      child: const Icon(Icons.bookmark_outline)))
             ],
           ),
           SliverToBoxAdapter(
@@ -162,8 +174,8 @@ class _PolytechnicListcategoryPageState
                         bottom: 15,
                         right: index % 2 != 0 ? 15 : 10),
                     decoration: BoxDecoration(
-                        color: color.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(40)),
+                        // color: color.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(0)),
                     child: InkWell(
                       onTap: () {
                         Provider.of<CategoryProvider>(context, listen: false)
@@ -191,15 +203,15 @@ class _PolytechnicListcategoryPageState
                             height: 80,
                             width: 80,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: color,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                'images/icon.jpg',
-                                fit: BoxFit.cover,
-                              ),
+                              // child: Image.asset(
+                              //   '',
+                              //   fit: BoxFit.cover,
+                              // ),
                             ),
                           ),
                           const SizedBox(
@@ -220,7 +232,7 @@ class _PolytechnicListcategoryPageState
                 childCount: category.polytechniccategory.length,
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 3,
                 childAspectRatio: 2 / 2,
               ))
         ],

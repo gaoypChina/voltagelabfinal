@@ -44,6 +44,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   bool bookmark = false;
   bool isloading = false;
 
+  int voltagelabsavepostcount = 0;
+
   SqlVoltageLabCategoryDB? sqlVoltagelabcategorydb;
   SqlVoltagelabPostDB? sqlVoltagelabpostdb;
 
@@ -117,8 +119,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           const SnackBar(content: Text("This Post Already save")));
     } else {
       sqlVoltagelabpostdb!.insertdata(savepost);
+
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Save Post")));
+      post.voltagelabsavepostcount();
     }
   }
 
@@ -150,6 +154,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
       sqlPolytechnicPostDB!.insertdata(savepost);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Save Post")));
+      post.polytechnicsavepostcount();
     }
   }
 
@@ -180,54 +185,54 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
               style: const TextStyle(color: Colors.black),
             ),
             pinned: true,
+            leading: IconButton(
+                onPressed: () {
+                  post.getpostcount();
+                  post.getpolytechnicpostcount();
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back)),
             actions: [
-              IconButton(
-                  onPressed: () {
-                    if (widget.sitename == 'polytechnicbd') {
-                      polytechnicsavecategorydb();
-                      polytechnicsavepostdb(post);
-                    } else {
-                      voltagelabsavecategory();
-                      voltagelabsavepost(post);
-                    }
-                    post.getvoltagelabsavepost();
-                    post.getpolytechnicsavepost();
+              widget.sitename == 'polytechnicbd'
+                  ? IconButton(
+                      onPressed: () {
+                        polytechnicsavecategorydb();
+                        polytechnicsavepostdb(post);
+                        post.getpolytechnicsavepost();
 
-                    // VoltageLabSaveCategory saveCategory =
-                    //     VoltageLabSaveCategory(
-                    //         categoryname: widget.categoryname,
-                    //         categoryid: widget.categoryid);
-                    // if (savevoltagelabcategorylist.any(
-                    //     (element) => element.categoryid == widget.categoryid)) {
-                    //   print("category allrady added");
-                    // } else {
-                    //   sqlVoltagelabcategorydb!.insertdata(saveCategory);
-                    // }
-                    // VoltageLabSavepost savepost = VoltageLabSavepost(
-                    //     postid: widget.postdata.id,
-                    //     categoryid: widget.categoryid,
-                    //     posttitle: widget.postdata.title.rendered,
-                    //     postlink: post.postDetails!.link,
-                    //     postcontent: post.postDetails!.content.rendered,
-                    //     postimage:
-                    //         widget.postdata.yoastHeadJson.ogImage[0].url);
-
-                    // if (savevoltagelabpostlist.any(
-                    //     (element) => element.postid == widget.postdata.id)) {
-                    //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    //       content: Text("This Post Already save")));
-                    // } else {
-                    //   sqlVoltagelabpostdb!.insertdata(savepost);
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //       const SnackBar(content: Text("Save Post")));
-                    // }
-                  },
-                  icon: Icon(post.savevoltagelabpost.any((element) =>
-                          element.postid == widget.postdata.id ||
-                          post.polytechnicsavepost.any((element) =>
-                              element.postid == widget.postdata.id))
-                      ? Icons.bookmark
-                      : Icons.bookmark_border)),
+                        // if (widget.sitename == 'polytechnicbd') {
+                        //   polytechnicsavecategorydb();
+                        //   polytechnicsavepostdb(post);
+                        //   post.getpolytechnicsavepost();
+                        // } else {
+                        //   voltagelabsavecategory();
+                        //   voltagelabsavepost(post);
+                        //    post.getvoltagelabsavepost();
+                        // }
+                      },
+                      icon: Icon(post.polytechnicsavepost.any(
+                              (element) => element.postid == widget.postdata.id)
+                          ? Icons.bookmark
+                          : Icons.bookmark_border))
+                  : IconButton(
+                      onPressed: () {
+                        voltagelabsavecategory();
+                        voltagelabsavepost(post);
+                        post.getvoltagelabsavepost();
+                        // if (widget.sitename == 'polytechnicbd') {
+                        //   polytechnicsavecategorydb();
+                        //   polytechnicsavepostdb(post);
+                        //   post.getpolytechnicsavepost();
+                        // } else {
+                        //   voltagelabsavecategory();
+                        //   voltagelabsavepost(post);
+                        //    post.getvoltagelabsavepost();
+                        // }
+                      },
+                      icon: Icon(post.savevoltagelabpost.any(
+                              (element) => element.postid == widget.postdata.id)
+                          ? Icons.bookmark
+                          : Icons.bookmark_border)),
               IconButton(
                   onPressed: () {
                     postshare(context, post.postDetails!.link);

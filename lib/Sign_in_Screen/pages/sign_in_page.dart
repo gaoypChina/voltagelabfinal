@@ -163,7 +163,11 @@ class _SignInState extends State<SignIn> {
                       stops: <double>[0.0, 1.0],
                       tileMode: TileMode.clamp),
                 ),
-                child: ElevatedButton(
+                child: signin.loading
+                        ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                        : ElevatedButton(
                   // highlightColor: Colors.transparent,
                   // splashColor: const Color(0xFFf7418c),
                   onPressed: () {
@@ -173,12 +177,12 @@ class _SignInState extends State<SignIn> {
                     padding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
                     child: Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.0,
-                      ),
-                    ),
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25.0,
+                            ),
+                          ),
                   ),
                   // onPressed: () => CustomSnackBar(
                   //     context, const Text('Login button pressed')),

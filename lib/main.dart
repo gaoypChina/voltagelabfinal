@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Extra_Page/new_homepage.dart';
-import 'package:voltagelab/pages/home_page.dart';
+import 'package:voltagelab/Extra_Page/old_homepage2.dart';
+import 'package:voltagelab/pages/homepage.dart';
+import 'package:voltagelab/Extra_Page/old_home_page.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
 import 'Provider/signin_provider.dart';
@@ -21,6 +22,8 @@ Future<void> main() async {
   await Hive.initFlutter();
   final dir = await getApplicationDocumentsDirectory();
   await Hive.openBox("userdata");
+  await Hive.openBox("voltagelabbadge");
+  await Hive.openBox("Polytechnicbadge");
   Hive.init(dir.path);
   runApp(MultiProvider(
     providers: [
@@ -44,15 +47,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
-      theme: ThemeData(brightness: Brightness.light),
-      debugShowCheckedModeBanner: false,
-      home: box.get('email') != '' && box.get('types') == '2'
-          ? const NewHomePage()
-          : const HomePage2(),
-    );
+        theme: ThemeData(brightness: Brightness.light),
+        debugShowCheckedModeBanner: false,
+        home: box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),);
   }
 }
 
+
+// box.get('email') != '' && box.get('types') == '2'
+//           ? const NewHomePage()
+//           : const HomePage2(),
 // box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),
 // box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),

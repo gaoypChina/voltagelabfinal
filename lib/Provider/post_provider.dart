@@ -3,11 +3,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:voltagelab/Sqflite/Polytechnicbd/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/Polytechnicbd/db/post_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
+import 'package:voltagelab/model/Latest_Post_Model/latest_post.dart';
+import 'package:voltagelab/model/Latest_Post_Model/latest_post_details_model.dart';
 import 'package:voltagelab/model/post_details_model.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/model/search_post_model.dart';
@@ -17,6 +20,16 @@ class Postprovider extends ChangeNotifier {
   bool isloading = false;
   bool loadmoredata = false;
   bool searchpostloading = false;
+
+  int voltagelabsavepostbadge = 0;
+  int voltagelabpostcount = 0;
+
+  int? polytechnicsavepostbadge;
+  int polytechnicpostcount = 0;
+
+  LatestPostdetails? latestPostdetails;
+
+  List<LatestPostData> voltagelablatestpost = [];
 
   SqlVoltagelabPostDB sqlPostDB = SqlVoltagelabPostDB();
   SqlPolytechnicPostDB sqlPolytechnicPostDB = SqlPolytechnicPostDB();
@@ -143,6 +156,31 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
+  //voltagelab Latest post................................................
+  Future getvoltagelablatestpost() async {
+    isloading = true;
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/posts?per_page=5&_fields[]=id&_fields[]=title&_fields[]=yoast_head_json.og_image";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      voltagelablatestpost = latestPostDataFromJson(response.body);
+      isloading = false;
+      notifyListeners();
+    }
+  }
+
+  //voltagelab Latest post details................................................
+  Future getlatestpostdetails(int postid) async {
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsondata = response.body;
+      latestPostdetails = latestPostDetailsFromJson(jsondata);
+      notifyListeners();
+    }
+  }
+
   //polytechnic get post..........................................
   Future getpolytechnicpost(int subcategoryid, int perpage) async {
     isloading = true;
@@ -199,46 +237,29 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  // savepost(
-  //     {required int categoryid,
-  //     required int id,
-  //     required String date,
-  //     required String link,
-  //     required String title,
-  //     required String content,
-  //     required String yoastHeadJson}) async {
-  //   postbox = Hive.box('bookmark');
-  //   Map<String, dynamic> postjson = {
-  //     "categoryid": categoryid,
-  //     "id": id,
-  //     "date": date,
-  //     "link": link,
-  //     "title": title,
-  //     "content": content,
-  //     "yoastHeadJson": yoastHeadJson
-  //   };
-  //   if (postbox!.values.any((element) => element['id'] == id)) {
-  //     print("data all rady added");
-  //   } else {
-  //     postbox!.add(postjson);
-  //     notifyListeners();
-  //   }
+  voltagelabsavepostcount() {
+    var box = Hive.box('voltagelabbadge');
+    voltagelabpostcount++;
+    box.put('count', voltagelabpostcount);
+    notifyListeners();
+  }
 
-  //   notifyListeners();
-  // }
+  getpostcount()  {
+    var box = Hive.box('voltagelabbadge');
+    voltagelabsavepostbadge = box.get('count') ?? 0;
+    notifyListeners();
+  }
 
-  // savecategory(int categoryid, String categoryname) {
-  //   categorybox = Hive.box('category');
-  //   Map category = {
-  //     "id": categoryid,
-  //     "categoryname": categoryname,
-  //   };
-  //   if (categorybox!.values.any((element) => element['id'] == categoryid)) {
-  //     print("All Ready data added");
-  //   } else {
-  //     categorybox!.add(category);
-  //     notifyListeners();
-  //   }
-  //   notifyListeners();
-  // }
+   polytechnicsavepostcount() {
+    var box = Hive.box('Polytechnicbadge');
+    polytechnicpostcount++;
+    box.put('count', polytechnicpostcount);
+    notifyListeners();
+  }
+
+  getpolytechnicpostcount() {
+    var box = Hive.box('Polytechnicbadge');
+    polytechnicsavepostbadge = box.get('count') ?? 0;
+    notifyListeners();
+  }
 }

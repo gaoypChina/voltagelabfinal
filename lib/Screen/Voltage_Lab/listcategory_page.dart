@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
@@ -32,7 +34,9 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('voltagelabbadge');
     final category = Provider.of<CategoryProvider>(context);
+    final post = Provider.of<Postprovider>(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -44,6 +48,8 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
             actions: [
               IconButton(
                   onPressed: () {
+                    box.clear();
+                    
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -51,7 +57,9 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                               const VoltagelabBookMarkCategoryPage(),
                         ));
                   },
-                  icon: const Icon(Icons.bookmark_outline))
+                  icon: Badge(
+                      badgeContent: Text(post.voltagelabsavepostbadge.toString()),
+                      child: const Icon(Icons.bookmark_outline)))
             ],
           ),
           SliverToBoxAdapter(
@@ -159,7 +167,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                         bottom: 15,
                         right: index % 2 != 0 ? 15 : 10),
                     decoration: BoxDecoration(
-                        color: color.withOpacity(0.6),
+                        // color: color.withOpacity(0.6),
                         borderRadius: BorderRadius.circular(40)),
                     child: InkWell(
                       onTap: () {
@@ -185,14 +193,14 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                             height: 80,
                             width: 80,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: color,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.asset(
-                                'images/icon.jpg',
-                                fit: BoxFit.cover,
+                                'images/youtube.png',
+                                height: 10,
                               ),
                             ),
                           ),
@@ -214,7 +222,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                 childCount: category.category.length,
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 3,
                 childAspectRatio: 2 / 2,
               ))
         ],

@@ -9,11 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
-import 'package:voltagelab/Extra_Page/new_homepage.dart';
+import 'package:voltagelab/Extra_Page/old_homepage2.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/verification_email.dart';
 import 'package:voltagelab/model/userinformation.dart';
-import 'package:voltagelab/pages/home_page.dart';
+import 'package:voltagelab/Extra_Page/old_home_page.dart';
+import 'package:voltagelab/pages/homepage.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 
 class SignInProvider extends ChangeNotifier {
@@ -21,6 +22,8 @@ class SignInProvider extends ChangeNotifier {
   EmailAuth? emailAuth;
   GoogleSignInAccount? user;
   Userinformation? userinformation;
+
+  bool loading = false;
 
   Future signInWithGoogle(BuildContext context) async {
     googlesignin.signOut();
@@ -34,23 +37,25 @@ class SignInProvider extends ChangeNotifier {
         if (await userinfoverify(user!.email, 0) == false) {
           await insertuserdata(user!.displayName!, user!.email, "",
               user!.photoUrl, user!.id, 0, context);
+          singleuserdatabyemail(user!.email);
           final googleAuth = await googleUser.authentication;
           final credential = GoogleAuthProvider.credential(
             accessToken: googleAuth.accessToken,
             idToken: googleAuth.idToken,
           );
           await FirebaseAuth.instance.signInWithCredential(credential);
+
+          notifyListeners();
+        } else {
           singleuserdatabyemail(user!.email);
+          final googleAuth = await googleUser.authentication;
+          final credential = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          );
+          await FirebaseAuth.instance.signInWithCredential(credential);
           notifyListeners();
         }
-        final googleAuth = await googleUser.authentication;
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-        await FirebaseAuth.instance.signInWithCredential(credential);
-        singleuserdatabyemail(user!.email);
-        notifyListeners();
       } else {
         snakbar(context, 'Email already use');
         notifyListeners();
@@ -152,6 +157,7 @@ class SignInProvider extends ChangeNotifier {
 
   Future<Userinformation?> fromlogin(
       String _email, _password, BuildContext context) async {
+    loading = true;
     String url =
         "http://api.voltagelab.com/vl-app/getuserdatabyemailandpassword.php?email=$_email&passwords=$_password";
     var response = await http.get(Uri.parse(url));
@@ -164,10 +170,12 @@ class SignInProvider extends ChangeNotifier {
           userinformation!.photoUrl,
           userinformation!.accountId,
           userinformation!.types);
+      loading = false;
       snakbar(context, 'Login Successfull');
       redirectpage(context);
       notifyListeners();
     } else {
+      loading = false;
       snakbar(context, "Account Not Found");
       notifyListeners();
     }
@@ -205,7 +213,7 @@ class SignInProvider extends ChangeNotifier {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const NewHomePage(),
+          builder: (context) => const HomePage(),
         ));
   }
 

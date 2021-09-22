@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
 
@@ -31,8 +33,15 @@ class _VoltagelabBookMarkCategoryPageState
 
   @override
   Widget build(BuildContext context) {
+    final post = Provider.of<Postprovider>(context);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              post.getpostcount();
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back)),
         title: const Text("Voltage Lab Bookmark"),
       ),
       body: ListView.builder(

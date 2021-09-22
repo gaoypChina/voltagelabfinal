@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_is_empty
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/model/category_model.dart';
@@ -14,7 +15,8 @@ class CategoryPage extends StatefulWidget {
   const CategoryPage({
     Key? key,
     required this.categoryid,
-    required this.categoryname, required this.sitename,
+    required this.categoryname,
+    required this.sitename,
   }) : super(key: key);
 
   @override
@@ -43,11 +45,18 @@ class _CategoryPageState extends State<CategoryPage> {
     var height = width / aspectRatio;
     return category.subcategory!.isEmpty
         ? PostPage(
-          sitename: widget.sitename,
-            categoryid: widget.categoryid, categoryname: widget.categoryname)
+            sitename: widget.sitename,
+            categoryid: widget.categoryid,
+            categoryname: widget.categoryname)
         : Scaffold(
             appBar: AppBar(
-              title: Text(widget.categoryname),
+              elevation: 0,
+              backgroundColor: Colors.white,
+              iconTheme: IconThemeData(color: Colors.black),
+              title: Text(
+                widget.categoryname,
+                style: TextStyle(color: Colors.black),
+              ),
             ),
             body: category.loading
                 ? const Center(child: CircularProgressIndicator())
@@ -56,49 +65,45 @@ class _CategoryPageState extends State<CategoryPage> {
                       margin: const EdgeInsets.only(left: 5, right: 5, top: 5),
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: crossAxisCount,
-                          crossAxisSpacing: crossAxisSpacing,
-                          mainAxisSpacing: mainAxisSpacing,
-                          childAspectRatio: aspectRatio,
-                        ),
+                            crossAxisCount: 3),
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: category.subcategory!.length,
                         itemBuilder: (context, index) {
-                          return Container(
-                            height: height,
-                            width: width,
-                            decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => PostPage(
-                                            sitename: widget.sitename,
-                                              categoryid: category
-                                                  .subcategory![index].id!,
-                                              categoryname: category
-                                                  .subcategory![index].name!)));
-                                },
-                                borderRadius: BorderRadius.circular(5),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(category.subcategory![index].name!),
-                                    ],
+                          return Column(
+                            children: [
+                              Container(
+                                height: 80,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(100)),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => PostPage(
+                                                  sitename: widget.sitename,
+                                                  categoryid: category
+                                                      .subcategory![index].id!,
+                                                  categoryname: category
+                                                      .subcategory![index]
+                                                      .name!)));
+                                    },
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
                                 ),
                               ),
-                            ),
+                              SizedBox(height: 5),
+                              Text(
+                                category.subcategory![index].name!,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            ],
                           );
                         },
                       ),
@@ -107,10 +112,6 @@ class _CategoryPageState extends State<CategoryPage> {
           );
   }
 }
-
-
-
-
 
 // DefaultTabController(
 //             length:

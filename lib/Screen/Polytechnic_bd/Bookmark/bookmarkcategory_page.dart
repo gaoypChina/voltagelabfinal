@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Sqflite/Polytechnicbd/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/Polytechnicbd/db/category_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart';
@@ -33,8 +35,15 @@ class _PolytechnicBookMarkCategoryPageState
 
   @override
   Widget build(BuildContext context) {
+    final post = Provider.of<Postprovider>(context);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              post.getpolytechnicpostcount();
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back)),
         title: const Text("Polytechnic Bookmark"),
       ),
       body: ListView.builder(

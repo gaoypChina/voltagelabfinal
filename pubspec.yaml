@@ -56,6 +56,9 @@ dependencies:
   flutter_svg: ^0.22.0
   email_auth: ^1.0.0
   youtube_player_iframe: ^2.2.2
+  google_fonts: ^2.1.0
+  carousel_slider: ^4.0.0
+  badges: ^2.0.1
 
 dev_dependencies:
   flutter_test:
