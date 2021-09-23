@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:voltagelab/model/category_model.dart';
-import 'package:voltagelab/model/polytecnic_category.dart';
+import 'package:voltagelab/model/Voltage_Lab/category_model.dart';
+import 'package:voltagelab/model/Polytechnic/polytecnic_category.dart';
 import 'package:voltagelab/model/subcategory.dart';
 
 class CategoryProvider extends ChangeNotifier {

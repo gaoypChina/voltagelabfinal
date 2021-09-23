@@ -59,6 +59,7 @@ dependencies:
   google_fonts: ^2.1.0
   carousel_slider: ^4.0.0
   badges: ^2.0.1
+  flutter_local_notifications: ^8.2.0
 
 dev_dependencies:
   flutter_test:

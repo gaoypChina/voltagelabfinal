@@ -119,6 +119,7 @@ class _PostPageState extends State<PostPage> {
                         },
                         child: Row(
                           children: [
+                           
                             Flexible(
                               child: SizedBox(
                                 height: 120.0,

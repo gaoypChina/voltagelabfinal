@@ -172,19 +172,20 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
+    double expanded_heigth = 300;
+    double round_container_heigth = 50;
     getsavecategoryandpost();
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             elevation: 0,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.blue,
             iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
               widget.postdata.title.rendered,
               style: const TextStyle(color: Colors.black),
             ),
-            pinned: true,
             leading: IconButton(
                 onPressed: () {
                   post.getpostcount();
@@ -199,16 +200,6 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         polytechnicsavecategorydb();
                         polytechnicsavepostdb(post);
                         post.getpolytechnicsavepost();
-
-                        // if (widget.sitename == 'polytechnicbd') {
-                        //   polytechnicsavecategorydb();
-                        //   polytechnicsavepostdb(post);
-                        //   post.getpolytechnicsavepost();
-                        // } else {
-                        //   voltagelabsavecategory();
-                        //   voltagelabsavepost(post);
-                        //    post.getvoltagelabsavepost();
-                        // }
                       },
                       icon: Icon(post.polytechnicsavepost.any(
                               (element) => element.postid == widget.postdata.id)
@@ -219,15 +210,6 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         voltagelabsavecategory();
                         voltagelabsavepost(post);
                         post.getvoltagelabsavepost();
-                        // if (widget.sitename == 'polytechnicbd') {
-                        //   polytechnicsavecategorydb();
-                        //   polytechnicsavepostdb(post);
-                        //   post.getpolytechnicsavepost();
-                        // } else {
-                        //   voltagelabsavecategory();
-                        //   voltagelabsavepost(post);
-                        //    post.getvoltagelabsavepost();
-                        // }
                       },
                       icon: Icon(post.savevoltagelabpost.any(
                               (element) => element.postid == widget.postdata.id)
@@ -240,19 +222,25 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   icon: const Icon(Icons.share)),
             ],
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: CachedNetworkImage(
-                  key: UniqueKey(),
-                  imageUrl: widget.postdata.yoastHeadJson.ogImage[0].url,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
+          SliverPersistentHeader(
+              delegate: DetailsSliverdelegate(
+                  expendedheigth: expanded_heigth,
+                  photourl: widget.postdata.yoastHeadJson.ogImage[0].url,
+                  round_container: round_container_heigth)),
+          // SliverToBoxAdapter(
+          //   child: Container(
+          //     margin: const EdgeInsets.all(10),
+          //     child: ClipRRect(
+          //       borderRadius: BorderRadius.circular(5),
+          //       child: CachedNetworkImage(
+          //         key: UniqueKey(),
+          //         imageUrl: widget.postdata.yoastHeadJson.ogImage[0].url,
+          //         fit: BoxFit.cover,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+
           SliverToBoxAdapter(
             child: Container(
               margin: const EdgeInsets.all(10),
@@ -298,5 +286,63 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         ],
       ),
     );
+  }
+}
+
+class DetailsSliverdelegate extends SliverPersistentHeaderDelegate {
+  final double expendedheigth;
+  final String photourl;
+  final double round_container;
+  const DetailsSliverdelegate(
+      {required this.photourl,
+      required this.expendedheigth,
+      required this.round_container});
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Image.network(
+          //   photourl,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: expendedheigth,
+          //   fit: BoxFit.cover,
+          // ),
+          CachedNetworkImage(
+            key: UniqueKey(),
+            imageUrl: photourl,
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width,
+            height: expendedheigth,
+          ),
+          Positioned(
+            top: expendedheigth - round_container + 25 - shrinkOffset,
+            left: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: round_container - 10,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  )),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => expendedheigth;
+
+  @override
+  double get minExtent => 0;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
   }
 }
