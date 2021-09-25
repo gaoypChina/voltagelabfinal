@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
+import 'package:voltagelab/Provider/notification_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Screen/Polytechnic_bd/listcategory_page.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/latestpost_details.dart';
@@ -21,13 +23,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool switchbtn = false;
+
+  Future<void> onesignalplatfrom() async {}
+
   @override
   void initState() {
+    Provider.of<NotificationService>(context,listen: false).initplatfrom();
     Provider.of<Postprovider>(context, listen: false).getvoltagelablatestpost();
     Provider.of<CategoryProvider>(context, listen: false).getcategory();
     Provider.of<CategoryProvider>(context, listen: false)
         .polytechnicbdcategory();
-
     super.initState();
   }
 
@@ -39,18 +45,31 @@ class _HomePageState extends State<HomePage> {
       drawer: const DrawerPage(),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
             actions: [
-              Container(
-                margin: const EdgeInsets.only(right: 10),
-                child: const CircleAvatar(
-                  maxRadius: 20,
-                  backgroundColor: Colors.red,
-                ),
-              )
+              // Icon(notification.notificationswetchvalue == true
+              //     ? Icons.notifications_active
+              //     : Icons.notifications_off),
+              // Switch(
+              //   value: notification.notificationswetchvalue,
+              //   onChanged: (value) {
+              //     if (value == true) {
+              //       notification.timepicker(context).then((values) {
+              //         if (values != null) {
+              //           notification.notificionsswetchvalue(value);
+              //           notification.selectedtimenotification();
+              //         }
+              //       });
+              //     } else {
+              //       // notification.cancelnotification().then((values) {
+              //       notification.notificionsswetchvalue(value);
+              //       // });
+              //     }
+              //   },
+              // )
             ],
           ),
           SliverToBoxAdapter(
@@ -118,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 : SizedBox(
-                    height: 60,
+                    height: MediaQuery.of(context).size.height * 0.1,
                     child: CarouselSlider.builder(
                         itemCount: post.voltagelablatestpost.length,
                         itemBuilder: (context, index, realIndex) {

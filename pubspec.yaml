@@ -45,7 +45,6 @@ dependencies:
   cached_network_image: ^3.1.0
   sqflite: ^2.0.0+4
   webview_flutter: ^2.0.13
-  units_converter: ^0.4.0
   firebase_auth: ^3.1.1
   google_sign_in: ^5.1.0
   firebase_core: ^1.6.0
@@ -60,6 +59,13 @@ dependencies:
   carousel_slider: ^4.0.0
   badges: ^2.0.1
   flutter_local_notifications: ^8.2.0
+  onesignal_flutter: #^3.2.3
+    git:
+      url: https://github.com/luis901101/OneSignal-Flutter-SDK.git
+      ref: migrate_android_embedding_v2
+
+
+  
 
 dev_dependencies:
   flutter_test:

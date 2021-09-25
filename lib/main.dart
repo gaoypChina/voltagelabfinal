@@ -1,29 +1,25 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Extra_Page/old_homepage2.dart';
 import 'package:voltagelab/pages/homepage.dart';
-import 'package:voltagelab/Extra_Page/old_home_page.dart';
-import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
+import 'Provider/notification_provider.dart';
 import 'Provider/signin_provider.dart';
 import 'Provider/post_provider.dart';
 import 'Provider/webview_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'Provider/youtube_api_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   await Hive.initFlutter();
   final dir = await getApplicationDocumentsDirectory();
   await Hive.openBox("userdata");
   await Hive.openBox("voltagelabbadge");
   await Hive.openBox("Polytechnicbadge");
+  await Hive.openBox("notification");
   Hive.init(dir.path);
   runApp(MultiProvider(
     providers: [
@@ -31,7 +27,8 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => Postprovider()),
       ChangeNotifierProvider(create: (context) => Webcontroll()),
       ChangeNotifierProvider(create: (context) => SignInProvider()),
-      ChangeNotifierProvider(create: (context) => YoutubeApiprovider())
+      ChangeNotifierProvider(create: (context) => YoutubeApiprovider()),
+      ChangeNotifierProvider(create: (context) => NotificationService())
     ],
     child: MyApp(),
   ));
@@ -47,14 +44,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
         theme: ThemeData(brightness: Brightness.light),
         debugShowCheckedModeBanner: false,
-        home: box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),);
+        home: const HomePage());
   }
 }
 
+// box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),);
 
 // box.get('email') != '' && box.get('types') == '2'
 //           ? const NewHomePage()

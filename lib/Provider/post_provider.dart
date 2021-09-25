@@ -244,13 +244,13 @@ class Postprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  getpostcount()  {
+  getpostcount() {
     var box = Hive.box('voltagelabbadge');
     voltagelabsavepostbadge = box.get('count') ?? 0;
     notifyListeners();
   }
 
-   polytechnicsavepostcount() {
+  polytechnicsavepostcount() {
     var box = Hive.box('Polytechnicbadge');
     polytechnicpostcount++;
     box.put('count', polytechnicpostcount);
@@ -261,5 +261,16 @@ class Postprovider extends ChangeNotifier {
     var box = Hive.box('Polytechnicbadge');
     polytechnicsavepostbadge = box.get('count') ?? 0;
     notifyListeners();
+  }
+
+  Future updatepostnotification() async {
+    String url =
+        "http://192.168.0.107/tanvir/userinfoverify.php?api_token=jvb/zljdsfbvkjzbkjsbfvkadjhgvajdfgbvkhdjafbvkahjdsbvjkhdsabvkjhdafbvjkhdsafbv&email=shakilhassan887@gmail.com&types=2";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsondata = jsonDecode(response.body);
+      print(jsondata);
+      notifyListeners();
+    }
   }
 }
