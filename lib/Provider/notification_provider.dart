@@ -6,9 +6,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:voltagelab/Notification/OneSignal/navigatorstate_onesignal.dart'
+    as onesignal;
+import 'package:voltagelab/Notification/OneSignal/post_details.dart';
 
 class NotificationService extends ChangeNotifier {
-  final String onesignalappid = "5cb539ea-9acf-402c-b303-564ed768b650";
+  final String onesignalappid = "b82c3897-9371-4b54-bcd2-5d93fdf46bf7";
 //   // final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
 //   //     FlutterLocalNotificationsPlugin();
 
@@ -154,6 +157,14 @@ class NotificationService extends ChangeNotifier {
 //   // }
 
   Future initplatfrom() async {
-    OneSignal.shared.setAppId(onesignalappid);
+    await OneSignal.shared.setAppId(onesignalappid);
+    OneSignal.shared
+        .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+      var data = result.notification.additionalData;
+      onesignal.appnavigator!.currentState!.push(MaterialPageRoute(
+        builder: (context) => OneSignalPostdetails(postid: data!['post_id'],),
+      ));
+      notifyListeners();
+    });
   }
 }

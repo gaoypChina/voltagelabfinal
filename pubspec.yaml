@@ -63,6 +63,9 @@ dependencies:
     git:
       url: https://github.com/luis901101/OneSignal-Flutter-SDK.git
       ref: migrate_android_embedding_v2
+  pdf: ^3.6.0
+  open_file: ^3.2.1
+  permission_handler: ^8.1.6
 
 
   

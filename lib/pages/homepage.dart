@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
@@ -25,11 +26,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool switchbtn = false;
 
-  Future<void> onesignalplatfrom() async {}
+  parmissionhandeler() async {
+    var status = await Permission.storage.status;
+    if (status.isDenied) {
+      await Permission.storage.request();
+    } else {}
+  }
 
   @override
   void initState() {
-    Provider.of<NotificationService>(context,listen: false).initplatfrom();
+    parmissionhandeler();
+    Provider.of<NotificationService>(context, listen: false).initplatfrom();
     Provider.of<Postprovider>(context, listen: false).getvoltagelablatestpost();
     Provider.of<CategoryProvider>(context, listen: false).getcategory();
     Provider.of<CategoryProvider>(context, listen: false)

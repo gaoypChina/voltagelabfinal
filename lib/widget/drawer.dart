@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
+import 'package:voltagelab/Subscription/subscription_page.dart';
 import 'package:voltagelab/pages/profile_page.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -13,13 +14,11 @@ class DrawerPage extends StatefulWidget {
 }
 
 class _DrawerPageState extends State<DrawerPage> {
-   
-
   @override
   void initState() {
-   
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final signin = Provider.of<SignInProvider>(context);
@@ -37,7 +36,8 @@ class _DrawerPageState extends State<DrawerPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const VoltagelabBookMarkCategoryPage(),
+                        builder: (context) =>
+                            const VoltagelabBookMarkCategoryPage(),
                       ));
                 },
                 child: Container(
@@ -91,6 +91,31 @@ class _DrawerPageState extends State<DrawerPage> {
                   padding: const EdgeInsets.all(10),
                   width: double.infinity,
                   child: const Text("Profile"),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            color: Colors.grey[300],
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SubscriptionPage(),
+                      ));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10),
+                  width: double.infinity,
+                  child: const Text("Subscription"),
                 ),
               ),
             ),
