@@ -32,14 +32,14 @@ class _SubsUSerInformationState extends State<SubsUSerInformation> {
     if (payment.orginalDatetime!.datetime!.month == 12) {
       String endtime =
           "${1}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year + 1}";
-      payment.payment_user_inputdata(
-          fullname!, email, phonenumber, address, startday, endtime, 'panding');
+      // payment.payment_user_inputdata(
+      //     fullname!, email, phonenumber, address, startday, endtime, 'panding');
       print(endtime);
     } else {
       String endtime =
           "${payment.orginalDatetime!.datetime!.month + 1}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year}";
-      payment.payment_user_inputdata(
-          fullname!, email, phonenumber, address, startday, endtime, 'panding');
+      // payment.payment_user_inputdata(
+      //     fullname!, email, phonenumber, address, startday, endtime, 'panding');
     }
   }
 

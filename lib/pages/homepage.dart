@@ -9,11 +9,13 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/notification_provider.dart';
+import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Screen/Polytechnic_bd/listcategory_page.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/latestpost_details.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/listcategory_page.dart';
 import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
+import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_user_data.dart';
 import 'package:voltagelab/widget/drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,6 +27,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool switchbtn = false;
+  bool lock = true;
 
   parmissionhandeler() async {
     var status = await Permission.storage.status;
@@ -33,14 +36,60 @@ class _HomePageState extends State<HomePage> {
     } else {}
   }
 
+  Widget freegridviewtool(
+      {Widget? imagechild,
+      GestureTapCallback? onTap,
+      String? name,
+      Color? color}) {
+    return Container(
+      margin: const EdgeInsets.only(left: 10, right: 5),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(40), color: color),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: imagechild),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                name!,
+                style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     parmissionhandeler();
-    Provider.of<NotificationService>(context, listen: false).initplatfrom();
+    // Provider.of<NotificationService>(context, listen: false).initplatfrom();
     Provider.of<Postprovider>(context, listen: false).getvoltagelablatestpost();
     Provider.of<CategoryProvider>(context, listen: false).getcategory();
     Provider.of<CategoryProvider>(context, listen: false)
         .polytechnicbdcategory();
+
     super.initState();
   }
 
@@ -48,6 +97,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var box = Hive.box("userdata");
     final post = Provider.of<Postprovider>(context);
+    final payment = Provider.of<PaymentProvider>(context);
     return Scaffold(
       drawer: const DrawerPage(),
       body: CustomScrollView(
@@ -181,172 +231,182 @@ class _HomePageState extends State<HomePage> {
                   ),
           ),
           SliverToBoxAdapter(
-              child: Container(
-            margin: const EdgeInsets.all(5),
-            child: GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                childAspectRatio: 2 / 2,
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              child: GridView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 2 / 2,
+                ),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  freegridviewtool(
+                    color: Colors.indigo,
+                    imagechild: Image.asset('images/icon.jpg'),
+                    name: "Voltage Lab",
+                    onTap: () {
+                      post.getpostcount();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ListcategoryPage(),
+                          ));
+                    },
+                  ),
+                  freegridviewtool(
+                    color: Colors.orange,
+                    imagechild: Image.asset('images/icon.jpg'),
+                    name: "Polytechnic",
+                    onTap: () {
+                      post.getpolytechnicpostcount();
+                      Provider.of<CategoryProvider>(context, listen: false)
+                          .polytechnicbdcategory();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const PolytechnicListcategoryPage(),
+                          ));
+                    },
+                  ),
+                  freegridviewtool(
+                    color: Colors.deepOrange,
+                    imagechild: Image.asset('images/icon.jpg'),
+                    name: "Youtube",
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const YoutubePlaylistPage(),
+                          ));
+                    },
+                  ),
+                ],
               ),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
               children: [
                 Container(
-                  margin: const EdgeInsets.only(left: 10, right: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Colors.indigo),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        post.getpostcount();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ListcategoryPage(),
-                            ));
-                      },
-                      borderRadius: BorderRadius.circular(40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                'images/icon.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Voltage Lab',
-                            style: GoogleFonts.roboto(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
+                  padding: const EdgeInsets.all(15),
+                  alignment: Alignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Pro Futures',
+                        style: GoogleFonts.roboto(fontSize: 20),
                       ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 5, right: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        post.getpolytechnicpostcount();
-                        Provider.of<CategoryProvider>(context, listen: false)
-                            .polytechnicbdcategory();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const PolytechnicListcategoryPage(),
-                            ));
-                      },
-                      borderRadius: BorderRadius.circular(40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                'images/icon.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Polytechnic',
-                            style: GoogleFonts.roboto(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 5),
-                  decoration: BoxDecoration(
-                      color: Colors.deepOrange,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const YoutubePlaylistPage(),
-                            ));
-                      },
-                      borderRadius: BorderRadius.circular(40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                'images/icon.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Youtube',
-                            style: GoogleFonts.roboto(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
+                      const Divider(),
+                      StreamBuilder<Subscriptionuserdata?>(
+                          stream: payment.streamsubscriptiondata(
+                              Duration(seconds: 5), box.get('email')),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return GridView(
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 2 / 2,
+                                ),
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 5),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(40),
+                                        color: Colors.indigo),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        onTap:
+                                            snapshot.data!.status == "panding"
+                                                ? null
+                                                : () {
+                                                    post.getpostcount();
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ListcategoryPage(),
+                                                        ));
+                                                  },
+                                        borderRadius: BorderRadius.circular(40),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  height: 80,
+                                                  width: 80,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                    child: Image.asset(
+                                                      'images/icon.jpg',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  'Voltage Lab',
+                                                  style: GoogleFonts.roboto(
+                                                      color: Colors.white,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              child: Container(
+                                                  height: 50,
+                                                  child:
+                                                      snapshot.data!.status ==
+                                                              "panding"
+                                                          ? Image.asset(
+                                                              'images/lock.png',
+                                                              height: 50,
+                                                            )
+                                                          : null),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          }),
+                    ],
                   ),
                 ),
               ],
             ),
-          ))
+          ),
         ],
       ),
     );

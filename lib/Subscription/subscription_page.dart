@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:voltagelab/Subscription/payment_Iteam_list/payment_iteam.dart';
 import 'package:voltagelab/Subscription/userinformation.dart';
 
 class SubscriptionPage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                   Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => SubsUSerInformation(),
+                        builder: (context) => const PaymentListPage(package_price: 100,),
                       ));
                 },
                 borderRadius: BorderRadius.circular(10),
