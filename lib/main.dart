@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: onesignal.appnavigator,
         home: box.get('email') != '' && box.get('types') == '2'
-            ? const EmailSendPage()
+            ? const HomePage()
             : const HomePage2());
   }
 }
