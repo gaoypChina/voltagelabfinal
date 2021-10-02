@@ -109,7 +109,7 @@ class _SignUpState extends State<SignUp> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter your Email Address";
-                              } else if (!value.contains('@gmail')) {
+                              } else if (!value.contains('@')) {
                                 return "Enter your Valid Email Address";
                               }
                             },

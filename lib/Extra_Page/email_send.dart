@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
@@ -10,15 +13,29 @@ class EmailSendPage extends StatefulWidget {
 }
 
 class _EmailSendPageState extends State<EmailSendPage> {
+  final _fromkey = GlobalKey<FormState>();
+
+  validationchack(BuildContext context) {
+    final from = _fromkey.currentState;
+    if (from!.validate()) {
+      from.save();
+    }
+  }
+
   emailsend() async {
+    var box = Hive.box('verificationnumber');
+    Random random = new Random();
+    int randomNumber = random.nextInt(99) + 1089;
+    box.put('verify', randomNumber);
+    print(randomNumber);
+
     String host = 'voltagelab.com';
 
     int port = 587;
-    String name = 'tanvir';
+    String name = 'Voltage Lab';
     bool ignoreBadCertificate = false;
     bool ssl = false;
     bool allowInsecure = false;
-    String? xoauth2Token;
     String username = 'otp@voltagelab.com';
     String password = 'mindofEYE@1';
 
@@ -32,19 +49,11 @@ class _EmailSendPageState extends State<EmailSendPage> {
       ssl: ssl,
       ignoreBadCertificate: ignoreBadCertificate,
     );
-    // Use the SmtpServer class to configure an SMTP server:
-    // final smtpServer = SmtpServer('smtp.domain.com');
-    // See the named arguments of SmtpServer for further configuration
-    // options.
-
-    // Create our message.
     final message = Message()
       ..from = Address(username, 'Tanvir')
       ..recipients.add('shakilhassan887@gmail.com')
-      // ..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
-      // ..bccRecipients.add(Address('bccAddress@example.com'))
-      ..subject = 'Test Dart Mailer library'
-      ..text = 'This is the plain text.\nThis is line 2 of the text part.';
+      ..subject = 'Verification Code'
+      ..text = 'Verification code: ${box.get('verify')}';
 
     try {
       final sendReport = await send(message, smtpServer);
@@ -59,6 +68,7 @@ class _EmailSendPageState extends State<EmailSendPage> {
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('verificationnumber');
     return Scaffold(
       appBar: AppBar(
         title: Text('email send'),
@@ -69,7 +79,32 @@ class _EmailSendPageState extends State<EmailSendPage> {
               onPressed: () {
                 emailsend();
               },
-              child: Text('send email'))
+              child: Text('send email')),
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Form(
+              key: _fromkey,
+              child: TextFormField(
+                validator: (value) {
+                  if (value == box.get('verify').toString()) {
+                    print(box.get('verify'));
+                    return 'verifyed successfull';
+                  } else {
+                    print(box.get('verify'));
+                    return 'not verifyed';
+                  }
+                },
+                decoration: InputDecoration(
+                  hintText: 'code',
+                ),
+              ),
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                validationchack(context);
+              },
+              child: Text('verify'))
         ],
       ),
     );

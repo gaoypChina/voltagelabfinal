@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps, avoid_print, unrelated_type_equality_checks
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:voltagelab/Extra_Page/old_homepage2.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/verification_email.dart';
@@ -101,21 +104,60 @@ class SignInProvider extends ChangeNotifier {
   }
 
   Future gmailotpsend(String useremail) async {
-    emailAuth = EmailAuth(sessionName: "Sample session");
-    bool result =
-        await emailAuth!.sendOtp(recipientMail: useremail, otpLength: 6);
-    return result;
+    var box = Hive.box('verificationnumber');
+    Random random = new Random();
+    int randomNumber = random.nextInt(99) + 1089;
+    box.put('verify', randomNumber);
+    box.put('verifyemail', useremail);
+    print(randomNumber);
+
+    String host = 'voltagelab.com';
+
+    int port = 587;
+    String name = 'Voltage Lab';
+    bool ignoreBadCertificate = false;
+    bool ssl = false;
+    bool allowInsecure = false;
+    String username = 'otp@voltagelab.com';
+    String password = 'mindofEYE@1';
+
+    final smtpServer = SmtpServer(
+      host,
+      port: 587,
+      name: name,
+      allowInsecure: allowInsecure,
+      username: username,
+      password: password,
+      ssl: ssl,
+      ignoreBadCertificate: ignoreBadCertificate,
+    );
+    final message = Message()
+      ..from = Address(username, name)
+      ..recipients.add(useremail)
+      ..subject = 'Verification Code'
+      ..text = 'Verification code: ${box.get('verify')}';
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
   }
 
   Future gmailotpverify(String _fullname, _email, _password, String otp,
       BuildContext context) async {
-    bool result = emailAuth!.validateOtp(recipientMail: _email, userOtp: otp);
-    if (result == true) {
+    var box = Hive.box('verificationnumber');
+    // bool result = emailAuth!.validateOtp(recipientMail: _email, userOtp: otp);
+    if (otp ==  box.get('verify').toString() && _email == box.get('verifyemail')) {
       await insertuserdata(_fullname, _email, _password, "", "", 2, context);
     } else {
       snakbar(context, 'Otp verification failed');
     }
-    return result;
+    
   }
 
   Future recoveryotpverify(String _email, String otp) async {
