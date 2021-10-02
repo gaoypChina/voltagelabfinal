@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
-
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -20,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final signin = Provider.of<SignInProvider>(context);
+    final payment = Provider.of<PaymentProvider>(context);
     var box = Hive.box("userdata");
 
     return Scaffold(
@@ -66,10 +67,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child:box.get('photo')=="" ? Image.asset('images/img5.png') : Image.network(
-                                  box.get('photo'),
-                                  fit: BoxFit.cover,
-                                ),
+                                child: box.get('photo') == ""
+                                    ? Image.asset('images/img5.png')
+                                    : Image.network(
+                                        box.get('photo'),
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                             ),
                           ),
@@ -126,6 +129,28 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(height: 20),
                           // const Text('Id'),
                           const SizedBox(height: 2),
+                          const Text('Subscription Pack'),
+                          Text(
+                              payment.subscriptionuserdata == null
+                                  ? 'No Subscription Pack'
+                                  : payment
+                                      .subscriptionuserdata!.subscriptionPack!,
+                              style: const TextStyle(color: Colors.grey)),
+                          const SizedBox(height: 20),
+                          const Text('Start Date'),
+                          Text(
+                              payment.subscriptionuserdata == null
+                                  ? 'No Start Date'
+                                  : "${payment.subscriptionuserdata!.startDate!.year}-${payment.subscriptionuserdata!.startDate!.month}-${payment.subscriptionuserdata!.startDate!.day}",
+                              style: const TextStyle(color: Colors.grey)),
+                          const SizedBox(height: 20),
+                          const Text('End Date'),
+                          Text(
+                              payment.subscriptionuserdata == null
+                                  ? 'No End Date'
+                                  : "${payment.subscriptionuserdata!.endDate!.year}-${payment.subscriptionuserdata!.endDate!.month}-${payment.subscriptionuserdata!.endDate!.day}",
+                              style: const TextStyle(color: Colors.grey)),
+
                           // Text(box.get('id'),
                           //     style: const TextStyle(color: Colors.grey)),
                         ],

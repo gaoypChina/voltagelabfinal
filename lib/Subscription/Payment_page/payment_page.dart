@@ -7,8 +7,12 @@ import 'package:voltagelab/Provider/payment_provider.dart';
 class PaymentPage extends StatefulWidget {
   final String payment_name;
   final int package_price;
+  final String subscription_pack_name;
   const PaymentPage(
-      {Key? key, required this.payment_name, required this.package_price})
+      {Key? key,
+      required this.payment_name,
+      required this.package_price,
+      required this.subscription_pack_name})
       : super(key: key);
 
   @override
@@ -31,11 +35,36 @@ class _PaymentPageState extends State<PaymentPage> {
 
   subscription_date(BuildContext context) {
     final payment = Provider.of<PaymentProvider>(context, listen: false);
-    String? startdate =
-        "${payment.orginalDatetime!.datetime!.month}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year}";
+    // String? startdate =
+    //     "${payment.orginalDatetime!.datetime!.month}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year}";
+    final startdate = DateTime(
+      payment.orginalDatetime!.datetime!.year,
+      payment.orginalDatetime!.datetime!.month,
+      payment.orginalDatetime!.datetime!.day,
+      payment.orginalDatetime!.datetime!.hour,
+      payment.orginalDatetime!.datetime!.minute,
+      payment.orginalDatetime!.datetime!.millisecond,
+      payment.orginalDatetime!.datetime!.microsecond
+    );
     if (payment.orginalDatetime!.datetime!.month == 12) {
-      String enddate =
-          "${1}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year + 1}";
+      // String enddate =
+      //     "${1}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year + 1}";
+          final enddate = DateTime(
+      payment.orginalDatetime!.datetime!.year + 1,
+      payment.orginalDatetime!.datetime!.month - 11,
+      payment.orginalDatetime!.datetime!.day,
+      payment.orginalDatetime!.datetime!.hour,
+      payment.orginalDatetime!.datetime!.minute,
+      payment.orginalDatetime!.datetime!.millisecond,
+      payment.orginalDatetime!.datetime!.microsecond
+    );
+      final enddatecount = DateTime(payment.orginalDatetime!.datetime!.year + 1,
+          1, payment.orginalDatetime!.datetime!.day);
+      final startdatecount = DateTime(
+          payment.orginalDatetime!.datetime!.year,
+          payment.orginalDatetime!.datetime!.month,
+          payment.orginalDatetime!.datetime!.day);
+      final difference = enddatecount.difference(startdatecount).inDays;
       payment.payment_user_inputdata(
           bikash_phone_number: bkash_nuumber!,
           bkash_transaction_id: bkash_transaction_Id,
@@ -45,10 +74,31 @@ class _PaymentPageState extends State<PaymentPage> {
           rocket_transaction_id: rocket_transaction_Id,
           start_date: startdate,
           end_date: enddate,
-          status: 'panding',context: context);
+          status: 'panding',
+          subscription_pack: widget.subscription_pack_name,
+          remaining: difference,
+          context: context);
     } else {
-      String enddate =
-          "${payment.orginalDatetime!.datetime!.month + 1}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year}";
+      // String enddate =
+      //     "${payment.orginalDatetime!.datetime!.month + 1}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year}";
+      final enddate = DateTime(
+      payment.orginalDatetime!.datetime!.year,
+      payment.orginalDatetime!.datetime!.month + 1,
+      payment.orginalDatetime!.datetime!.day,
+      payment.orginalDatetime!.datetime!.hour,
+      payment.orginalDatetime!.datetime!.minute,
+      payment.orginalDatetime!.datetime!.millisecond,
+      payment.orginalDatetime!.datetime!.microsecond
+    );
+      final enddatecount = DateTime(
+          payment.orginalDatetime!.datetime!.year,
+          payment.orginalDatetime!.datetime!.month + 1,
+          payment.orginalDatetime!.datetime!.day);
+      final startdatecount = DateTime(
+          payment.orginalDatetime!.datetime!.year,
+          payment.orginalDatetime!.datetime!.month,
+          payment.orginalDatetime!.datetime!.day);
+      final difference = enddatecount.difference(startdatecount).inDays;
       payment.payment_user_inputdata(
           bikash_phone_number: bkash_nuumber!,
           bkash_transaction_id: bkash_transaction_Id,
@@ -56,9 +106,12 @@ class _PaymentPageState extends State<PaymentPage> {
           nagad_transaction_id: nagat_transaction_Id,
           rocket_phone_number: rocket_number,
           rocket_transaction_id: rocket_transaction_Id,
-          start_date: startdate,
-          end_date: enddate,
-          status: 'panding',context: context);
+          start_date: startdate.toString(),
+          end_date: enddate.toString(),
+          status: 'panding',
+          subscription_pack: widget.subscription_pack_name,
+          remaining: difference,
+          context: context);
     }
   }
 

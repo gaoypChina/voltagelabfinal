@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:voltagelab/pages/new_profile_page3.dart';
+import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
 import 'package:voltagelab/Subscription/subscription_page.dart';
-import 'package:voltagelab/pages/profile_page.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -16,6 +17,8 @@ class DrawerPage extends StatefulWidget {
 class _DrawerPageState extends State<DrawerPage> {
   @override
   void initState() {
+  
+ 
     super.initState();
   }
 
@@ -83,7 +86,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ProfilePage(),
+                        builder: (context) => const NewProfilePage3(),
                       ));
                 },
                 child: Container(

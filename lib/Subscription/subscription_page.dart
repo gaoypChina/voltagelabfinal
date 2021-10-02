@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
+import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Subscription/payment_Iteam_list/payment_iteam.dart';
-import 'package:voltagelab/Subscription/userinformation.dart';
 
 class SubscriptionPage extends StatefulWidget {
   const SubscriptionPage({Key? key}) : super(key: key);
@@ -11,128 +13,181 @@ class SubscriptionPage extends StatefulWidget {
 }
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
+  bool isloading = false;
+
+  // @override
+  // void initState() {
+  //   isloading = true;
+  //   var box = Hive.box("userdata");
+  //   Provider.of<PaymentProvider>(context, listen: false)
+  //       .payment_user_info_get(box.get('email'))
+  //       .then((value) {
+  //     setState(() {
+  //       isloading = false;
+  //     });
+  //   });
+  //   super.initState();
+  // }
+
+  @override
+  void initState() {
+    var box = Hive.box("userdata");
+    Provider.of<PaymentProvider>(context, listen: false)
+        .payment_subscription_one_month_userinfo_get(box.get('email'));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final payment = Provider.of<PaymentProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Subscription'),
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            height: MediaQuery.of(context).size.height * 0.2,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.indigo,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => const PaymentListPage(package_price: 100,),
-                      ));
-                },
-                borderRadius: BorderRadius.circular(10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(10),
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          width: MediaQuery.of(context).size.width * 0.13,
-                          decoration: BoxDecoration(
-                              color: Colors.orange,
-                              borderRadius: BorderRadius.circular(5)),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Startup',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+      body: payment.isloading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(10),
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: payment.subscriptionuserdata == null
+                        ? Colors.indigo
+                        : payment.subscriptionuserdata!.status == "approved"
+                            ? Colors.indigo.withOpacity(0.5)
+                            : Colors.indigo,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: payment.subscriptionuserdata == null
+                          ? () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => const PaymentListPage(
+                                      package_price: 100,
+                                      subscription_pack_name: 'Start Up',
+                                    ),
+                                  ));
+                            }
+                          : payment.subscriptionuserdata!.status == "approved"
+                              ? null
+                              : () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const PaymentListPage(
+                                          package_price: 100,
+                                          subscription_pack_name: 'Start Up',
+                                        ),
+                                      ));
+                                },
+                      borderRadius: BorderRadius.circular(10),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.all(10),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.06,
+                                width: MediaQuery.of(context).size.width * 0.13,
+                                decoration: BoxDecoration(
+                                    color: Colors.orange,
+                                    borderRadius: BorderRadius.circular(5)),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Startup',
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.white),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: const [
+                                      Text('\$24',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white)),
+                                      Text('/user',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              Container(
+                                  margin: const EdgeInsets.only(right: 10),
+                                  child: const Text('1 mounth',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white)))
+                            ],
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            child: const Divider(
+                              color: Colors.white,
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: Row(
                               children: const [
-                                Text('\$24',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white)),
-                                Text('/user',
-                                    style: TextStyle(
-                                        fontSize: 14, color: Colors.white)),
+                                Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'All features in Basic',
+                                  style: TextStyle(color: Colors.white),
+                                )
                               ],
                             ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            child: const Text('1 mounth',
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white)))
-                      ],
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: const Divider(
-                        color: Colors.white,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(10),
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 16,
                           ),
-                          SizedBox(
-                            width: 10,
+                          Container(
+                            margin: const EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              children: const [
+                                Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Flexible call scheduling',
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            ),
                           ),
-                          Text(
-                            'All features in Basic',
-                            style: TextStyle(color: Colors.white),
-                          )
                         ],
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 16,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Flexible call scheduling',
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
     );
   }
 }

@@ -66,6 +66,9 @@ dependencies:
   pdf: ^3.6.0
   open_file: ^3.2.1
   permission_handler: ^8.1.6
+  flutter_countdown_timer: ^4.1.0
+  mailer: ^5.0.2
+  change_app_package_name: ^1.0.0
 
 
   

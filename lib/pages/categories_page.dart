@@ -1,11 +1,8 @@
 // ignore_for_file: prefer_is_empty
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
-import 'package:voltagelab/model/Voltage_Lab/category_model.dart';
-import 'package:voltagelab/model/subcategory.dart';
 import 'package:voltagelab/pages/post_page.dart';
 
 class CategoryPage extends StatefulWidget {

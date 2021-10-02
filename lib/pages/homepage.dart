@@ -5,16 +5,15 @@ import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
-import 'package:voltagelab/Provider/notification_provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Screen/Polytechnic_bd/listcategory_page.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/latestpost_details.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/listcategory_page.dart';
 import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
+import 'package:voltagelab/Stream_data/Subscription_Stream_data/subscription_userdata.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_user_data.dart';
 import 'package:voltagelab/widget/drawer.dart';
 
@@ -81,6 +80,71 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget progridviewtool(
+      {Widget? imagechild,
+      GestureTapCallback? onTap,
+      String? name,
+      Color? color,
+      Subscriptionuserdata? subscriptionuserdata}) {
+    return Container(
+      margin: const EdgeInsets.only(left: 10, right: 5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(40), color: Colors.indigo),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(40),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: imagechild,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    name!,
+                    style: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              Container(
+                  height: 50,
+                  child: subscriptionuserdata == null
+                      ? Image.asset(
+                          'images/lock.png',
+                          height: 50,
+                        )
+                      : subscriptionuserdata.status != "approved"
+                          ? Image.asset(
+                              'images/lock.png',
+                              height: 50,
+                            )
+                          : null),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     parmissionhandeler();
@@ -89,6 +153,10 @@ class _HomePageState extends State<HomePage> {
     Provider.of<CategoryProvider>(context, listen: false).getcategory();
     Provider.of<CategoryProvider>(context, listen: false)
         .polytechnicbdcategory();
+    var box = Hive.box("userdata");
+    Provider.of<PaymentProvider>(context,listen: false).payment_subscription_one_month_userinfo_get(box.get('email'));
+    // Provider.of<PaymentProvider>(context, listen: false)
+    //     .payment_subscription_one_month_userinfo_get(box.get('email'));
 
     super.initState();
   }
@@ -301,105 +369,47 @@ class _HomePageState extends State<HomePage> {
                         style: GoogleFonts.roboto(fontSize: 20),
                       ),
                       const Divider(),
-                      StreamBuilder<Subscriptionuserdata?>(
-                          stream: payment.streamsubscriptiondata(
-                              Duration(seconds: 5), box.get('email')),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return GridView(
-                                shrinkWrap: true,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
-                                  childAspectRatio: 2 / 2,
-                                ),
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 10, right: 5),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(40),
-                                        color: Colors.indigo),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        onTap:
-                                            snapshot.data!.status == "panding"
-                                                ? null
-                                                : () {
-                                                    post.getpostcount();
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const ListcategoryPage(),
-                                                        ));
-                                                  },
-                                        borderRadius: BorderRadius.circular(40),
-                                        child: Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  height: 80,
-                                                  width: 80,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            100),
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            100),
-                                                    child: Image.asset(
-                                                      'images/icon.jpg',
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Voltage Lab',
-                                                  style: GoogleFonts.roboto(
-                                                      color: Colors.white,
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                              child: Container(
-                                                  height: 50,
-                                                  child:
-                                                      snapshot.data!.status ==
-                                                              "panding"
-                                                          ? Image.asset(
-                                                              'images/lock.png',
-                                                              height: 50,
-                                                            )
-                                                          : null),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                      StreamBuilder(
+                          stream:
+                              SubscriptionUserStreamdata.streamsubscriptiondata(
+                                  Duration(seconds: 5), box.get('email')),
+                          builder: (context,
+                              AsyncSnapshot<Subscriptionuserdata?> snapshot) {
+
+                            return GridView(
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 2 / 2,
+                              ),
+                              children: [
+                                progridviewtool(
+                                  color: Colors.indigo,
+                                  imagechild: Image.asset(
+                                    'images/icon.jpg',
+                                    fit: BoxFit.cover,
                                   ),
-                                ],
-                              );
-                            } else {
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
+                                  name: 'Voltage Lab',
+                                  onTap: snapshot.data == null
+                                      ? null
+                                      : snapshot.data!.status != "approved"
+                                          ? null
+                                          : () {
+                                              post.getpostcount();
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ListcategoryPage(),
+                                                ),
+                                              );
+                                            },
+                                  subscriptionuserdata: snapshot.data,
+                                ),
+                              ],
+                            );
                           }),
                     ],
                   ),
