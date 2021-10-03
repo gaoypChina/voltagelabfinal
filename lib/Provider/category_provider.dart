@@ -39,7 +39,7 @@ class CategoryProvider extends ChangeNotifier {
         var jsondata = response.body;
         subcategory = subCategoryFromJson(jsondata);
         loading = false;
-        print("voltagelab category");
+       
         notifyListeners();
         return subcategory;
       }
@@ -77,7 +77,7 @@ class CategoryProvider extends ChangeNotifier {
       var jsondata = response.body;
       subcategory = subCategoryFromJson(jsondata);
       loading = false;
-      print("polytechnic sub category");
+    
       notifyListeners();
       return subcategory;
     }

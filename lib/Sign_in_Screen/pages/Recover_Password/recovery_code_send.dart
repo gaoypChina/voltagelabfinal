@@ -39,7 +39,6 @@ class _RecoveryCodeSendPAgeState extends State<RecoveryCodeSendPAge> {
 
   @override
   Widget build(BuildContext context) {
-    final signin = Provider.of<SignInProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

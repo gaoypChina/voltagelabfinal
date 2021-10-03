@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -24,14 +26,12 @@ class _EmailSendPageState extends State<EmailSendPage> {
 
   emailsend() async {
     var box = Hive.box('verificationnumber');
-    Random random = new Random();
+    Random random = Random();
     int randomNumber = random.nextInt(99) + 1089;
     box.put('verify', randomNumber);
-    print(randomNumber);
 
     String host = 'voltagelab.com';
 
-    int port = 587;
     String name = 'Voltage Lab';
     bool ignoreBadCertificate = false;
     bool ssl = false;
@@ -71,7 +71,7 @@ class _EmailSendPageState extends State<EmailSendPage> {
     var box = Hive.box('verificationnumber');
     return Scaffold(
       appBar: AppBar(
-        title: Text('email send'),
+        title: const Text('email send'),
       ),
       body: Column(
         children: [
@@ -79,9 +79,9 @@ class _EmailSendPageState extends State<EmailSendPage> {
               onPressed: () {
                 emailsend();
               },
-              child: Text('send email')),
+              child: const Text('send email')),
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: Form(
               key: _fromkey,
               child: TextFormField(
@@ -94,7 +94,7 @@ class _EmailSendPageState extends State<EmailSendPage> {
                     return 'not verifyed';
                   }
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'code',
                 ),
               ),
@@ -104,7 +104,7 @@ class _EmailSendPageState extends State<EmailSendPage> {
               onPressed: () {
                 validationchack(context);
               },
-              child: Text('verify'))
+              child: const Text('verify'))
         ],
       ),
     );

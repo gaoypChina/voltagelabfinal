@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              Container(
+              SizedBox(
                   height: 50,
                   child: subscriptionuserdata == null
                       ? Image.asset(
@@ -165,7 +165,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var box = Hive.box("userdata");
     final post = Provider.of<Postprovider>(context);
-    final payment = Provider.of<PaymentProvider>(context);
     return Scaffold(
       drawer: const DrawerPage(),
       body: CustomScrollView(
@@ -372,7 +371,7 @@ class _HomePageState extends State<HomePage> {
                       StreamBuilder(
                           stream:
                               SubscriptionUserStreamdata.streamsubscriptiondata(
-                                  Duration(seconds: 5), box.get('email')),
+                                  const Duration(seconds: 5), box.get('email')),
                           builder: (context,
                               AsyncSnapshot<Subscriptionuserdata?> snapshot) {
 

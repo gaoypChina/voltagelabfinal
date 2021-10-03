@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
 import 'package:voltagelab/pages/homepage.dart';
 

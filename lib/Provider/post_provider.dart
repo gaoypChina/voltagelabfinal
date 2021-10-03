@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print
 
 import 'dart:convert';
 

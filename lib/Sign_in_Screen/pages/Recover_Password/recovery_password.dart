@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/Recover_Password/recovery_code_send.dart';
-import 'package:voltagelab/Sign_in_Screen/pages/verification_email.dart';
 
 class RecoveryPasswordPage extends StatefulWidget {
   const RecoveryPasswordPage({Key? key}) : super(key: key);
@@ -42,7 +40,6 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    final signin = Provider.of<SignInProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -63,10 +60,10 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
                 "Recover By Email",
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Card(
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   width: 300,
                   child: Column(
                     children: [
@@ -107,7 +104,7 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       ElevatedButton(

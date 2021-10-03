@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Sqflite/Polytechnicbd/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/Polytechnicbd/db/category_db.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
 
 import 'bookmarkpost_page.dart';
 

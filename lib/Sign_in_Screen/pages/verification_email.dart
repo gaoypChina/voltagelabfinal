@@ -28,7 +28,6 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final signin = Provider.of<SignInProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

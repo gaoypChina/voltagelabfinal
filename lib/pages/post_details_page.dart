@@ -1,6 +1,4 @@
-// ignore_for_file: iterable_contains_unrelated_type, avoid_print
-
-import 'dart:convert';
+// ignore_for_file: iterable_contains_unrelated_type, avoid_print, non_constant_identifier_names
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';

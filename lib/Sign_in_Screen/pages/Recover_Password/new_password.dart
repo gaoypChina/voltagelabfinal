@@ -28,7 +28,6 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    final signin = Provider.of<SignInProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -157,7 +156,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       ElevatedButton(

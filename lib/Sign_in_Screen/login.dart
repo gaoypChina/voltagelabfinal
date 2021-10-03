@@ -50,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 75.0),
-                
                 child: SvgPicture.asset(
                   'images/login.svg',
                   height: 190,
@@ -125,39 +124,30 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Row(
             children: [
-              Expanded(
-                child: TextButton(
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Sign in',
-                    style: TextStyle(
-                      color: left,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Sign up',
-                    style: TextStyle(
-                      color: right,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-              ),
+              signmenu('Sign in', () {}, left),
+              signmenu('Sign up', () {}, right),
+              
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget signmenu(String text, VoidCallback? onPressed, Color? color) {
+    return Expanded(
+      child: TextButton(
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: color,
+            fontSize: 16.0,
+          ),
+        ),
       ),
     );
   }

@@ -38,6 +38,37 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  Widget signupform({
+    FormFieldSetter<String>? onSaved,
+    FormFieldValidator<String>? validator,
+    TextInputType? keyboardType,
+    Widget? prefixIcon,
+    String? hintText,
+    Widget? suffixIcon,
+    bool? obscureText,
+    ValueChanged<String>? onChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(
+          top: 20.0, bottom: 0.0, left: 25.0, right: 25.0),
+      child: TextFormField(
+        onChanged: onChanged,
+        onSaved: onSaved,
+        validator: validator,
+        keyboardType: keyboardType,
+        style: const TextStyle(fontSize: 16.0, color: Colors.black),
+        obscureText: obscureText!,
+        decoration: InputDecoration(
+          // border: InputBorder.none,
+          prefixIcon: prefixIcon,
+          hintText: hintText,
+          hintStyle: const TextStyle(fontSize: 16.0),
+          suffixIcon: suffixIcon,
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     focusNodePassword.dispose();
@@ -70,155 +101,112 @@ class _SignUpState extends State<SignUp> {
                     key: _formkey,
                     child: Column(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, bottom: 0.0, left: 25.0, right: 25.0),
-                          child: TextFormField(
-                            onSaved: (newValue) {
+                        signupform(
+                          onSaved: (newValue) {
+                            setState(() {
                               fullname = newValue;
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter your full name";
-                              }
-                            },
-                            focusNode: focusNodeName,
-                            keyboardType: TextInputType.text,
-                            textCapitalization: TextCapitalization.words,
-                            autocorrect: false,
-                            style: const TextStyle(
-                                fontSize: 16.0, color: Colors.black),
-                            decoration: const InputDecoration(
-                              // border: InputBorder.none,
-                              prefixIcon: Icon(
-                                FontAwesomeIcons.user,
-                                color: Colors.black,
-                              ),
-                              hintText: 'Full Name',
-                              hintStyle: TextStyle(fontSize: 16.0),
+                            });
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter your full name";
+                            }
+                          },
+                          onChanged: (value) {},
+                          keyboardType: TextInputType.text,
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.user,
+                            color: Colors.black,
+                          ),
+                          hintText: 'Full Name',
+                          obscureText: false,
+                          suffixIcon: null,
+                        ),
+                        signupform(
+                          onSaved: (newValue) {
+                            email = newValue;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter your Email Address";
+                            } else if (!value.contains('@')) {
+                              return "Enter your Valid Email Address";
+                            }
+                          },
+                          onChanged: (value) {},
+                          keyboardType: TextInputType.emailAddress,
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.envelope,
+                            color: Colors.black,
+                          ),
+                          hintText: 'Email Address',
+                          obscureText: false,
+                          suffixIcon: null,
+                        ),
+                        signupform(
+                          onSaved: (newValue) {
+                            password = newValue;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter your password";
+                            } else if (value.length < 6) {
+                              return "Enter minimam 6 digit password";
+                            }
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              password = value;
+                            });
+                          },
+                          obscureText: _obscureTextPassword,
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.lock,
+                            color: Colors.black,
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: _toggleSignup,
+                            child: Icon(
+                              _obscureTextPassword
+                                  ? FontAwesomeIcons.eye
+                                  : FontAwesomeIcons.eyeSlash,
+                              size: 15.0,
+                              color: Colors.black,
                             ),
                           ),
+                          hintText: 'Password',
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, bottom: 0.0, left: 25.0, right: 25.0),
-                          child: TextFormField(
-                            onSaved: (newValue) {
-                              email = newValue;
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter your Email Address";
-                              } else if (!value.contains('@')) {
-                                return "Enter your Valid Email Address";
-                              }
-                            },
-                            focusNode: focusNodeEmail,
-                            keyboardType: TextInputType.emailAddress,
-                            autocorrect: false,
-                            style: const TextStyle(
-                                fontSize: 16.0, color: Colors.black),
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(
-                                FontAwesomeIcons.envelope,
-                                color: Colors.black,
-                              ),
-                              hintText: 'Email Address',
-                              hintStyle: TextStyle(fontSize: 16.0),
-                            ),
-                            // onSubmitted: (_) {
-                            //   focusNodePassword.requestFocus();
-                            // },
+                        signupform(
+                          onSaved: (newValue) {
+                            confirmpassword = newValue;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter Again Password";
+                            } else if (value != password) {
+                              return "password not match";
+                            }
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              confirmpassword = value;
+                            });
+                          },
+                          obscureText: _obscureTextConfirmPassword,
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.lock,
+                            color: Colors.black,
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, bottom: 0.0, left: 25.0, right: 25.0),
-                          child: TextFormField(
-                            onSaved: (newValue) {
-                              password = newValue;
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter your password";
-                              } else if (value.length < 6) {
-                                return "Enter minimam 6 digit password";
-                              }
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                password = value;
-                              });
-                            },
-                            focusNode: focusNodePassword,
-                            obscureText: _obscureTextPassword,
-                            autocorrect: false,
-                            style: const TextStyle(
-                                fontSize: 16.0, color: Colors.black),
-                            decoration: InputDecoration(
-                              prefixIcon: const Icon(
-                                FontAwesomeIcons.lock,
-                                color: Colors.black,
-                              ),
-                              hintText: 'Password',
-                              hintStyle: const TextStyle(fontSize: 16.0),
-                              suffixIcon: GestureDetector(
-                                onTap: _toggleSignup,
-                                child: Icon(
-                                  _obscureTextPassword
-                                      ? FontAwesomeIcons.eye
-                                      : FontAwesomeIcons.eyeSlash,
-                                  size: 15.0,
-                                  color: Colors.black,
-                                ),
-                              ),
+                          hintText: 'Confirmation',
+                          suffixIcon: GestureDetector(
+                            onTap: _toggleSignupConfirm,
+                            child: Icon(
+                              _obscureTextConfirmPassword
+                                  ? FontAwesomeIcons.eye
+                                  : FontAwesomeIcons.eyeSlash,
+                              size: 15.0,
+                              color: Colors.black,
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, bottom: 0.0, left: 25.0, right: 25.0),
-                          child: TextFormField(
-                            onSaved: (newValue) {
-                              confirmpassword = newValue;
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter Again Password";
-                              } else if (value != password) {
-                                return "password not match";
-                              }
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                confirmpassword = value;
-                              });
-                            },
-                            focusNode: focusNodeConfirmPassword,
-                            obscureText: _obscureTextConfirmPassword,
-                            autocorrect: false,
-                            style: const TextStyle(
-                                fontSize: 16.0, color: Colors.black),
-                            decoration: InputDecoration(
-                              // border: InputBorder.none,
-                              prefixIcon: const Icon(
-                                FontAwesomeIcons.lock,
-                                color: Colors.black,
-                              ),
-                              hintText: 'Confirmation',
-                              hintStyle: const TextStyle(fontSize: 16.0),
-                              suffixIcon: GestureDetector(
-                                onTap: _toggleSignupConfirm,
-                                child: Icon(
-                                  _obscureTextConfirmPassword
-                                      ? FontAwesomeIcons.eye
-                                      : FontAwesomeIcons.eyeSlash,
-                                  size: 15.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            textInputAction: TextInputAction.go,
                           ),
                         ),
                       ],
@@ -227,36 +215,17 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 310.0),
+                margin: EdgeInsets.only(top: signin.loading ? 285.0 : 310),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  // boxShadow: <BoxShadow>[
-                  //   BoxShadow(
-                  //     color: Color(0xFFD6D6D6),
-                  //     offset: Offset(1.0, 6.0),
-                  //     blurRadius: 20.0,
-                  //   ),
-                  //   BoxShadow(
-                  //     color: Color(0xFF4153F7),
-                  //     offset: Offset(1.0, 6.0),
-                  //     blurRadius: 20.0,
-                  //   ),
-                  // ],
-                  // gradient: LinearGradient(
-                  //     colors: <Color>[Color(0xFFD6D6D6), Color(0xFF4144F7)],
-                  //     begin: FractionalOffset(0.2, 0.2),
-                  //     end: FractionalOffset(1.0, 1.0),
-                  //     stops: <double>[0.0, 1.0],
-                  //     tileMode: TileMode.clamp),
                 ),
-                child:  ElevatedButton(
-                        // highlightColor: Colors.transparent,
-                        // splashColor: const Color(0xFF4441F7),
-                        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                child: signin.loading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ElevatedButton(
                         onPressed: () {
-                         
                           validationchack(context);
-                          
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(
@@ -278,11 +247,6 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-
-  // void _toggleSignUpButton() {
-  //   CustomSnackBar(context, const Text('SignUp button pressed'));
-  // }
-
   void _toggleSignup() {
     setState(() {
       _obscureTextPassword = !_obscureTextPassword;

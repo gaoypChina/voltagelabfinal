@@ -36,10 +36,10 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     final category = Provider.of<CategoryProvider>(context);
-    double screenWidth = MediaQuery.of(context).size.width;
-    var width = (screenWidth - ((crossAxisCount - 1) * crossAxisSpacing)) /
-        crossAxisCount;
-    var height = width / aspectRatio;
+    // double screenWidth = MediaQuery.of(context).size.width;
+    // var width = (screenWidth - ((crossAxisCount - 1) * crossAxisSpacing)) /
+    //     crossAxisCount;
+    // var height = width / aspectRatio;
     return category.subcategory!.isEmpty
         ? PostPage(
             sitename: widget.sitename,

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:voltagelab/model/Youtube%20Model/playlist_iteam_model.dart';

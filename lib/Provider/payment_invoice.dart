@@ -1,8 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart';
 import 'package:voltagelab/Pdf_invoice/Api/pdf_api.dart';
 import 'package:voltagelab/Pdf_invoice/Api/pdfinvoice_api.dart';
 import 'package:voltagelab/Pdf_invoice/model/customer.dart';

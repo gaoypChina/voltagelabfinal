@@ -12,11 +12,9 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
-import 'package:voltagelab/Extra_Page/old_homepage2.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/verification_email.dart';
 import 'package:voltagelab/model/userinformation.dart';
-import 'package:voltagelab/Extra_Page/old_home_page.dart';
 import 'package:voltagelab/pages/homepage.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 
@@ -84,19 +82,25 @@ class SignInProvider extends ChangeNotifier {
 
   Future fromregistation(
       String _fullname, _email, _password, BuildContext context) async {
+    loading = true;
     //type = 2 is from registation
-    if (await userinfoverify(_email, 0) == false) {
+    if (await userinfoverify(_email, 0) == false && await userinfoverify(_email, 2) == false) {
       gmailotpsend(_email);
       snakbar(context, "email send");
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => EmailVerificationPage(
-                    fullname: _fullname,
-                    email: _email,
-                    password: _password,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => EmailVerificationPage(
+            fullname: _fullname,
+            email: _email,
+            password: _password,
+          ),
+        ),
+      );
+      loading = false;
+      notifyListeners();
     } else {
+      loading = false;
       snakbar(context, "This email already use");
     }
 
@@ -105,7 +109,7 @@ class SignInProvider extends ChangeNotifier {
 
   Future gmailotpsend(String useremail) async {
     var box = Hive.box('verificationnumber');
-    Random random = new Random();
+    Random random = Random();
     int randomNumber = random.nextInt(99) + 1089;
     box.put('verify', randomNumber);
     box.put('verifyemail', useremail);
@@ -113,7 +117,6 @@ class SignInProvider extends ChangeNotifier {
 
     String host = 'voltagelab.com';
 
-    int port = 587;
     String name = 'Voltage Lab';
     bool ignoreBadCertificate = false;
     bool ssl = false;
@@ -152,12 +155,12 @@ class SignInProvider extends ChangeNotifier {
       BuildContext context) async {
     var box = Hive.box('verificationnumber');
     // bool result = emailAuth!.validateOtp(recipientMail: _email, userOtp: otp);
-    if (otp ==  box.get('verify').toString() && _email == box.get('verifyemail')) {
+    if (otp == box.get('verify').toString() &&
+        _email == box.get('verifyemail')) {
       await insertuserdata(_fullname, _email, _password, "", "", 2, context);
     } else {
       snakbar(context, 'Otp verification failed');
     }
-    
   }
 
   Future recoveryotpverify(String _email, String otp) async {

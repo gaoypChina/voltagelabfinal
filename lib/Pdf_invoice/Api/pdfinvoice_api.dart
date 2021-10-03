@@ -165,7 +165,7 @@ class PdfInvoiceApi {
       data: data,
       border: null,
       headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
+      headerDecoration: const BoxDecoration(color: PdfColors.grey300),
       cellHeight: 30,
       cellAlignments: {
         0: Alignment.centerLeft,

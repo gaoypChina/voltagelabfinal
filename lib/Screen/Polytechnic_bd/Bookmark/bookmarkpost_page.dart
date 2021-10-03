@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:voltagelab/Sqflite/Polytechnicbd/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/Polytechnicbd/db/category_db.dart';
 import 'package:voltagelab/Sqflite/Polytechnicbd/db/post_db.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
-import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
 
 import 'bookmarkpost_details.dart';
 

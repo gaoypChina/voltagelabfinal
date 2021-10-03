@@ -1,12 +1,12 @@
+// ignore_for_file: unused_element
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
-import 'package:voltagelab/Provider/post_provider.dart';
 
 class VoltagelabBookmarkPostDetails extends StatefulWidget {
   final int categoryid;
@@ -32,7 +32,6 @@ class VoltagelabBookmarkPostDetails extends StatefulWidget {
 class _VoltagelabBookmarkPostDetailsState extends State<VoltagelabBookmarkPostDetails> {
 
   void postshare(BuildContext context, String link) async {
-    final scaffoldkey = GlobalKey<ScaffoldState>();
 
     final String text = link;
     final RenderBox box = context.findRenderObject() as RenderBox;
@@ -53,7 +52,6 @@ class _VoltagelabBookmarkPostDetailsState extends State<VoltagelabBookmarkPostDe
 
   @override
   Widget build(BuildContext context) {
-    final post = Provider.of<Postprovider>(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [

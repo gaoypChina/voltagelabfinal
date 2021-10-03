@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
-import 'package:voltagelab/Provider/signin_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -19,7 +18,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final signin = Provider.of<SignInProvider>(context);
     final payment = Provider.of<PaymentProvider>(context);
     var box = Hive.box("userdata");
 

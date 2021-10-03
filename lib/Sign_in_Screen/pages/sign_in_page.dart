@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
@@ -34,6 +33,34 @@ class _SignInState extends State<SignIn> {
     }
   }
 
+  Widget signinform(
+      {FormFieldSetter<String>? onSaved,
+      FormFieldValidator<String>? validator,
+      TextInputType? keyboardType,
+      Widget? prefixIcon,
+      String? hintText,
+      Widget? suffixIcon,
+      bool? obscureText}) {
+    return Padding(
+      padding: const EdgeInsets.only(
+          top: 20.0, bottom: 0.0, left: 25.0, right: 25.0),
+      child: TextFormField(
+        onSaved: onSaved,
+        validator: validator,
+        obscureText: obscureText!,
+        // controller: loginEmailController,
+        keyboardType: keyboardType,
+        style: const TextStyle(fontSize: 16.0, color: Colors.black),
+        decoration: InputDecoration(
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          hintText: hintText,
+          hintStyle: TextStyle(fontSize: 17.0),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     focusNodeEmail.dispose();
@@ -65,15 +92,13 @@ class _SignInState extends State<SignIn> {
                       key: _formkey,
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20.0,
-                                bottom: 0.0,
-                                left: 25.0,
-                                right: 25.0),
-                            child: TextFormField(
+                          signinform(
+                              hintText: 'Email Address',
+                              keyboardType: TextInputType.emailAddress,
                               onSaved: (newValue) {
-                                email = newValue;
+                                setState(() {
+                                  email = newValue;
+                                });
                               },
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -82,65 +107,44 @@ class _SignInState extends State<SignIn> {
                                   return "Enter your Valid Email Address";
                                 }
                               },
-                              focusNode: focusNodeEmail,
-                              controller: loginEmailController,
-                              keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(
-                                  fontSize: 16.0, color: Colors.black),
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.envelope,
-                                  color: Colors.black,
-                                  size: 22.0,
-                                ),
-                                hintText: 'Email Address',
-                                hintStyle: TextStyle(fontSize: 17.0),
+                              prefixIcon: const Icon(
+                                FontAwesomeIcons.envelope,
+                                color: Colors.black,
+                                size: 22.0,
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20.0,
-                                bottom: 0.0,
-                                left: 25.0,
-                                right: 25.0),
-                            child: TextFormField(
-                              onSaved: (newValue) {
+                              suffixIcon: null,
+                              obscureText: false),
+                          signinform(
+                            hintText: 'Password',
+                            keyboardType: TextInputType.text,
+                            onSaved: (newValue) {
+                              setState(() {
                                 password = newValue;
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Enter your password";
-                                } else if (value.length < 6) {
-                                  return "Enter minimam 6 digit password";
-                                }
-                              },
-                              focusNode: focusNodePassword,
-                              controller: loginPasswordController,
-                              obscureText: _obscureTextPassword,
-                              style: const TextStyle(
-                                  fontSize: 16.0, color: Colors.black),
-                              decoration: InputDecoration(
-                                prefixIcon: const Icon(
-                                  FontAwesomeIcons.lock,
-                                  size: 22.0,
-                                  color: Colors.black,
-                                ),
-                                hintText: 'Password',
-                                hintStyle: const TextStyle(fontSize: 17.0),
-                                suffixIcon: GestureDetector(
-                                  onTap: _toggleLogin,
-                                  child: Icon(
-                                    _obscureTextPassword
-                                        ? FontAwesomeIcons.eye
-                                        : FontAwesomeIcons.eyeSlash,
-                                    size: 15.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              textInputAction: TextInputAction.go,
+                              });
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter your password";
+                              } else if (value.length < 6) {
+                                return "Enter minimam 6 digit password";
+                              }
+                            },
+                            prefixIcon: const Icon(
+                              FontAwesomeIcons.lock,
+                              size: 22.0,
+                              color: Colors.black,
                             ),
+                            suffixIcon: GestureDetector(
+                              onTap: _toggleLogin,
+                              child: Icon(
+                                _obscureTextPassword
+                                    ? FontAwesomeIcons.eye
+                                    : FontAwesomeIcons.eyeSlash,
+                                size: 15.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                            obscureText: _obscureTextPassword,
                           ),
                         ],
                       ),
@@ -148,35 +152,15 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 180.0),
+                  margin: EdgeInsets.only(top: signin.loading ? 160.0 : 180.0),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: Color(0xFFD6D6D6),
-                        offset: Offset(1.0, 6.0),
-                        blurRadius: 20.0,
-                      ),
-                      BoxShadow(
-                        color: Color(0xFF4153F7),
-                        offset: Offset(1.0, 6.0),
-                        blurRadius: 20.0,
-                      ),
-                    ],
-                    gradient: LinearGradient(
-                        colors: <Color>[Color(0xFFD6D6D6), Color(0xFF4144F7)],
-                        begin: FractionalOffset(0.2, 0.2),
-                        end: FractionalOffset(1.0, 1.0),
-                        stops: <double>[0.0, 1.0],
-                        tileMode: TileMode.clamp),
                   ),
                   child: signin.loading
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
                       : ElevatedButton(
-                          // highlightColor: Colors.transparent,
-                          // splashColor: const Color(0xFFf7418c),
                           onPressed: () {
                             validationchack(context);
                           },
@@ -185,15 +169,35 @@ class _SignInState extends State<SignIn> {
                                 vertical: 10.0, horizontal: 42.0),
                             child: Text(
                               'Login',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25.0,
-                              ),
+                              style: TextStyle(fontSize: 20),
                             ),
-                          ),
-                          // onPressed: () => CustomSnackBar(
-                          //     context, const Text('Login button pressed')),
-                        ),
+                          )),
+                  // child: ElevatedButton(
+                  //   onPressed: () {
+                  //     validationchack(context);
+                  //   },
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.symmetric(
+                  //         vertical: 10.0, horizontal: 42.0),
+                  //     child: signin.loading
+                  //         ? Container(
+                  //             height: MediaQuery.of(context).size.height * 0.04,
+                  //             width: 50,
+                  //             child: const Center(
+                  //               child: CircularProgressIndicator(),
+                  //             ),
+                  //           )
+                  //         : const Text(
+                  //             'Login',
+                  //             style: TextStyle(
+                  //               color: Colors.white,
+                  //               fontSize: 25.0,
+                  //             ),
+                  //           ),
+                  //   ),
+                  //   // onPressed: () => CustomSnackBar(
+                  //   //     context, const Text('Login button pressed')),
+                  // ),
                 )
               ],
             ),

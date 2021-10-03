@@ -32,14 +32,14 @@ class _NewProfilePAgeState extends State<NewProfilePAge> {
           children: [
             Stack(
               children: [
-                Container(
+                SizedBox(
                   height: 250,
                   width: double.infinity,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Container(
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
                         height: MediaQuery.of(context).size.height * 0.25,
                         width: double.infinity,
                         child: Card(
@@ -51,8 +51,8 @@ class _NewProfilePAgeState extends State<NewProfilePAge> {
                             children: [
                               Container(
                                 alignment: Alignment.centerLeft,
-                                margin: EdgeInsets.only(top: 50),
-                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                margin: const EdgeInsets.only(top: 50),
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
                                   "Tanvir Mhamud Shakil",
                                   style: GoogleFonts.roboto(
@@ -85,12 +85,12 @@ class _NewProfilePAgeState extends State<NewProfilePAge> {
                                           pageController!.animateToPage(
                                               selectiteam,
                                               duration:
-                                                  Duration(milliseconds: 300),
+                                                  const Duration(milliseconds: 300),
                                               curve: Curves.easeInOutCubic);
                                         });
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.all(15),
+                                        padding: const EdgeInsets.all(15),
                                         child: const Text('Summay'),
                                         decoration: BoxDecoration(
                                             border: Border(
@@ -108,12 +108,12 @@ class _NewProfilePAgeState extends State<NewProfilePAge> {
                                           pageController!.animateToPage(
                                               selectiteam,
                                               duration:
-                                                  Duration(milliseconds: 300),
+                                                  const Duration(milliseconds: 300),
                                               curve: Curves.easeInOutCubic);
                                         });
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.all(15),
+                                        padding: const EdgeInsets.all(15),
                                         child: const Text('Subscription'),
                                         decoration: BoxDecoration(
                                             border: Border(
@@ -131,12 +131,12 @@ class _NewProfilePAgeState extends State<NewProfilePAge> {
                                           pageController!.animateToPage(
                                               selectiteam,
                                               duration:
-                                                  Duration(milliseconds: 300),
+                                                  const Duration(milliseconds: 300),
                                               curve: Curves.easeInOutCubic);
                                         });
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.all(15),
+                                        padding: const EdgeInsets.all(15),
                                         child: const Text('Product purchase'),
                                         decoration: BoxDecoration(
                                             border: Border(
@@ -168,24 +168,22 @@ class _NewProfilePAgeState extends State<NewProfilePAge> {
               ],
             ),
             Flexible(
-              child: Container(
-                child: PageView(
-                  controller: pageController,
-                  onPageChanged: (value) {
-                    setState(() {
-                      selectiteam = value;
-                    });
-                  },
-                  children: [
-                    SubscriptionWidgetPage(),
-                    Container(
-                      color: Colors.red,
-                    ),
-                    Container(
-                      color: Colors.yellow,
-                    )
-                  ],
-                ),
+              child: PageView(
+                controller: pageController,
+                onPageChanged: (value) {
+                  setState(() {
+                    selectiteam = value;
+                  });
+                },
+                children: [
+                  const SubscriptionWidgetPage(),
+                  Container(
+                    color: Colors.red,
+                  ),
+                  Container(
+                    color: Colors.yellow,
+                  )
+                ],
               ),
             )
           ],
