@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ import 'package:voltagelab/Notification/OneSignal/navigatorstate_onesignal.dart'
     as onesignal;
 
 Future<void> main() async {
+  configLoading();
   onesignal.appnavigator = GlobalKey<NavigatorState>();
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
@@ -45,6 +47,22 @@ Future<void> main() async {
   ));
 }
 
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.threeBounce
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.black
+    ..backgroundColor = Colors.transparent
+    ..indicatorColor = Colors.red
+    ..textColor = Colors.black
+    ..maskColor = Colors.black.withOpacity(0.7)
+    ..userInteractions = true
+    ..dismissOnTap = false;
+}
+
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   MyApp({
@@ -56,12 +74,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(brightness: Brightness.light),
-        debugShowCheckedModeBanner: false,
-        navigatorKey: onesignal.appnavigator,
-        home: box.get('email') != '' && box.get('types') == '2'
-            ? const HomePage()
-            : const HomePage2());
+      theme: ThemeData(brightness: Brightness.light),
+      debugShowCheckedModeBanner: false,
+      navigatorKey: onesignal.appnavigator,
+      home: box.get('email') != '' && box.get('types') == '2'
+          ? const HomePage()
+          : const HomePage2(),
+      builder: EasyLoading.init(),
+    );
   }
 }
 

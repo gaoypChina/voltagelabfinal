@@ -230,6 +230,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.0"
+  flutter_easyloading:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: b855ec43e751a0b5ef8303cb3b435d8349d1a120
+      url: "https://github.com/tanvirmhamud/flutter_easyloading"
+    source: git
+    version: "3.0.4"
   flutter_facebook_auth:
     dependency: "direct main"
     description:
@@ -300,6 +309,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.1"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -393,7 +409,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.7"
+    version: "3.0.8"
   intl:
     dependency: transitive
     description:

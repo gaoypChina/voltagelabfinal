@@ -7,6 +7,8 @@ import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -36,6 +38,7 @@ class SignInProvider extends ChangeNotifier {
       if (await userinfoverify(user!.email, 1) == false &&
           await userinfoverify(user!.email, 2) == false) {
         if (await userinfoverify(user!.email, 0) == false) {
+          EasyLoading.show(status: 'loading...');
           await insertuserdata(user!.displayName!, user!.email, "",
               user!.photoUrl, user!.id, 0, context);
           singleuserdatabyemail(user!.email);
@@ -48,6 +51,7 @@ class SignInProvider extends ChangeNotifier {
 
           notifyListeners();
         } else {
+          EasyLoading.show(status: 'loading...');
           singleuserdatabyemail(user!.email);
           final googleAuth = await googleUser.authentication;
           final credential = GoogleAuthProvider.credential(
@@ -82,9 +86,20 @@ class SignInProvider extends ChangeNotifier {
 
   Future fromregistation(
       String _fullname, _email, _password, BuildContext context) async {
-    loading = true;
+    EasyLoading.show(
+        maskType: EasyLoadingMaskType.custom,
+        indicator: SpinKitThreeBounce(
+          size: 30,
+          itemBuilder: (context, index) {
+            return DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: index.isEven ? Colors.red : Colors.green));
+          },
+        ));
     //type = 2 is from registation
-    if (await userinfoverify(_email, 0) == false && await userinfoverify(_email, 2) == false) {
+    if (await userinfoverify(_email, 0) == false &&
+        await userinfoverify(_email, 2) == false) {
       gmailotpsend(_email);
       snakbar(context, "email send");
       Navigator.push(
@@ -97,13 +112,13 @@ class SignInProvider extends ChangeNotifier {
           ),
         ),
       );
-      loading = false;
+
+      EasyLoading.dismiss();
       notifyListeners();
     } else {
-      loading = false;
+      EasyLoading.dismiss();
       snakbar(context, "This email already use");
     }
-
     notifyListeners();
   }
 
@@ -153,13 +168,27 @@ class SignInProvider extends ChangeNotifier {
 
   Future gmailotpverify(String _fullname, _email, _password, String otp,
       BuildContext context) async {
+    EasyLoading.show(
+        maskType: EasyLoadingMaskType.custom,
+        indicator: SpinKitThreeBounce(
+          size: 30,
+          itemBuilder: (context, index) {
+            return DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: index.isEven ? Colors.red : Colors.green));
+          },
+        ));
     var box = Hive.box('verificationnumber');
-    // bool result = emailAuth!.validateOtp(recipientMail: _email, userOtp: otp);
     if (otp == box.get('verify').toString() &&
         _email == box.get('verifyemail')) {
       await insertuserdata(_fullname, _email, _password, "", "", 2, context);
+
+      EasyLoading.dismiss();
     } else {
       snakbar(context, 'Otp verification failed');
+
+      EasyLoading.dismiss();
     }
   }
 
@@ -202,7 +231,17 @@ class SignInProvider extends ChangeNotifier {
 
   Future<Userinformation?> fromlogin(
       String _email, _password, BuildContext context) async {
-    loading = true;
+    EasyLoading.show(
+        maskType: EasyLoadingMaskType.custom,
+        indicator: SpinKitThreeBounce(
+          size: 30,
+          itemBuilder: (context, index) {
+            return DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: index.isEven ? Colors.red : Colors.green));
+          },
+        ));
     String url =
         "http://api.voltagelab.com/vl-app/getuserdatabyemailandpassword.php?email=$_email&passwords=$_password";
     var response = await http.get(Uri.parse(url));
@@ -215,12 +254,13 @@ class SignInProvider extends ChangeNotifier {
           userinformation!.photoUrl,
           userinformation!.accountId,
           userinformation!.types);
-      loading = false;
+
+      EasyLoading.dismiss();
       snakbar(context, 'Login Successfull');
       redirectpage(context);
       notifyListeners();
     } else {
-      loading = false;
+      EasyLoading.dismiss();
       snakbar(context, "Account Not Found");
       notifyListeners();
     }

@@ -62,10 +62,9 @@ class _SignInState extends State<SignIn> {
   }
 
   @override
-  void dispose() {
-    focusNodeEmail.dispose();
-    focusNodePassword.dispose();
-    super.dispose();
+  void initState() {
+    
+    super.initState();
   }
 
   @override
@@ -152,16 +151,12 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: signin.loading ? 160.0 : 180.0),
+                  margin: const EdgeInsets.only(top: 180.0),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
-                  child: signin.loading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ElevatedButton(
-                          onPressed: () {
+                  child: ElevatedButton(
+                          onPressed: () {                            
                             validationchack(context);
                           },
                           child: const Padding(
