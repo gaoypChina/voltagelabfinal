@@ -22,7 +22,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
     final from = _formkey.currentState;
     if (from!.validate()) {
       from.save();
-      signin.userpassswordupdate(widget.email, 2, confirmpassword!, context);
+      signin.userpassswordupdate(widget.email, confirmpassword!, context);
     }
   }
 

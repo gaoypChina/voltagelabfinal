@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
@@ -21,18 +23,31 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
     final from = _formkey.currentState;
     if (from!.validate()) {
       from.save();
-      await signin.userinfoverify(email!, 2).then((value) {
+      EasyLoading.show(
+          maskType: EasyLoadingMaskType.custom,
+          indicator: SpinKitThreeBounce(
+            size: 30,
+            itemBuilder: (context, index) {
+              return DecoratedBox(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: index.isEven ? Colors.red : Colors.green));
+            },
+          ));
+      await signin.fromgetlogindatabyemail(email!).then((value) {
         if (value == true) {
           signin.gmailotpsend(email!);
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Recovery Email Send')));
+              const SnackBar(content: Text('Recovery Code Send')));
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => RecoveryCodeSendPAge(email: email!)));
+          EasyLoading.dismiss();
         } else {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text('Email Not Found')));
+          EasyLoading.dismiss();
         }
       });
     }

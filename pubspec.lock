@@ -235,7 +235,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b855ec43e751a0b5ef8303cb3b435d8349d1a120
+      resolved-ref: "59306ea5f7080b258457c0dd334c6253aeb0cbe8"
       url: "https://github.com/tanvirmhamud/flutter_easyloading"
     source: git
     version: "3.0.4"

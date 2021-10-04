@@ -16,7 +16,8 @@ class Userinformation {
         this.passwords,
         this.photoUrl,
         this.accountId,
-        required this.types,
+        required this.type
+
     });
 
     String id;
@@ -25,7 +26,8 @@ class Userinformation {
     String? passwords;
     String? photoUrl;
     String? accountId;
-    String types;
+    String type;
+
 
     factory Userinformation.fromJson(Map<String, dynamic> json) => Userinformation(
         id: json["id"],
@@ -34,7 +36,8 @@ class Userinformation {
         passwords: json["passwords"],
         photoUrl: json["photo_url"],
         accountId: json["account_id"],
-        types: json["types"],
+        type: json["type"]
+
     );
 
     Map<String, dynamic> toJson() => {
@@ -44,6 +47,7 @@ class Userinformation {
         "passwords": passwords,
         "photo_url": photoUrl,
         "account_id": accountId,
-        "types": types,
+        "type" : type
+
     };
 }

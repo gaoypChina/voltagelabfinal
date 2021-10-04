@@ -21,6 +21,9 @@ import 'package:voltagelab/pages/homepage.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 
 class SignInProvider extends ChangeNotifier {
+  String apitoken =
+      "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
+
   final googlesignin = GoogleSignIn();
   EmailAuth? emailAuth;
   GoogleSignInAccount? user;
@@ -35,35 +38,54 @@ class SignInProvider extends ChangeNotifier {
       user = googleUser;
       //type = 0 is google
 
-      if (await userinfoverify(user!.email, 1) == false &&
-          await userinfoverify(user!.email, 2) == false) {
-        if (await userinfoverify(user!.email, 0) == false) {
-          EasyLoading.show(status: 'loading...');
-          await insertuserdata(user!.displayName!, user!.email, "",
-              user!.photoUrl, user!.id, 0, context);
-          singleuserdatabyemail(user!.email);
+      if (await userinfoverify(user!.email) == false) {
+        // if (await userinfoverify(user!.email, 0) == false) {
+        //   EasyLoading.show(status: 'loading...');
+        //   await insertuserdata(user!.displayName!, user!.email, "",
+        //       user!.photoUrl, user!.id, 0, context);
+        //   singleuserdatabyemail(user!.email);
+        //   final googleAuth = await googleUser.authentication;
+        //   final credential = GoogleAuthProvider.credential(
+        //     accessToken: googleAuth.accessToken,
+        //     idToken: googleAuth.idToken,
+        //   );
+        //   await FirebaseAuth.instance.signInWithCredential(credential);
+        //
+        //   notifyListeners();
+        // } else {
+        //   EasyLoading.show(status: 'loading...');
+        //   singleuserdatabyemail(user!.email);
+        //   final googleAuth = await googleUser.authentication;
+        //   final credential = GoogleAuthProvider.credential(
+        //     accessToken: googleAuth.accessToken,
+        //     idToken: googleAuth.idToken,
+        //   );
+        //   await FirebaseAuth.instance.signInWithCredential(credential);
+        //   notifyListeners();
+        // }
+        await googlelogininsertdata(user!.displayName!, user!.email,
+            user!.photoUrl, user!.id, "0", context);
+        await googlelogindatabyemail(user!.email);
+        final googleAuth = await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        notifyListeners();
+      } else {
+        if (await googlelogindatabyemail(user!.email) == true) {
           final googleAuth = await googleUser.authentication;
           final credential = GoogleAuthProvider.credential(
             accessToken: googleAuth.accessToken,
             idToken: googleAuth.idToken,
           );
           await FirebaseAuth.instance.signInWithCredential(credential);
-
           notifyListeners();
         } else {
-          EasyLoading.show(status: 'loading...');
-          singleuserdatabyemail(user!.email);
-          final googleAuth = await googleUser.authentication;
-          final credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth.accessToken,
-            idToken: googleAuth.idToken,
-          );
-          await FirebaseAuth.instance.signInWithCredential(credential);
+          snakbar(context, 'Email already use');
           notifyListeners();
         }
-      } else {
-        snakbar(context, 'Email already use');
-        notifyListeners();
       }
     }
     notifyListeners();
@@ -71,14 +93,14 @@ class SignInProvider extends ChangeNotifier {
 
   Future logout(BuildContext context) async {
     var box = Hive.box("userdata");
-    if (box.get('types') == "0") {
+    if (box.get('type') == "0") {
       await googlesignin.disconnect();
       FirebaseAuth.instance.signOut();
       box.clear();
     } else {
       box.clear();
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const HomePage2()));
     }
 
     notifyListeners();
@@ -98,8 +120,7 @@ class SignInProvider extends ChangeNotifier {
           },
         ));
     //type = 2 is from registation
-    if (await userinfoverify(_email, 0) == false &&
-        await userinfoverify(_email, 2) == false) {
+    if (await userinfoverify(_email) == false) {
       gmailotpsend(_email);
       snakbar(context, "email send");
       Navigator.push(
@@ -182,52 +203,100 @@ class SignInProvider extends ChangeNotifier {
     var box = Hive.box('verificationnumber');
     if (otp == box.get('verify').toString() &&
         _email == box.get('verifyemail')) {
-      await insertuserdata(_fullname, _email, _password, "", "", 2, context);
-
+      // await insertuserdata(_fullname, _email, _password, "", "", 2, context);
+      await fromlogininsertdata(_fullname, _email, _password, "2", context);
       EasyLoading.dismiss();
     } else {
       snakbar(context, 'Otp verification failed');
-
       EasyLoading.dismiss();
     }
   }
 
-  Future recoveryotpverify(String _email, String otp) async {
-    bool result = emailAuth!.validateOtp(recipientMail: _email, userOtp: otp);
-    return result;
+  Future<bool> recoveryotpverify(String _email, String otp) async {
+    var box = Hive.box('verificationnumber');
+    if (otp == box.get('verify').toString() &&
+        _email == box.get('verifyemail')) {
+      return true;
+    } else {
+      return false;
+    }
+    // bool result = emailAuth!.validateOtp(recipientMail: _email, userOtp: otp);
   }
 
-  Future insertuserdata(String _fullname, _email, _password, _photourl,
-      _accountid, int _types, BuildContext context) async {
-    // type = 2 is from
-    String url = "http://api.voltagelab.com/vl-app/user_input_data.php";
+  Future fromlogininsertdata(
+      String _fullname, _email, _password, _type, BuildContext context) async {
+    String url =
+        "http://api.voltagelab.com/vl-app/form_login/from_login_user_input_data.php?api_token=$apitoken";
     var response = await http.post(Uri.parse(url),
         body: jsonEncode({
           "full_name": _fullname,
           "email": _email,
           "passwords": _password,
+          "type": _type
+        }));
+    if (response.statusCode == 200) {
+      print('data upload successfull');
+      userinfosave(_fullname, _email, "", "", _type);
+      snakbar(context, 'Registation Successfull');
+      redirectpage(context);
+    } else {
+      print('this email allready use');
+      snakbar(context, 'This email already use');
+      notifyListeners();
+    }
+  }
+
+  Future googlelogininsertdata(String _fullname, _email, _photourl, _accountid,
+      _type, BuildContext context) async {
+    String url =
+        "http://api.voltagelab.com/vl-app/google_login/google_login_userinputdata.php?api_token=$apitoken";
+    var response = await http.post(Uri.parse(url),
+        body: jsonEncode({
+          "full_name": _fullname,
+          "email": _email,
           "photo_url": _photourl,
           "account_id": _accountid,
-          "types": _types
+          "type": _type
         }));
-
     if (response.statusCode == 200) {
-      if (_types == 0) {
-        print("Google login successfull");
-      } else if (_types == 1) {
-        print("Facebook login successfull");
-      } else {
-        userinfosave(_fullname, _email, "", "", "2");
-        snakbar(context, 'Registation Successfull');
-        redirectpage(context);
-
-        notifyListeners();
-      }
+      print('google data upload successfull');
     } else {
       snakbar(context, 'This email already use');
       notifyListeners();
     }
   }
+
+  // Future insertuserdata(String _fullname, _email, _password, _photourl,
+  //     _accountid, int _types, BuildContext context) async {
+  //   // type = 2 is from
+  //   String url = "http://api.voltagelab.com/vl-app/user_input_data.php";
+  //   var response = await http.post(Uri.parse(url),
+  //       body: jsonEncode({
+  //         "full_name": _fullname,
+  //         "email": _email,
+  //         "passwords": _password,
+  //         "photo_url": _photourl,
+  //         "account_id": _accountid,
+  //         "types": _types
+  //       }));
+  //
+  //   if (response.statusCode == 200) {
+  //     if (_types == 0) {
+  //       print("Google login successfull");
+  //     } else if (_types == 1) {
+  //       print("Facebook login successfull");
+  //     } else {
+  //       userinfosave(_fullname, _email, "", "", "2");
+  //       snakbar(context, 'Registation Successfull');
+  //       redirectpage(context);
+  //
+  //       notifyListeners();
+  //     }
+  //   } else {
+  //     snakbar(context, 'This email already use');
+  //     notifyListeners();
+  //   }
+  // }
 
   Future<Userinformation?> fromlogin(
       String _email, _password, BuildContext context) async {
@@ -243,18 +312,13 @@ class SignInProvider extends ChangeNotifier {
           },
         ));
     String url =
-        "http://api.voltagelab.com/vl-app/getuserdatabyemailandpassword.php?email=$_email&passwords=$_password";
+        "http://api.voltagelab.com/vl-app/form_login/from_login_email_password.php?api_token=$apitoken&email=$_email&passwords=$_password";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
       userinformation = userinformationFromJson(jsondata);
-      userinfosave(
-          userinformation!.fullName,
-          userinformation!.email,
-          userinformation!.photoUrl,
-          userinformation!.accountId,
-          userinformation!.types);
-
+      userinfosave(userinformation!.fullName, userinformation!.email, "", "",
+          userinformation!.type);
       EasyLoading.dismiss();
       snakbar(context, 'Login Successfull');
       redirectpage(context);
@@ -266,9 +330,9 @@ class SignInProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> userinfoverify(String _email, int _type) async {
+  Future<bool> userinfoverify(String _email) async {
     String url =
-        "http://api.voltagelab.com/vl-app/userinfoverify.php?email=${_email}&types=${_type}";
+        "http://api.voltagelab.com/vl-app/information_verify/userinfoverify.php?api_token=$apitoken&email=$_email";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       return true;
@@ -277,9 +341,20 @@ class SignInProvider extends ChangeNotifier {
     }
   }
 
-  Future<Userinformation?> singleuserdatabyemail(String email) async {
+  Future<bool?> fromgetlogindatabyemail(String _email) async {
     String url =
-        "http://api.voltagelab.com/vl-app/getuserdatabyemail.php?email=${email}";
+        "http://api.voltagelab.com/vl-app/form_login/get_fromdata_get_by_email.php?api_token=$apitoken&email=$_email";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool?> googlelogindatabyemail(String email) async {
+    String url =
+        "http://api.voltagelab.com/vl-app/google_login/google_single_data_by_email.php?api_token=$apitoken&email=$email";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       userinformation = userinformationFromJson(response.body);
@@ -288,9 +363,11 @@ class SignInProvider extends ChangeNotifier {
           userinformation!.email,
           userinformation!.photoUrl,
           userinformation!.accountId,
-          userinformation!.types);
+          userinformation!.type);
       notifyListeners();
-      return userinformation;
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -306,20 +383,31 @@ class SignInProvider extends ChangeNotifier {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 
-  void userinfosave(String name, email, photourl, accountid, types) {
+  void userinfosave(String name, email, photourl, accountid, type) {
     var box = Hive.box('userdata');
     box.put('name', name);
     box.put('email', email);
     box.put('photo', photourl);
     box.put('id', accountid);
-    box.put('types', types);
+    box.put('type', type);
     notifyListeners();
   }
 
-  Future userpassswordupdate(String _email, int _types, String _newpassword,
-      BuildContext context) async {
+  Future userpassswordupdate(
+      String _email, String _newpassword, BuildContext context) async {
+    EasyLoading.show(
+        maskType: EasyLoadingMaskType.custom,
+        indicator: SpinKitThreeBounce(
+          size: 30,
+          itemBuilder: (context, index) {
+            return DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: index.isEven ? Colors.red : Colors.green));
+          },
+        ));
     String url =
-        "http://api.voltagelab.com/vl-app/updatepasswordbyemail.php?email=${_email}&types=${_types}";
+        "http://api.voltagelab.com/vl-app/form_login/updatepasswordbyemail.php?api_token=$apitoken&email=$_email";
     var response = await http.post(
       Uri.parse(url),
       body: jsonEncode(
@@ -333,10 +421,12 @@ class SignInProvider extends ChangeNotifier {
           MaterialPageRoute(
             builder: (context) => const HomePage2(),
           ));
+      EasyLoading.dismiss();
       notifyListeners();
       return true;
     } else {
       snakbar(context, 'Your Password not upate. Please try again');
+      EasyLoading.dismiss();
       notifyListeners();
       return false;
     }

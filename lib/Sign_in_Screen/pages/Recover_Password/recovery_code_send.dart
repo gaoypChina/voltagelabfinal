@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +24,17 @@ class _RecoveryCodeSendPAgeState extends State<RecoveryCodeSendPAge> {
     final from = _formkey.currentState;
     if (from!.validate()) {
       from.save();
+      EasyLoading.show(
+          maskType: EasyLoadingMaskType.custom,
+          indicator: SpinKitThreeBounce(
+            size: 30,
+            itemBuilder: (context, index) {
+              return DecoratedBox(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: index.isEven ? Colors.red : Colors.green));
+            },
+          ));
       signin.recoveryotpverify(widget.email, otp!).then((value) {
         if (value == true) {
           Navigator.push(
@@ -29,9 +42,11 @@ class _RecoveryCodeSendPAgeState extends State<RecoveryCodeSendPAge> {
               MaterialPageRoute(
                 builder: (context) => NewPasswordPage(email: widget.email),
               ));
+          EasyLoading.dismiss();
         } else {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Wrong Code")));
+          EasyLoading.dismiss();
         }
       });
     }

@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
       navigatorKey: onesignal.appnavigator,
-      home: box.get('email') != '' && box.get('types') == '2'
+      home: box.get('email') != '' && box.get('type') == '2'
           ? const HomePage()
           : const HomePage2(),
       builder: EasyLoading.init(),
