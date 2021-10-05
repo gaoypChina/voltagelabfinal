@@ -27,29 +27,29 @@ class _DrawerPageState extends State<DrawerPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            margin: const EdgeInsets.only(left: 10, right: 10),
-            color: Colors.grey[300],
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const VoltagelabBookMarkCategoryPage(),
-                      ));
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(10),
-                  width: double.infinity,
-                  child: const Text("Bookmark"),
-                ),
-              ),
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.only(left: 10, right: 10),
+          //   color: Colors.grey[300],
+          //   child: Material(
+          //     color: Colors.transparent,
+          //     child: InkWell(
+          //       onTap: () {
+          //         Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) =>
+          //                   const VoltagelabBookMarkCategoryPage(),
+          //             ));
+          //       },
+          //       child: Container(
+          //         alignment: Alignment.center,
+          //         padding: const EdgeInsets.all(10),
+          //         width: double.infinity,
+          //         child: const Text("Bookmark"),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(
             height: 10,
           ),
