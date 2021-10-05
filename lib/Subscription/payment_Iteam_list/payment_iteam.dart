@@ -32,6 +32,7 @@ class _PaymentListPageState extends State<PaymentListPage> {
                   MaterialPageRoute(
                     builder: (context) => PaymentPage(
                       payment_name: 'Bkash',
+                      payment_type: 0,
                       package_price: widget.package_price,
                       subscription_pack_name: widget.subscription_pack_name,
                     ),
@@ -49,6 +50,7 @@ class _PaymentListPageState extends State<PaymentListPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => PaymentPage(
+                      payment_type: 1,
                       payment_name: 'Nagad',
                       package_price: widget.package_price,
                       subscription_pack_name: widget.subscription_pack_name,

@@ -57,7 +57,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                   decoration: BoxDecoration(
                     color: payment.subscriptionuserdata == null
                         ? Colors.indigo
-                        : payment.subscriptionuserdata!.status == "approved"
+                        : payment.subscriptionuserdata.any((element) => element.status == "approved")
                             ? Colors.indigo.withOpacity(0.5)
                             : Colors.indigo,
                     borderRadius: BorderRadius.circular(10),
@@ -76,7 +76,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     ),
                                   ));
                             }
-                          : payment.subscriptionuserdata!.status == "approved"
+                          : payment.subscriptionuserdata.any((element) => element.status == "approved")
                               ? null
                               : () {
                                   Navigator.push(

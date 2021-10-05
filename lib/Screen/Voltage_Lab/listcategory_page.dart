@@ -49,7 +49,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
               IconButton(
                   onPressed: () {
                     box.clear();
-                    
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -58,7 +58,8 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                         ));
                   },
                   icon: Badge(
-                      badgeContent: Text(post.voltagelabsavepostbadge.toString()),
+                      badgeContent:
+                          Text(post.voltagelabsavepostbadge.toString()),
                       child: const Icon(Icons.bookmark_outline)))
             ],
           ),
@@ -188,10 +189,11 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                       borderRadius: BorderRadius.circular(40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            height: 80,
-                            width: 80,
+                            // height: 80,
+                            // width: 80,
                             decoration: BoxDecoration(
                               color: color,
                               borderRadius: BorderRadius.circular(100),
@@ -200,7 +202,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                               borderRadius: BorderRadius.circular(100),
                               child: Image.asset(
                                 'images/youtube.png',
-                                height: 10,
+                                height: 80,
                               ),
                             ),
                           ),
@@ -209,6 +211,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                           ),
                           Text(
                             category.category[index].name!,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize: 16,
                                 color: color.withOpacity(1),

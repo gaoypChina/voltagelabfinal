@@ -9,12 +9,15 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/Screen/Polytechnic_bd/Bookmark/bookmarkcategory_page.dart';
 import 'package:voltagelab/Screen/Polytechnic_bd/listcategory_page.dart';
+import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/latestpost_details.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/listcategory_page.dart';
 import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
 import 'package:voltagelab/Stream_data/Subscription_Stream_data/subscription_userdata.dart';
-import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_user_data.dart';
+import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_all_data.dart';
+import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/widget/drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,7 +44,8 @@ class _HomePageState extends State<HomePage> {
       String? name,
       Color? color}) {
     return Container(
-      margin: const EdgeInsets.only(left: 10, right: 5),
+      padding: EdgeInsets.zero,
+      margin: const EdgeInsets.only(left: 10, right: 5, top: 0),
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(40), color: color),
       child: Material(
@@ -85,7 +89,7 @@ class _HomePageState extends State<HomePage> {
       GestureTapCallback? onTap,
       String? name,
       Color? color,
-      Subscriptionuserdata? subscriptionuserdata}) {
+      Subscriptionsingledata? subscriptionsingledata}) {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 5),
       decoration: BoxDecoration(
@@ -125,19 +129,25 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              SizedBox(
-                  height: 50,
-                  child: subscriptionuserdata == null
-                      ? Image.asset(
-                          'images/lock.png',
-                          height: 50,
-                        )
-                      : subscriptionuserdata.status != "approved"
-                          ? Image.asset(
-                              'images/lock.png',
-                              height: 50,
-                            )
-                          : null),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.black.withOpacity(0.5),
+                ),
+              )
+              // SizedBox(
+              //     height: 50,
+              //     child: subscriptionsingledata == null
+              //         ? Image.asset(
+              //             'images/lock.png',
+              //             height: 50,
+              //           )
+              //         : subscriptionsingledata.status != "approved"
+              //             ? Image.asset(
+              //                 'images/lock.png',
+              //                 height: 50,
+              //               )
+              //             : null),
             ],
           ),
         ),
@@ -154,7 +164,8 @@ class _HomePageState extends State<HomePage> {
     Provider.of<CategoryProvider>(context, listen: false)
         .polytechnicbdcategory();
     var box = Hive.box("userdata");
-    Provider.of<PaymentProvider>(context,listen: false).payment_subscription_one_month_userinfo_get(box.get('email'));
+    Provider.of<PaymentProvider>(context, listen: false)
+        .payment_subscription_one_month_userinfo_get(box.get('email'));
     // Provider.of<PaymentProvider>(context, listen: false)
     //     .payment_subscription_one_month_userinfo_get(box.get('email'));
 
@@ -173,28 +184,6 @@ class _HomePageState extends State<HomePage> {
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
-            actions: [
-              // Icon(notification.notificationswetchvalue == true
-              //     ? Icons.notifications_active
-              //     : Icons.notifications_off),
-              // Switch(
-              //   value: notification.notificationswetchvalue,
-              //   onChanged: (value) {
-              //     if (value == true) {
-              //       notification.timepicker(context).then((values) {
-              //         if (values != null) {
-              //           notification.notificionsswetchvalue(value);
-              //           notification.selectedtimenotification();
-              //         }
-              //       });
-              //     } else {
-              //       // notification.cancelnotification().then((values) {
-              //       notification.notificionsswetchvalue(value);
-              //       // });
-              //     }
-              //   },
-              // )
-            ],
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -236,184 +225,224 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.all(15),
-              alignment: Alignment.center,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Latest Post',
-                    style: GoogleFonts.roboto(fontSize: 20),
-                  ),
-                  const Divider()
-                ],
-              ),
-            ),
-          ),
+          // SliverToBoxAdapter(
+          //   child: Container(
+          //     padding: const EdgeInsets.all(15),
+          //     alignment: Alignment.center,
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Text(
+          //           'Latest Post',
+          //           style: GoogleFonts.roboto(fontSize: 20),
+          //         ),
+          //         const Divider()
+          //       ],
+          //     ),
+          //   ),
+          // ),
           SliverToBoxAdapter(
             child: post.voltagelablatestpost.isEmpty
-                ? const SizedBox(
-                    height: 60,
-                    child: Center(
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    child: const Center(
                       child: CupertinoActivityIndicator(),
                     ),
                   )
-                : SizedBox(
+                : Container(
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: CarouselSlider.builder(
                         itemCount: post.voltagelablatestpost.length,
                         itemBuilder: (context, index, realIndex) {
                           var latestpost = post.voltagelablatestpost[index];
-                          return Card(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LatestPostDetails(
-                                              latestpostid: latestpost.id,
-                                              latestposttitle:
-                                                  latestpost.title.rendered,
-                                              latestpostpic: latestpost
-                                                  .yoastHeadJson.ogImage[0].url,
-                                            )));
-                              },
-                              borderRadius: BorderRadius.circular(5),
-                              child: Container(
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.all(10),
-                                child: Text(latestpost.title.rendered),
-                              ),
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LatestPostDetails(
+                                            latestpostid: latestpost.id,
+                                            latestposttitle:
+                                                latestpost.title.rendered,
+                                            latestpostpic: latestpost
+                                                .yoastHeadJson.ogImage[0].url,
+                                          )));
+                            },
+                            borderRadius: BorderRadius.circular(5),
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.all(0),
+                              child: Text(latestpost.title.rendered),
                             ),
                           );
                         },
                         options: CarouselOptions(
                           autoPlay: true,
-                          pageSnapping: true,
-                          aspectRatio: 1.8,
-                          enlargeCenterPage: true,
+                          pageSnapping: false,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          aspectRatio: 0,
                         )),
                   ),
           ),
+
           SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.all(5),
-              child: GridView(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 2 / 2,
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 5),
+                child: GridView(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    // childAspectRatio: 2 / 2,
+                  ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: [
+                    freegridviewtool(
+                      color: Colors.indigo,
+                      imagechild: Image.asset('images/icon.jpg'),
+                      name: "Voltage Lab",
+                      onTap: () {
+                        post.getpostcount();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ListcategoryPage(),
+                            ));
+                      },
+                    ),
+                    freegridviewtool(
+                      color: Colors.orange,
+                      imagechild: Image.asset('images/icon.jpg'),
+                      name: "Polytechnic",
+                      onTap: () {
+                        post.getpolytechnicpostcount();
+                        Provider.of<CategoryProvider>(context, listen: false)
+                            .polytechnicbdcategory();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PolytechnicListcategoryPage(),
+                            ));
+                      },
+                    ),
+                    freegridviewtool(
+                      color: Colors.deepOrange,
+                      imagechild: Image.asset('images/icon.jpg'),
+                      name: "Youtube",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const YoutubePlaylistPage(),
+                            ));
+                      },
+                    ),
+                  ],
                 ),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: [
-                  freegridviewtool(
-                    color: Colors.indigo,
-                    imagechild: Image.asset('images/icon.jpg'),
-                    name: "Voltage Lab",
-                    onTap: () {
-                      post.getpostcount();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ListcategoryPage(),
-                          ));
-                    },
-                  ),
-                  freegridviewtool(
-                    color: Colors.orange,
-                    imagechild: Image.asset('images/icon.jpg'),
-                    name: "Polytechnic",
-                    onTap: () {
-                      post.getpolytechnicpostcount();
-                      Provider.of<CategoryProvider>(context, listen: false)
-                          .polytechnicbdcategory();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const PolytechnicListcategoryPage(),
-                          ));
-                    },
-                  ),
-                  freegridviewtool(
-                    color: Colors.deepOrange,
-                    imagechild: Image.asset('images/icon.jpg'),
-                    name: "Youtube",
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const YoutubePlaylistPage(),
-                          ));
-                    },
-                  ),
-                ],
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  alignment: Alignment.center,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Pro Futures',
-                        style: GoogleFonts.roboto(fontSize: 20),
-                      ),
-                      const Divider(),
-                      StreamBuilder(
-                          stream:
-                              SubscriptionUserStreamdata.streamsubscriptiondata(
-                                  const Duration(seconds: 5), box.get('email')),
-                          builder: (context,
-                              AsyncSnapshot<Subscriptionuserdata?> snapshot) {
 
-                            return GridView(
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 10,
-                                childAspectRatio: 2 / 2,
-                              ),
-                              children: [
-                                progridviewtool(
-                                  color: Colors.indigo,
-                                  imagechild: Image.asset(
-                                    'images/icon.jpg',
-                                    fit: BoxFit.cover,
-                                  ),
-                                  name: 'Voltage Lab',
-                                  onTap: snapshot.data == null
-                                      ? null
-                                      : snapshot.data!.status != "approved"
-                                          ? null
-                                          : () {
-                                              post.getpostcount();
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ListcategoryPage(),
-                                                ),
-                                              );
-                                            },
-                                  subscriptionuserdata: snapshot.data,
+          SliverToBoxAdapter(
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    alignment: Alignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Pro Futures',
+                          style: GoogleFonts.roboto(fontSize: 20),
+                        ),
+                        const Divider(),
+                        StreamBuilder(
+                            stream: SubscriptionUserStreamdata
+                                .streamsubscriptiondata(
+                                    const Duration(seconds: 5),
+                                    box.get('email')),
+                            builder: (context,
+                                AsyncSnapshot<Subscriptionsingledata?>
+                                    snapshot) {
+                              return GridView(
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  // childAspectRatio: 2 / 2,
                                 ),
-                              ],
-                            );
-                          }),
-                    ],
+                                children: [
+                                  progridviewtool(
+                                    color: Colors.indigo,
+                                    imagechild: Image.asset(
+                                      'images/icon.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                    name: 'VoltageLab Bookmark',
+                                    onTap: snapshot.data == null
+                                        ? null
+                                        : snapshot.data!.status != "approved"
+                                            ? null
+                                            : () {
+                                                post.getpostcount();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const VoltagelabBookMarkCategoryPage(),
+                                                  ),
+                                                );
+                                              },
+                                    subscriptionsingledata:
+                                        snapshot.data == null
+                                            ? null
+                                            : snapshot.data!,
+                                  ),
+                                  progridviewtool(
+                                    color: Colors.blueGrey,
+                                    imagechild: Image.asset(
+                                      'images/icon.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                    name: 'Polytechnic Bookmark',
+                                    onTap: snapshot.data == null
+                                        ? null
+                                        : snapshot.data!.status != "approved"
+                                            ? null
+                                            : () {
+                                                post.getpostcount();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const PolytechnicBookMarkCategoryPage(),
+                                                  ),
+                                                );
+                                              },
+                                    subscriptionsingledata:
+                                        snapshot.data == null
+                                            ? null
+                                            : snapshot.data!,
+                                  )
+                                ],
+                              );
+                            }),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

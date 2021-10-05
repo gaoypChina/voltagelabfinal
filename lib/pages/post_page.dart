@@ -57,7 +57,13 @@ class _PostPageState extends State<PostPage> {
     final post = Provider.of<Postprovider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.categoryname),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: Text(
+          widget.categoryname,
+          style: const TextStyle(color: Colors.black),
+        ),
       ),
       body: post.isloading
           ? const Center(
@@ -106,7 +112,8 @@ class _PostPageState extends State<PostPage> {
                         onTap: () {
                           print(post.postdata[index].id);
                           Provider.of<Postprovider>(context, listen: false)
-                              .getpostdetails(post.postdata[index].id, widget.sitename);
+                              .getpostdetails(
+                                  post.postdata[index].id, widget.sitename);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -121,7 +128,6 @@ class _PostPageState extends State<PostPage> {
                         },
                         child: Row(
                           children: [
-                           
                             Flexible(
                               child: SizedBox(
                                 height: 120.0,

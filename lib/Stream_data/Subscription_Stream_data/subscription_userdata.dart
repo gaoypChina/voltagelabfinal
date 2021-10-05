@@ -3,11 +3,13 @@
 import 'dart:convert';
 
 import 'package:voltagelab/model/Orginal_Date_time_model/date_time.dart';
-import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_user_data.dart';
+import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_all_data.dart';
 import 'package:http/http.dart' as http;
+import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 
 class SubscriptionUserStreamdata {
-  static Stream<Subscriptionuserdata?> streamsubscriptiondata(
+
+  static Stream<Subscriptionsingledata?> streamsubscriptiondata(
       Duration refreshTime, String email) async* {
     while (true) {
       await Future.delayed(refreshTime);
@@ -15,37 +17,30 @@ class SubscriptionUserStreamdata {
     }
   }
 
-  static Future<Subscriptionuserdata?> payment_user_info_get(
+  static Future<Subscriptionsingledata?> payment_user_info_get(
       String email) async {
-    String url =
-        "https://amrkotha.org/user_data_get.php?api_token=bdsvkjsbdvjkhbszdkhjvbxznmbcvsjdfbvjshdbvjkhsxbvdjkhsdvjkshgjkgbvdsajfvbjdsahvbds&email=$email";
+    String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
+    String url = "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=approved";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
       var data = jsonDecode(jsondata);
-      subscriptiondate_end(data);
-      return subscriptionuserdataFromJson(response.body);
+      subscriptiondate_end(data, email);
+      return subscriptionsingledataFromJson(jsondata);
     } else {
       print('User Not found');
     }
   }
 
-  static Future subscriptiondate_end(data) async {
+  static Future subscriptiondate_end(data, String email) async {
+    String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
     var orginalDatetime = await get_today_datetime();
-    // String orginaldate =
-    //     "${orginalDatetime!.datetime!.month}-${orginalDatetime.datetime!.day}-${orginalDatetime.datetime!.year}";
-    print(orginalDatetime!.datetime);
-    print(data['end_date']);
-    print(DateTime.parse(data['end_date'])
-        .difference(orginalDatetime.datetime!)
-        .inDays
-        .toString());
 
     String url =
-        "https://amrkotha.org/update_user_data.php?api_token=bdsvkjsbdvjkhbszdkhjvbxznmbcvsjdfbvjshdbvjkhsxbvdjkhsdvjkshgjkgbvdsajfvbjdsahvbds&email=${data['email']}&types=${data['types']}";
+        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/one_month_subs/update_subs_data.php?api_token=$api_token&email=$email&status=approved";
 
     if (DateTime.parse(data['end_date'])
-            .difference(orginalDatetime.datetime!)
+            .difference(orginalDatetime!.datetime!)
             .inDays ==
         0) {
       var response = await http.post(Uri.parse(url),

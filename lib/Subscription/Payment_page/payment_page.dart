@@ -8,11 +8,12 @@ class PaymentPage extends StatefulWidget {
   final String payment_name;
   final int package_price;
   final String subscription_pack_name;
+  final int payment_type;
   const PaymentPage(
       {Key? key,
       required this.payment_name,
       required this.package_price,
-      required this.subscription_pack_name})
+      required this.subscription_pack_name, required this.payment_type})
       : super(key: key);
 
   @override
@@ -21,9 +22,8 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   final _formkey = GlobalKey<FormState>();
-  String? bkash_nuumber = "", bkash_transaction_Id = "";
-  String? nagat_number = "", nagat_transaction_Id = "";
-  String? rocket_number = "", rocket_transaction_Id = "";
+  String? phone_number = "", transaction_Id = "";
+
 
   validationchack(BuildContext context) {
     final from = _formkey.currentState;
@@ -66,17 +66,14 @@ class _PaymentPageState extends State<PaymentPage> {
           payment.orginalDatetime!.datetime!.day);
       final difference = enddatecount.difference(startdatecount).inDays;
       payment.payment_user_inputdata(
-          bikash_phone_number: bkash_nuumber!,
-          bkash_transaction_id: bkash_transaction_Id,
-          nagad_phone_number: nagat_number,
-          nagad_transaction_id: nagat_transaction_Id,
-          rocket_phone_number: rocket_number,
-          rocket_transaction_id: rocket_transaction_Id,
+          phone_num: phone_number!,
+          transactionid: transaction_Id,
           start_date: startdate,
           end_date: enddate,
           status: 'panding',
           subscription_pack: widget.subscription_pack_name,
           remaining: difference,
+          payment_type: widget.payment_type,
           context: context);
     } else {
       // String enddate =
@@ -100,17 +97,15 @@ class _PaymentPageState extends State<PaymentPage> {
           payment.orginalDatetime!.datetime!.day);
       final difference = enddatecount.difference(startdatecount).inDays;
       payment.payment_user_inputdata(
-          bikash_phone_number: bkash_nuumber!,
-          bkash_transaction_id: bkash_transaction_Id,
-          nagad_phone_number: nagat_number,
-          nagad_transaction_id: nagat_transaction_Id,
-          rocket_phone_number: rocket_number,
-          rocket_transaction_id: rocket_transaction_Id,
+          phone_num: phone_number!,
+          transactionid: transaction_Id,
+
           start_date: startdate.toString(),
           end_date: enddate.toString(),
           status: 'panding',
           subscription_pack: widget.subscription_pack_name,
           remaining: difference,
+          payment_type: widget.payment_type,
           context: context);
     }
   }
@@ -255,15 +250,11 @@ class _PaymentPageState extends State<PaymentPage> {
                       margin: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
                         onSaved: (newValue) {
+
                           setState(() {
-                            if (widget.payment_name == 'Bkash') {
-                              bkash_nuumber = newValue!;
-                            } else if (widget.payment_name == 'Nagad') {
-                              nagat_number = newValue!;
-                            } else if (widget.payment_name == 'Rocket') {
-                              rocket_number = newValue!;
-                            }
+                            phone_number = newValue;
                           });
+
                         },
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -272,16 +263,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         },
                         onChanged: (value) {
                           setState(() {
-                            if (widget.payment_name == 'Bkash') {
-                              bkash_nuumber = value;
-                              print(widget.payment_name);
-                            } else if (widget.payment_name == 'Nagad') {
-                              nagat_number = value;
-                              print(widget.payment_name);
-                            } else if (widget.payment_name == 'Rocket') {
-                              rocket_number = value;
-                              print(widget.payment_name);
-                            }
+                           phone_number = value;
                           });
                         },
                         decoration: InputDecoration(
@@ -309,13 +291,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       child: TextFormField(
                         onSaved: (newValue) {
                           setState(() {
-                            if (widget.payment_name == 'Bkash') {
-                              bkash_transaction_Id = newValue!;
-                            } else if (widget.payment_name == 'Nagad') {
-                              nagat_transaction_Id = newValue!;
-                            } else if (widget.payment_name == 'Rocket') {
-                              rocket_transaction_Id = newValue!;
-                            }
+                           transaction_Id = newValue;
                           });
                         },
                         validator: (value) {
@@ -325,14 +301,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         },
                         onChanged: (value) {
                           setState(() {
-                            if (widget.payment_name == 'Bkash') {
-                              bkash_transaction_Id = value;
-                            } else if (widget.payment_name == 'Nagad') {
-                              nagat_transaction_Id = value;
-                              print(widget.payment_name);
-                            } else if (widget.payment_name == 'Rocket') {
-                              rocket_transaction_Id = value;
-                            }
+                            transaction_Id = value;
                           });
                         },
                         decoration: InputDecoration(

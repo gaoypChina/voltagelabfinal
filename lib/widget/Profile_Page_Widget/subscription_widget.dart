@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Sqflite/Subscription_save_data/Model/subscription_model.dart';
 import 'package:voltagelab/Sqflite/Subscription_save_data/db/subscription_one_month.dart';
-import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_user_data.dart';
+import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_all_data.dart';
 
 class SubscriptionWidgetPage extends StatefulWidget {
   const SubscriptionWidgetPage({Key? key}) : super(key: key);
@@ -72,7 +72,7 @@ class _SubscriptionWidgetPageState extends State<SubscriptionWidgetPage> {
                                 padding:
                                     EdgeInsets.only(left: 10, bottom: 10),
                                 child: Text(
-                                    "Status : ${payment.subscriptionuserdata!.status}")),
+                                    "Status : ${data.status}")),
                           ],
                         ),
                       ),
