@@ -186,8 +186,8 @@ class _PostPageState extends State<PostPage> {
                                                 left: 10, right: 10),
                                             child: Row(
                                               children: const [
-                                                Icon(Icons.favorite_border),
-                                                Spacer(),
+                                                // Icon(Icons.favorite_border),
+                                                // Spacer(),
                                               ],
                                             ),
                                           )

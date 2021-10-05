@@ -48,7 +48,7 @@ class PaymentProvider extends ChangeNotifier {
     var box = Hive.box('userdata');
     isloading = true;
     String url =
-        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/one_month_subs/input_subs_data.php?api_token=$api_token";
+        "http://api.voltagelab.com/vl-app/one_month_subs/input_subs_data.php?api_token=$api_token";
     var response = await http.post(Uri.parse(url),
         body: jsonEncode({
           "fullname": box.get('name'),
@@ -92,7 +92,7 @@ class PaymentProvider extends ChangeNotifier {
       String email) async {
     isloading = true;
     String url =
-        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/one_month_subs/all_data_get_by_email.php?api_token=$api_token&email=$email";
+        "http://api.voltagelab.com/vl-app/one_month_subs/all_data_get_by_email.php?api_token=$api_token&email=$email";
     try {
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {

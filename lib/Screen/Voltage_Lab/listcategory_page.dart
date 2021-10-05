@@ -40,27 +40,27 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
-            title: const Text("Category"),
+            title: Text("Category"),
             actions: [
-              IconButton(
-                  onPressed: () {
-                    box.clear();
+              // IconButton(
+              //     onPressed: () {
+              //       box.clear();
 
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const VoltagelabBookMarkCategoryPage(),
-                        ));
-                  },
-                  icon: Badge(
-                      badgeContent:
-                          Text(post.voltagelabsavepostbadge.toString()),
-                      child: const Icon(Icons.bookmark_outline)))
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) =>
+              //                 const VoltagelabBookMarkCategoryPage(),
+              //           ));
+              //     },
+              //     icon: Badge(
+              //         badgeContent:
+              //             Text(post.voltagelabsavepostbadge.toString()),
+              //         child: const Icon(Icons.bookmark_outline)))
             ],
           ),
           SliverToBoxAdapter(

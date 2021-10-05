@@ -44,27 +44,27 @@ class _PolytechnicListcategoryPageState
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
-            title: const Text("Polytechnic Category"),
+            title: Text("Polytechnic Category"),
             actions: [
-              IconButton(
-                  onPressed: () {
-                    box.clear();
-                    
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const PolytechnicBookMarkCategoryPage(),
-                        ));
-                  },
-                  icon: Badge(
-                      badgeContent: Text(
-                          '${post.polytechnicsavepostbadge}'),
-                      child: const Icon(Icons.bookmark_outline)))
+              // IconButton(
+              //     onPressed: () {
+              //       box.clear();
+
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) =>
+              //                 const PolytechnicBookMarkCategoryPage(),
+              //           ));
+              //     },
+              //     icon: Badge(
+              //         badgeContent: Text(
+              //             '${post.polytechnicsavepostbadge}'),
+              //         child: const Icon(Icons.bookmark_outline)))
             ],
           ),
           SliverToBoxAdapter(

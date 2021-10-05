@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:voltagelab/model/Orginal_Date_time_model/date_time.dart';
-import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_all_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 
@@ -20,7 +19,7 @@ class SubscriptionUserStreamdata {
   static Future<Subscriptionsingledata?> payment_user_info_get(
       String email) async {
     String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
-    String url = "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=approved";
+    String url = "http://api.voltagelab.com/vl-app/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=approved";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -37,7 +36,7 @@ class SubscriptionUserStreamdata {
     var orginalDatetime = await get_today_datetime();
 
     String url =
-        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/one_month_subs/update_subs_data.php?api_token=$api_token&email=$email&status=approved";
+        "http://api.voltagelab.com/vl-app/one_month_subs/update_subs_data.php?api_token=$api_token&email=$email&status=approved";
 
     if (DateTime.parse(data['end_date'])
             .difference(orginalDatetime!.datetime!)
