@@ -5,42 +5,37 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/Screen/Polytechnic_bd/Bookmark/bookmarkcategory_page.dart';
+import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
 import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
 
-class PolytechnicListcategoryPage extends StatefulWidget {
-  const PolytechnicListcategoryPage({Key? key}) : super(key: key);
+class ProBanglaVoltageCategoryListPage extends StatefulWidget {
+  const ProBanglaVoltageCategoryListPage({Key? key}) : super(key: key);
 
   @override
-  _PolytechnicListcategoryPageState createState() =>
-      _PolytechnicListcategoryPageState();
+  _ProBanglaVoltageCategoryListPageState createState() => _ProBanglaVoltageCategoryListPageState();
 }
 
-class _PolytechnicListcategoryPageState
-    extends State<PolytechnicListcategoryPage> {
+class _ProBanglaVoltageCategoryListPageState extends State<ProBanglaVoltageCategoryListPage> {
   int? categoryindex;
   bool subcategoryshow = false;
 
-  String sitename = 'polytechnicbd';
+  String sitename = 'voltagelab';
 
   @override
   void initState() {
-    Provider.of<Postprovider>(context, listen: false).firstpostdetails();
-
+    Provider.of<CategoryProvider>(context, listen: false).getpro_bvangla_voltagelabcategorylist();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var box = Hive.box('Polytechnicbadge');
-    // Provider.of<Postprovider>(context).getpolytechnicpostcount();
+    var box = Hive.box('voltagelabbadge');
     final category = Provider.of<CategoryProvider>(context);
-    final post = Provider.of<Postprovider>(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -48,7 +43,7 @@ class _PolytechnicListcategoryPageState
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
-            title: Text("Polytechnic Category"),
+            title: Text("Category"),
             actions: [
               // IconButton(
               //     onPressed: () {
@@ -58,12 +53,12 @@ class _PolytechnicListcategoryPageState
               //           context,
               //           MaterialPageRoute(
               //             builder: (context) =>
-              //                 const PolytechnicBookMarkCategoryPage(),
+              //                 const VoltagelabBookMarkCategoryPage(),
               //           ));
               //     },
               //     icon: Badge(
-              //         badgeContent: Text(
-              //             '${post.polytechnicsavepostbadge}'),
+              //         badgeContent:
+              //             Text(post.voltagelabsavepostbadge.toString()),
               //         child: const Icon(Icons.bookmark_outline)))
             ],
           ),
@@ -88,9 +83,8 @@ class _PolytechnicListcategoryPageState
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SearchPage(
-                                  sitename: sitename,
-                                ),
+                                builder: (context) =>
+                                    SearchPage(sitename: sitename),
                               ));
                         },
                         child: Container(
@@ -154,7 +148,7 @@ class _PolytechnicListcategoryPageState
               margin: const EdgeInsets.only(top: 10),
               padding: const EdgeInsets.all(20),
               child: const Text(
-                "Categories",
+                "Pro Categories",
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -162,78 +156,87 @@ class _PolytechnicListcategoryPageState
               ),
             ),
           ),
-          SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  Color color = Colors
-                      .primaries[Random().nextInt(Colors.primaries.length)];
-                  return Container(
-                    margin: EdgeInsets.only(
-                        left: index % 2 == 0 ? 15 : 10,
-                        bottom: 15,
-                        right: index % 2 != 0 ? 15 : 10),
-                    decoration: BoxDecoration(
-                        // color: color.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(0)),
-                    child: InkWell(
-                      onTap: () {
-                        Provider.of<CategoryProvider>(context, listen: false)
-                            .getsubcategory(
-                                category.polytechniccategory[index].id,
-                                sitename);
-                        print(category.polytechniccategory[index].id);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CategoryPage(
-                                sitename: sitename,
-                                categoryid:
-                                    category.polytechniccategory[index].id,
-                                categoryname:
-                                    category.polytechniccategory[index].name,
-                              ),
-                            ));
-                      },
-                      borderRadius: BorderRadius.circular(40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              color: color,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              // child: Image.asset(
-                              //   '',
-                              //   fit: BoxFit.cover,
-                              // ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            category.polytechniccategory[index].name,
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: color.withOpacity(1),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+          category.loading
+              ? SliverToBoxAdapter(
+                  child: Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
-                  );
-                },
-                childCount: category.polytechniccategory.length,
-              ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 2 / 2,
-              ))
+                  ),
+                )
+              : SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      Color color = Colors
+                          .primaries[Random().nextInt(Colors.primaries.length)];
+                      var procategory = category.probanglavoltagelabcategorylist[index];
+                      return Container(
+                        margin: EdgeInsets.only(
+                            left: index % 2 == 0 ? 15 : 10,
+                            bottom: 15,
+                            right: index % 2 != 0 ? 15 : 10),
+                        decoration: BoxDecoration(
+                            // color: color.withOpacity(0.6),
+                            borderRadius: BorderRadius.circular(40)),
+                        child: InkWell(
+                          onTap: () {
+                            Provider.of<CategoryProvider>(context,
+                                    listen: false)
+                                .getsubcategory(procategory.id!, sitename);
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CategoryPage(
+                                    sitename: sitename,
+                                    categoryid: procategory.id!,
+                                    categoryname: procategory.name!,
+                                  ),
+                                ));
+                          },
+                          borderRadius: BorderRadius.circular(40),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                // height: 80,
+                                // width: 80,
+                                decoration: BoxDecoration(
+                                  color: color,
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Image.asset(
+                                    'images/youtube.png',
+                                    height: 80,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                procategory.name!,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: color.withOpacity(1),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    childCount: category.probanglavoltagelabcategorylist.length,
+                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 2 / 2,
+                  ),
+                )
         ],
       ),
     );

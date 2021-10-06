@@ -2,8 +2,8 @@
 //
 //     final savepost = savepostFromJson(jsonString);
 
-class PolytechnicSavepost {
-    PolytechnicSavepost({
+class En_voltagelabSavepost {
+    En_voltagelabSavepost({
         this.id,
         required this.postid,
         required this.categoryid,
@@ -21,7 +21,7 @@ class PolytechnicSavepost {
     String postcontent;
     String postimage;
 
-    factory PolytechnicSavepost.fromMap(Map<String, dynamic> json) => PolytechnicSavepost(
+    factory En_voltagelabSavepost.fromMap(Map<String, dynamic> json) => En_voltagelabSavepost(
         id: json["id"],
         postid: json["postid"],
         categoryid: json["categoryid"],

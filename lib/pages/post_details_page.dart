@@ -10,10 +10,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/Model/category_model.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/db/category_db.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/db/post_db.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/Model/category_model.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/db/category_db.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/db/post_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
@@ -47,20 +47,20 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   SqlVoltageLabCategoryDB? sqlVoltagelabcategorydb;
   SqlVoltagelabPostDB? sqlVoltagelabpostdb;
 
-  SqlPolytechnicPostDB? sqlPolytechnicPostDB;
-  SqlPolytechnicCategoryDB? sqlPolytechnicCategoryDB;
+  Sql_en_voltagelabPostDB? sql_en_VoltagelabPostDB;
+  Sql_en_voltagelabCategoryDB? sql_en_voltagelabCategoryDB;
 
   List<VoltageLabSaveCategory> savevoltagelabcategorylist = [];
   List<VoltageLabSavepost> savevoltagelabpostlist = [];
 
-  List<PolytechnicSaveCategory> polytechnicSaveCategory = [];
-  List<PolytechnicSavepost> polytechnicSavepost = [];
+  List<En_voltagelabSaveCategory> en_voltagelabSaveCategory = [];
+  List<En_voltagelabSavepost> en_voltagelabSavepost = [];
 
   getsavecategoryandpost() async {
     savevoltagelabcategorylist = await sqlVoltagelabcategorydb!.getdata();
     savevoltagelabpostlist = await sqlVoltagelabpostdb!.getdata();
-    polytechnicSaveCategory = await sqlPolytechnicCategoryDB!.getdata();
-    polytechnicSavepost = await sqlPolytechnicPostDB!.getdata();
+    en_voltagelabSaveCategory = await sql_en_voltagelabCategoryDB!.getdata();
+    en_voltagelabSavepost = await sql_en_VoltagelabPostDB!.getdata();
   }
 
   // bookmarkdata() {
@@ -125,18 +125,18 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   }
 
   void polytechnicsavecategorydb() {
-    PolytechnicSaveCategory polytechnicCategory = PolytechnicSaveCategory(
+    En_voltagelabSaveCategory polytechnicCategory = En_voltagelabSaveCategory(
         categoryname: widget.categoryname, categoryid: widget.categoryid);
-    if (polytechnicSaveCategory
+    if (en_voltagelabSaveCategory
         .any((element) => element.categoryid == widget.categoryid)) {
       print("polyechnic category allrady added");
     } else {
-      sqlPolytechnicCategoryDB!.insertdata(polytechnicCategory);
+      sql_en_voltagelabCategoryDB!.insertdata(polytechnicCategory);
     }
   }
 
   void polytechnicsavepostdb(Postprovider post) {
-    PolytechnicSavepost savepost = PolytechnicSavepost(
+    En_voltagelabSavepost savepost = En_voltagelabSavepost(
         postid: widget.postdata.id!,
         categoryid: widget.categoryid,
         posttitle: widget.postdata.title!.rendered,
@@ -144,15 +144,15 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         postcontent: post.postDetails!.content.rendered,
         postimage: widget.postdata.yoastHeadJson!.ogImage[0].url!);
 
-    if (polytechnicSavepost
+    if (en_voltagelabSavepost
         .any((element) => element.postid == widget.postdata.id)) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("This Post Already save")));
     } else {
-      sqlPolytechnicPostDB!.insertdata(savepost);
+      sql_en_VoltagelabPostDB!.insertdata(savepost);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Save Post")));
-      post.polytechnicsavepostcount();
+      post.en_voltagelabsavepostcount();
     }
   }
 
@@ -161,8 +161,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
     Provider.of<Postprovider>(context, listen: false).getvoltagelabsavepost();
     sqlVoltagelabcategorydb = SqlVoltageLabCategoryDB();
     sqlVoltagelabpostdb = SqlVoltagelabPostDB();
-    sqlPolytechnicCategoryDB = SqlPolytechnicCategoryDB();
-    sqlPolytechnicPostDB = SqlPolytechnicPostDB();
+    sql_en_voltagelabCategoryDB = Sql_en_voltagelabCategoryDB();
+    sql_en_VoltagelabPostDB = Sql_en_voltagelabPostDB();
     getsavecategoryandpost();
     super.initState();
   }
@@ -187,7 +187,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             leading: IconButton(
                 onPressed: () {
                   post.getpostcount();
-                  post.getpolytechnicpostcount();
+                  post.get_en_voltagelabpostcount();
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.arrow_back)),
@@ -199,7 +199,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         polytechnicsavepostdb(post);
                         post.getpolytechnicsavepost();
                       },
-                      icon: Icon(post.polytechnicsavepost.any(
+                      icon: Icon(post.en_voltagelabsavepost.any(
                               (element) => element.postid == widget.postdata.id)
                           ? Icons.bookmark
                           : Icons.bookmark_border))

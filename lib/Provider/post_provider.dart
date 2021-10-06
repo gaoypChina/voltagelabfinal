@@ -5,8 +5,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
-import 'package:voltagelab/Sqflite/Polytechnicbd/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/db/post_db.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/db/post_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
 import 'package:voltagelab/model/Latest_Post_Model/latest_post.dart';
@@ -32,7 +32,7 @@ class Postprovider extends ChangeNotifier {
   List<LatestPostData> voltagelablatestpost = [];
 
   SqlVoltagelabPostDB sqlPostDB = SqlVoltagelabPostDB();
-  SqlPolytechnicPostDB sqlPolytechnicPostDB = SqlPolytechnicPostDB();
+  Sql_en_voltagelabPostDB sql_en_voltagelabPostDB = Sql_en_voltagelabPostDB();
 
   List<Postdata> postdata = [];
   List<SearchPost> searchpost = [];
@@ -41,7 +41,7 @@ class Postprovider extends ChangeNotifier {
   SearchPostDetails? searchPostDetails;
 
   List<VoltageLabSavepost> savevoltagelabpost = [];
-  List<PolytechnicSavepost> polytechnicsavepost = [];
+  List<En_voltagelabSavepost> en_voltagelabsavepost = [];
 
   //bangla voltagelab post..............................................
   Future getpost(int subcategoryid, int perpage, String sitename) async {
@@ -59,7 +59,7 @@ class Postprovider extends ChangeNotifier {
         return postdata;
       }
     } else if (sitename == 'polytechnicbd') {
-      getpolytechnicpost(subcategoryid, perpage);
+      get_en_voltagelabpost(subcategoryid, perpage);
     }
   }
 
@@ -75,8 +75,8 @@ class Postprovider extends ChangeNotifier {
   }
 
   getpolytechnicsavepost() async {
-    polytechnicsavepost.clear();
-    polytechnicsavepost = await sqlPolytechnicPostDB.getdata();
+    en_voltagelabsavepost.clear();
+    en_voltagelabsavepost = await sql_en_voltagelabPostDB.getdata();
     notifyListeners();
   }
 
@@ -99,7 +99,7 @@ class Postprovider extends ChangeNotifier {
       }
     } else if (sitename == 'polytechnicbd') {
       print("bdcsabdh${sitename}");
-      await getpolytechnicpostdetails(postid);
+      await get_en_voltagelabpostdetails(postid);
     }
   }
 
@@ -131,7 +131,7 @@ class Postprovider extends ChangeNotifier {
         return searchpost;
       }
     } else if (sitename == 'polytechnicbd') {
-      await polytechnicsearchpost(keyword);
+      await en_voltagelabsearchpost(keyword);
     }
   }
 
@@ -152,7 +152,7 @@ class Postprovider extends ChangeNotifier {
         return searchPostDetails;
       }
     } else if (sitename == 'polytechnicbd') {
-      await polytechnicsearchpostdetails(postid);
+      await en_voltagelabsearchpostdetails(postid);
     }
   }
 
@@ -182,7 +182,7 @@ class Postprovider extends ChangeNotifier {
   }
 
   // english https://www.voltagelab.com/ get post..........................................
-  Future getpolytechnicpost(int subcategoryid, int perpage) async {
+  Future get_en_voltagelabpost(int subcategoryid, int perpage) async {
     isloading = true;
     String url =
         "https://www.voltagelab.com/wp-json/wp/v2/posts?categories=${subcategoryid}&_fields[]=id&per_page=${perpage}&_fields[]=title&_fields[]=yoast_head_json.og_image&_fields[]=";
@@ -198,7 +198,7 @@ class Postprovider extends ChangeNotifier {
   }
 
   //english https://www.voltagelab.com/ get post details..........................................
-  Future getpolytechnicpostdetails(int postid) async {
+  Future get_en_voltagelabpostdetails(int postid) async {
     String url =
         "https://www.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
     var response = await http.get(Uri.parse(url));
@@ -211,7 +211,7 @@ class Postprovider extends ChangeNotifier {
   }
 
   // Enflish https://www.voltagelab.com/ search post................................................
-  Future<List<SearchPost>?> polytechnicsearchpost(String keyword) async {
+  Future<List<SearchPost>?> en_voltagelabsearchpost(String keyword) async {
     String url =
         "https://www.voltagelab.com/wp-json/wp/v2/search?search=${keyword}&_fields[]=id&_fields[]=title";
     var response = await http.get(Uri.parse(url));
@@ -224,7 +224,7 @@ class Postprovider extends ChangeNotifier {
   }
   
 //https://www.voltagelab.com/ searchpost details
-  Future<SearchPostDetails?> polytechnicsearchpostdetails(int postid) async {
+  Future<SearchPostDetails?> en_voltagelabsearchpostdetails(int postid) async {
     searchpostloading = true;
     String url =
         "https://www.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=id&per_page=1&_fields[]=title&_fields[]=content&_fields[]=yoast_head_json.og_image&_fields[]=link&_fields[]=";
@@ -251,14 +251,14 @@ class Postprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  polytechnicsavepostcount() {
+  en_voltagelabsavepostcount() {
     var box = Hive.box('Polytechnicbadge');
     polytechnicpostcount++;
     box.put('count', polytechnicpostcount);
     notifyListeners();
   }
 
-  getpolytechnicpostcount() {
+  get_en_voltagelabpostcount() {
     var box = Hive.box('Polytechnicbadge');
     polytechnicsavepostbadge = box.get('count') ?? 0;
     notifyListeners();

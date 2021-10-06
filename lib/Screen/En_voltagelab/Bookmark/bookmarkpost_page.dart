@@ -1,11 +1,9 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/Model/post_model.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/db/category_db.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/db/post_db.dart';
-
-
+import 'package:voltagelab/Sqflite/En_VoltageLab/Model/post_model.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/db/category_db.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/db/post_db.dart';
 import 'bookmarkpost_details.dart';
 
 class PolytechnicBookmarkPostpage extends StatefulWidget {
@@ -24,29 +22,29 @@ class _PolytechnicBookmarkPostpageState
     extends State<PolytechnicBookmarkPostpage> {
 
 
-  List<PolytechnicSavepost> polytechnicsavepost = [];
+  List<En_voltagelabSavepost> en_voltagelabsavepost = [];
 
-  SqlPolytechnicPostDB? sqlPolytechnicPostDB;
-  SqlPolytechnicCategoryDB? sqlPolytechnicCategoryDB;
+  Sql_en_voltagelabPostDB? sql_en_voltagelabPostDB;
+  Sql_en_voltagelabCategoryDB? sql_en_voltagelabCategoryDB;
 
   getsavepost() async {
    
-    polytechnicsavepost = await sqlPolytechnicPostDB!.getdata();
+    en_voltagelabsavepost = await sql_en_voltagelabPostDB!.getdata();
     setState(() {});
   }
 
   @override
   void initState() {
-    sqlPolytechnicPostDB = SqlPolytechnicPostDB();
-    sqlPolytechnicCategoryDB = SqlPolytechnicCategoryDB();
+    sql_en_voltagelabPostDB = Sql_en_voltagelabPostDB();
+    sql_en_voltagelabCategoryDB = Sql_en_voltagelabCategoryDB();
     getsavepost();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<PolytechnicSavepost> postlist = [];
-    polytechnicsavepost
+    List<En_voltagelabSavepost> postlist = [];
+    en_voltagelabsavepost
         .where((element) => element.categoryid == widget.categoryid)
         .forEach((element) => postlist.add(element));
     return Scaffold(
@@ -68,7 +66,7 @@ class _PolytechnicBookmarkPostpageState
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PolytechnicBookmarkPostDetails(
+                        builder: (context) => En_voltagelabBookmarkPostDetails(
                             categoryid: postlist[index].categoryid,
                             id: postlist[index].postid,
                             link: postlist[index].postlink,
@@ -92,13 +90,13 @@ class _PolytechnicBookmarkPostpageState
                       InkWell(
                         onTap: () {
                           if (postlist.length == 1) {
-                            sqlPolytechnicPostDB!.delete(postlist[index].id!);
+                            sql_en_voltagelabPostDB!.delete(postlist[index].id!);
                             getsavepost();
-                            sqlPolytechnicCategoryDB!.delete(widget.categorymainid);
+                            sql_en_voltagelabCategoryDB!.delete(widget.categorymainid);
                             Navigator.pop(context);
                             print("category deletc");
                           } else {
-                            sqlPolytechnicPostDB!.delete(postlist[index].id!);
+                            sql_en_voltagelabPostDB!.delete(postlist[index].id!);
                             getsavepost();
                           }
                         },

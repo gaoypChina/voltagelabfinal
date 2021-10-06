@@ -7,8 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 
 class SubscriptionUserStreamdata {
+  String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
 
-  static Stream<Subscriptionsingledata?> streamsubscriptiondata(
+   Stream<Subscriptionsingledata?> streamsubscriptiondata(
       Duration refreshTime, String email) async* {
     while (true) {
       await Future.delayed(refreshTime);
@@ -16,9 +17,9 @@ class SubscriptionUserStreamdata {
     }
   }
 
-  static Future<Subscriptionsingledata?> payment_user_info_get(
+   Future<Subscriptionsingledata?> payment_user_info_get(
       String email) async {
-    String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
+    
     String url = "http://api.voltagelab.com/vl-app/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=approved";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -31,7 +32,7 @@ class SubscriptionUserStreamdata {
     }
   }
 
-  static Future subscriptiondate_end(data, String email) async {
+   Future subscriptiondate_end(data, String email) async {
     String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
     var orginalDatetime = await get_today_datetime();
 
@@ -63,7 +64,7 @@ class SubscriptionUserStreamdata {
     }
   }
 
-  static Future<OrginalDatetime?> get_today_datetime() async {
+   Future<OrginalDatetime?> get_today_datetime() async {
     String url = "http://worldtimeapi.org/api/timezone/Asia/Dhaka";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {

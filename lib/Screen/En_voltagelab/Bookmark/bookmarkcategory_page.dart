@@ -1,32 +1,34 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/Model/category_model.dart';
-import 'package:voltagelab/Sqflite/Polytechnicbd/db/category_db.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/Model/category_model.dart';
+import 'package:voltagelab/Sqflite/En_VoltageLab/db/category_db.dart';
 
 import 'bookmarkpost_page.dart';
 
-class PolytechnicBookMarkCategoryPage extends StatefulWidget {
-  const PolytechnicBookMarkCategoryPage({Key? key}) : super(key: key);
+class En_voltagelabBookMarkCategoryPage extends StatefulWidget {
+  const En_voltagelabBookMarkCategoryPage({Key? key}) : super(key: key);
 
   @override
-  _PolytechnicBookMarkCategoryPageState createState() =>
-      _PolytechnicBookMarkCategoryPageState();
+  _En_voltagelabBookMarkCategoryPageState createState() =>
+      _En_voltagelabBookMarkCategoryPageState();
 }
 
-class _PolytechnicBookMarkCategoryPageState
-    extends State<PolytechnicBookMarkCategoryPage> {
-  SqlPolytechnicCategoryDB? sqlPolytechnicCategoryDB;
-  List<PolytechnicSaveCategory> polytechnicsavecategoyr = [];
+class _En_voltagelabBookMarkCategoryPageState
+    extends State<En_voltagelabBookMarkCategoryPage> {
+  Sql_en_voltagelabCategoryDB? sql_en_voltagelabCategoryDB;
+  List<En_voltagelabSaveCategory> en_voltagelabsavecategoyr = [];
 
   getdata() async {
-    polytechnicsavecategoyr = await sqlPolytechnicCategoryDB!.getdata();
+    en_voltagelabsavecategoyr = await sql_en_voltagelabCategoryDB!.getdata();
     setState(() {});
   }
 
   @override
   void initState() {
-    sqlPolytechnicCategoryDB = SqlPolytechnicCategoryDB();
+    sql_en_voltagelabCategoryDB = Sql_en_voltagelabCategoryDB();
     getdata();
     super.initState();
   }
@@ -38,14 +40,14 @@ class _PolytechnicBookMarkCategoryPageState
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              post.getpolytechnicpostcount();
+              post.get_en_voltagelabpostcount();
               Navigator.pop(context);
             },
             icon: const Icon(Icons.arrow_back)),
         title: const Text("Polytechnic Bookmark"),
       ),
       body: ListView.builder(
-        itemCount: polytechnicsavecategoyr.length,
+        itemCount: en_voltagelabsavecategoyr.length,
         itemBuilder: (context, index) {
           return Container(
             margin: const EdgeInsets.all(10),
@@ -60,8 +62,8 @@ class _PolytechnicBookMarkCategoryPageState
                       context,
                       MaterialPageRoute(
                         builder: (context) => PolytechnicBookmarkPostpage(
-                          categorymainid: polytechnicsavecategoyr[index].id!,
-                          categoryid: polytechnicsavecategoyr[index].categoryid,
+                          categorymainid: en_voltagelabsavecategoyr[index].id!,
+                          categoryid: en_voltagelabsavecategoyr[index].categoryid,
                         ),
                       )).then((value) {
                     setState(() {
@@ -75,7 +77,7 @@ class _PolytechnicBookMarkCategoryPageState
                   child: Row(
                     children: [
                       Text(
-                        polytechnicsavecategoyr[index].categoryname,
+                        en_voltagelabsavecategoyr[index].categoryname,
                         style: const TextStyle(fontSize: 17),
                       ),
                       const Spacer(),

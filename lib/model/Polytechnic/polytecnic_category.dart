@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-List<PolytechnicCategory> polytechnicCategoryFromJson(String str) => List<PolytechnicCategory>.from(json.decode(str).map((x) => PolytechnicCategory.fromJson(x)));
+List<En_voltagelabCategory> en_voltagelabCategoryFromJson(String str) => List<En_voltagelabCategory>.from(json.decode(str).map((x) => En_voltagelabCategory.fromJson(x)));
 
-String polytechnicCategoryToJson(List<PolytechnicCategory> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String en_voltagelabCategoryToJson(List<En_voltagelabCategory> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class PolytechnicCategory {
-    PolytechnicCategory({
+class En_voltagelabCategory {
+    En_voltagelabCategory({
         required this.id,
         required this.name,
     });
@@ -17,7 +17,7 @@ class PolytechnicCategory {
     int id;
     String name;
 
-    factory PolytechnicCategory.fromJson(Map<String, dynamic> json) => PolytechnicCategory(
+    factory En_voltagelabCategory.fromJson(Map<String, dynamic> json) => En_voltagelabCategory(
         id: json["id"],
         name: json["name"],
     );

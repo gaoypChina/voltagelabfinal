@@ -9,15 +9,20 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/Screen/Polytechnic_bd/Bookmark/bookmarkcategory_page.dart';
-import 'package:voltagelab/Screen/Polytechnic_bd/listcategory_page.dart';
+import 'package:voltagelab/Screen/En_voltagelab/Bookmark/bookmarkcategory_page.dart';
+import 'package:voltagelab/Screen/En_voltagelab/listcategory_page.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/latestpost_details.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/listcategory_page.dart';
 import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
 import 'package:voltagelab/Stream_data/Subscription_Stream_data/subscription_userdata.dart';
+import 'package:voltagelab/model/Pro_english_voltagelab/pro_category_model.dart';
+import 'package:voltagelab/model/Pro_english_voltagelab/pro_english_voltagelab_database_model.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
+import 'package:voltagelab/pages/Pro_Category_Page/pro_bangla_voltagelabcategory_page.dart';
 import 'package:voltagelab/widget/drawer.dart';
+
+import 'Pro_Category_Page/pro_english_voltagelab_category_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -161,7 +166,7 @@ class _HomePageState extends State<HomePage> {
     Provider.of<Postprovider>(context, listen: false).getvoltagelablatestpost();
     Provider.of<CategoryProvider>(context, listen: false).getcategory();
     Provider.of<CategoryProvider>(context, listen: false)
-        .polytechnicbdcategory();
+        .en_voltagelabcategory();
     var box = Hive.box("userdata");
     Provider.of<PaymentProvider>(context, listen: false)
         .payment_subscription_one_month_userinfo_get(box.get('email'));
@@ -317,16 +322,16 @@ class _HomePageState extends State<HomePage> {
                     freegridviewtool(
                       color: Colors.orange,
                       imagechild: Image.asset('images/icon.jpg'),
-                      name: "Polytechnic",
+                      name: "English Voltage Lab",
                       onTap: () {
-                        post.getpolytechnicpostcount();
+                        post.get_en_voltagelabpostcount();
                         Provider.of<CategoryProvider>(context, listen: false)
-                            .polytechnicbdcategory();
+                            .en_voltagelabcategory();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const PolytechnicListcategoryPage(),
+                                  const En_voltagelabListcategoryPage(),
                             ));
                       },
                     ),
@@ -339,6 +344,30 @@ class _HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => const YoutubePlaylistPage(),
+                            ));
+                      },
+                    ),
+                    freegridviewtool(
+                      color: Colors.deepOrange,
+                      imagechild: Image.asset('images/icon.jpg'),
+                      name: "pro Category",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProBanglaVoltageCategoryListPage(),
+                            ));
+                      },
+                    ),
+                    freegridviewtool(
+                      color: Colors.deepOrange,
+                      imagechild: Image.asset('images/icon.jpg'),
+                      name: "pro Category",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProenglishVoltageCategoryListPage(),
                             ));
                       },
                     ),
@@ -366,7 +395,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const Divider(),
                         StreamBuilder(
-                            stream: SubscriptionUserStreamdata
+                            stream: SubscriptionUserStreamdata()
                                 .streamsubscriptiondata(
                                     const Duration(seconds: 5),
                                     box.get('email')),
@@ -425,7 +454,33 @@ class _HomePageState extends State<HomePage> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const PolytechnicBookMarkCategoryPage(),
+                                                        const En_voltagelabBookMarkCategoryPage(),
+                                                  ),
+                                                );
+                                              },
+                                    subscriptionsingledata:
+                                        snapshot.data == null
+                                            ? null
+                                            : snapshot.data!,
+                                  ),
+                                  progridviewtool(
+                                    color: Colors.blueGrey,
+                                    imagechild: Image.asset(
+                                      'images/icon.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                    name: 'Pro Category',
+                                    onTap: snapshot.data == null
+                                        ? null
+                                        : snapshot.data!.status != "approved"
+                                            ? null
+                                            : () {
+                                                post.getpostcount();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const ProBanglaVoltageCategoryListPage(),
                                                   ),
                                                 );
                                               },

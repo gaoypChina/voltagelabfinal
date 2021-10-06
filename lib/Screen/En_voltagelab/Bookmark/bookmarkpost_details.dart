@@ -8,14 +8,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
 
-class PolytechnicBookmarkPostDetails extends StatefulWidget {
+class En_voltagelabBookmarkPostDetails extends StatefulWidget {
   final int categoryid;
   final int id;
   final String link;
   final String title;
   final String content;
   final String yoastHeadJson;
-  const PolytechnicBookmarkPostDetails({
+  const En_voltagelabBookmarkPostDetails({
     Key? key,
     required this.categoryid,
     required this.id,
@@ -26,10 +26,10 @@ class PolytechnicBookmarkPostDetails extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PolytechnicBookmarkPostDetailsState createState() => _PolytechnicBookmarkPostDetailsState();
+  _En_voltagelabBookmarkPostDetailsState createState() => _En_voltagelabBookmarkPostDetailsState();
 }
 
-class _PolytechnicBookmarkPostDetailsState extends State<PolytechnicBookmarkPostDetails> {
+class _En_voltagelabBookmarkPostDetailsState extends State<En_voltagelabBookmarkPostDetails> {
 
   void postshare(BuildContext context, String link) async {
 
