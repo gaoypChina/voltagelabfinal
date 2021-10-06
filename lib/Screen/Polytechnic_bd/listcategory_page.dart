@@ -181,7 +181,7 @@ class _PolytechnicListcategoryPageState
                             .getsubcategory(
                                 category.polytechniccategory[index].id,
                                 sitename);
-
+                        print(category.polytechniccategory[index].id);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

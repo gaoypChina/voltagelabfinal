@@ -15,7 +15,7 @@ class CategoryProvider extends ChangeNotifier {
 
   bool loading = false;
 
-  //voltagelap main category.....................................
+  //bangla voltagelap main category.....................................
   Future getcategory() async {
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/categories?include=15,16,5323,1741,2908,92,1800&_fields[]=id&_fields[]=name";
@@ -28,7 +28,7 @@ class CategoryProvider extends ChangeNotifier {
     }
   }
 
-  //voltagelap sub category.....................................
+  //bangla voltagelap sub category.....................................
   Future getsubcategory(int categoryid, String sitename) async {
     if (sitename == 'voltagelab') {
       loading = true;
@@ -53,11 +53,11 @@ class CategoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //https://polytechnicbd.com/ main category.............................................
+  // english https://www.voltagelab.com/ main category.............................................
 
   Future polytechnicbdcategory() async {
     String url =
-        "https://polytechnicbd.com/wp-json/wp/v2/categories?_fields[]=id&_fields[]=name";
+        "https://www.voltagelab.com/wp-json/wp/v2/categories?_fields[]=id&_fields[]=name";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -71,7 +71,7 @@ class CategoryProvider extends ChangeNotifier {
     subcategory!.clear();
     loading = true;
     String url =
-        "https://polytechnicbd.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
+        "https://www.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;

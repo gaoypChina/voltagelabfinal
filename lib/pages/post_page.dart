@@ -113,7 +113,7 @@ class _PostPageState extends State<PostPage> {
                           print(post.postdata[index].id);
                           Provider.of<Postprovider>(context, listen: false)
                               .getpostdetails(
-                                  post.postdata[index].id, widget.sitename);
+                                  post.postdata[index].id!, widget.sitename);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -146,7 +146,7 @@ class _PostPageState extends State<PostPage> {
                                         child: CachedNetworkImage(
                                           fadeInCurve: Curves.easeInBack,
                                           imageUrl: post.postdata[index]
-                                              .yoastHeadJson.ogImage[0].url,
+                                              .yoastHeadJson!.ogImage[0].url!,
                                           filterQuality: FilterQuality.low,
                                           memCacheHeight: 200,
                                           maxHeightDiskCache: 200,
@@ -173,7 +173,7 @@ class _PostPageState extends State<PostPage> {
                                             margin:
                                                 const EdgeInsets.only(left: 10),
                                             child: Text(
-                                              post.postdata[index].title
+                                              post.postdata[index].title!
                                                   .rendered,
                                               softWrap: true,
                                               style: const TextStyle(

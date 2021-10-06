@@ -10,14 +10,14 @@ String latestPostDataToJson(List<LatestPostData> data) => json.encode(List<dynam
 
 class LatestPostData {
     LatestPostData({
-        required this.id,
-        required this.title,
-        required this.yoastHeadJson,
+         this.id,
+         this.title,
+         this.yoastHeadJson,
     });
 
-    int id;
-    Title title;
-    YoastHeadJson yoastHeadJson;
+    int? id;
+    Title? title;
+    YoastHeadJson? yoastHeadJson;
 
     factory LatestPostData.fromJson(Map<String, dynamic> json) => LatestPostData(
         id: json["id"],
@@ -27,8 +27,8 @@ class LatestPostData {
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "title": title.toJson(),
-        "yoast_head_json": yoastHeadJson.toJson(),
+        "title": title!.toJson(),
+        "yoast_head_json": yoastHeadJson!.toJson(),
     };
 }
 
@@ -66,26 +66,26 @@ class YoastHeadJson {
 
 class OgImage {
     OgImage({
-        required this.width,
-        required this.height,
-        required this.url,
-        required this.path,
-        required this.size,
-        required this.id,
-        required this.alt,
-        required this.pixels,
-        required this.type,
+         this.width,
+         this.height,
+         this.url,
+         this.path,
+         this.size,
+         this.id,
+         this.alt,
+         this.pixels,
+         this.type,
     });
 
-    int width;
-    int height;
-    String url;
-    String path;
-    String size;
-    int id;
-    String alt;
-    int pixels;
-    String type;
+    int? width;
+    int? height;
+    String? url;
+    String? path;
+    String? size;
+    int? id;
+    String? alt;
+    int? pixels;
+    String? type;
 
     factory OgImage.fromJson(Map<String, dynamic> json) => OgImage(
         width: json["width"],

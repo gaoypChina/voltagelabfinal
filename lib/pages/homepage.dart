@@ -260,11 +260,11 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => LatestPostDetails(
-                                            latestpostid: latestpost.id,
+                                            latestpostid: latestpost.id!,
                                             latestposttitle:
-                                                latestpost.title.rendered,
+                                                latestpost.title!.rendered,
                                             latestpostpic: latestpost
-                                                .yoastHeadJson.ogImage[0].url,
+                                                .yoastHeadJson!.ogImage[0].url!,
                                           )));
                             },
                             borderRadius: BorderRadius.circular(5),
@@ -273,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                               width: double.infinity,
                               alignment: Alignment.center,
                               padding: const EdgeInsets.all(0),
-                              child: Text(latestpost.title.rendered),
+                              child: Text(latestpost.title!.rendered),
                             ),
                           );
                         },

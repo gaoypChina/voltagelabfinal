@@ -43,7 +43,7 @@ class Postprovider extends ChangeNotifier {
   List<VoltageLabSavepost> savevoltagelabpost = [];
   List<PolytechnicSavepost> polytechnicsavepost = [];
 
-  //voltagelab post..............................................
+  //bangla voltagelab post..............................................
   Future getpost(int subcategoryid, int perpage, String sitename) async {
     if (sitename == 'voltagelab') {
       isloading = true;
@@ -85,7 +85,7 @@ class Postprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //voltage lab post details................................................
+  //bangla voltage lab post details................................................
   Future<PostDetails?> getpostdetails(int postid, String sitename) async {
     if (sitename == 'voltagelab') {
       String url =
@@ -103,7 +103,7 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  //voltagelab fast post details...............................................................
+  //bangla voltagelab fast post details...............................................................
   Future<PostDetails?> firstpostdetails() async {
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/posts/23063?_fields[]=content&_fields[]=link";
@@ -116,7 +116,7 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  //voltagelab search post................................................
+  //bangla voltagelab search post................................................
   Future<List<SearchPost>?> getsearchpost(
       String keyword, String sitename) async {
     if (sitename == 'voltagelab') {
@@ -135,7 +135,7 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  //voltagelab search post details................................................
+  //bangla voltagelab search post details................................................
 
   Future<SearchPostDetails?> getsearchpostdetails(
       int postid, String sitename) async {
@@ -156,7 +156,7 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  //voltagelab Latest post................................................
+  //bangla voltagelab Latest post................................................
   Future getvoltagelablatestpost() async {
     isloading = true;
     String url =
@@ -169,7 +169,7 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  //voltagelab Latest post details................................................
+  //bangla voltagelab Latest post details................................................
   Future getlatestpostdetails(int postid) async {
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
@@ -181,11 +181,11 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  //polytechnic get post..........................................
+  // english https://www.voltagelab.com/ get post..........................................
   Future getpolytechnicpost(int subcategoryid, int perpage) async {
     isloading = true;
     String url =
-        "https://polytechnicbd.com/wp-json/wp/v2/posts?categories=${subcategoryid}&_fields[]=id&per_page=${perpage}&_fields[]=title&_fields[]=yoast_head_json.og_image&_fields[]=";
+        "https://www.voltagelab.com/wp-json/wp/v2/posts?categories=${subcategoryid}&_fields[]=id&per_page=${perpage}&_fields[]=title&_fields[]=yoast_head_json.og_image&_fields[]=";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       isloading = false;
@@ -197,10 +197,10 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  //polytechnic get post details..........................................
+  //english https://www.voltagelab.com/ get post details..........................................
   Future getpolytechnicpostdetails(int postid) async {
     String url =
-        "https://polytechnicbd.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
+        "https://www.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -210,10 +210,10 @@ class Postprovider extends ChangeNotifier {
     }
   }
 
-  //polytechnic search post................................................
+  // Enflish https://www.voltagelab.com/ search post................................................
   Future<List<SearchPost>?> polytechnicsearchpost(String keyword) async {
     String url =
-        "https://polytechnicbd.com/wp-json/wp/v2/search?search=${keyword}&_fields[]=id&_fields[]=title";
+        "https://www.voltagelab.com/wp-json/wp/v2/search?search=${keyword}&_fields[]=id&_fields[]=title";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -222,11 +222,12 @@ class Postprovider extends ChangeNotifier {
       return searchpost;
     }
   }
-
+  
+//https://www.voltagelab.com/ searchpost details
   Future<SearchPostDetails?> polytechnicsearchpostdetails(int postid) async {
     searchpostloading = true;
     String url =
-        "https://polytechnicbd.com/wp-json/wp/v2/posts/${postid}?_fields[]=id&per_page=1&_fields[]=title&_fields[]=content&_fields[]=yoast_head_json.og_image&_fields[]=link&_fields[]=";
+        "https://www.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=id&per_page=1&_fields[]=title&_fields[]=content&_fields[]=yoast_head_json.og_image&_fields[]=link&_fields[]=";
 
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {

@@ -104,12 +104,12 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
 
   void voltagelabsavepost(Postprovider post) {
     VoltageLabSavepost savepost = VoltageLabSavepost(
-        postid: widget.postdata.id,
+        postid: widget.postdata.id!,
         categoryid: widget.categoryid,
-        posttitle: widget.postdata.title.rendered,
+        posttitle: widget.postdata.title!.rendered,
         postlink: post.postDetails!.link,
         postcontent: post.postDetails!.content.rendered,
-        postimage: widget.postdata.yoastHeadJson.ogImage[0].url);
+        postimage: widget.postdata.yoastHeadJson!.ogImage[0].url!);
 
     if (savevoltagelabpostlist
         .any((element) => element.postid == widget.postdata.id)) {
@@ -137,12 +137,12 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
 
   void polytechnicsavepostdb(Postprovider post) {
     PolytechnicSavepost savepost = PolytechnicSavepost(
-        postid: widget.postdata.id,
+        postid: widget.postdata.id!,
         categoryid: widget.categoryid,
-        posttitle: widget.postdata.title.rendered,
+        posttitle: widget.postdata.title!.rendered,
         postlink: post.postDetails!.link,
         postcontent: post.postDetails!.content.rendered,
-        postimage: widget.postdata.yoastHeadJson.ogImage[0].url);
+        postimage: widget.postdata.yoastHeadJson!.ogImage[0].url!);
 
     if (polytechnicSavepost
         .any((element) => element.postid == widget.postdata.id)) {
@@ -181,7 +181,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             backgroundColor: Colors.blue,
             iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
-              widget.postdata.title.rendered,
+              widget.postdata.title!.rendered,
               style: const TextStyle(color: Colors.black),
             ),
             leading: IconButton(
@@ -223,7 +223,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           SliverPersistentHeader(
               delegate: DetailsSliverdelegate(
                   expendedheigth: expanded_heigth,
-                  photourl: widget.postdata.yoastHeadJson.ogImage[0].url,
+                  photourl: widget.postdata.yoastHeadJson!.ogImage[0].url!,
                   round_container: round_container_heigth)),
           // SliverToBoxAdapter(
           //   child: Container(
@@ -247,7 +247,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                 children: [
                   Flexible(
                     child: Text(
-                      widget.postdata.title.rendered,
+                      widget.postdata.title!.rendered,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
