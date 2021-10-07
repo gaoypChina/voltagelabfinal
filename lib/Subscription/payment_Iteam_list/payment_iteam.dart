@@ -4,7 +4,11 @@ import 'package:voltagelab/Subscription/Payment_page/payment_page.dart';
 class PaymentListPage extends StatefulWidget {
   final int package_price;
   final String subscription_pack_name;
-  const PaymentListPage({Key? key, required this.package_price, required this.subscription_pack_name})
+  final int subs_pack_month;
+  const PaymentListPage(
+      {Key? key,
+      required this.package_price,
+      required this.subscription_pack_name, required this.subs_pack_month})
       : super(key: key);
 
   @override
@@ -35,6 +39,7 @@ class _PaymentListPageState extends State<PaymentListPage> {
                       payment_type: 0,
                       package_price: widget.package_price,
                       subscription_pack_name: widget.subscription_pack_name,
+                      subs_pack_month: widget.subs_pack_month,
                     ),
                   ),
                 );
@@ -54,6 +59,7 @@ class _PaymentListPageState extends State<PaymentListPage> {
                       payment_name: 'Nagad',
                       package_price: widget.package_price,
                       subscription_pack_name: widget.subscription_pack_name,
+                      subs_pack_month: widget.subs_pack_month,
                     ),
                   ),
                 );

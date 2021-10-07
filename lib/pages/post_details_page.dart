@@ -265,7 +265,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: SingleChildScrollView(
+            child:post.isloading ? const SizedBox(
+              height: 300,
+              child: Center(child: Text("Loading......."),),
+            ) : SingleChildScrollView(
               child: Html(
                 data: post.postDetails!.content.rendered,
                 onLinkTap: (url, _, __, ___) async {

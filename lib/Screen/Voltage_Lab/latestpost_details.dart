@@ -41,6 +41,8 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
+        double expanded_heigth = 300;
+    double round_container_heigth = 50;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -52,7 +54,7 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
               widget.latestposttitle,
               style: const TextStyle(color: Colors.black),
             ),
-            pinned: true,
+            
             actions: [
               IconButton(
                   onPressed: () {
@@ -61,19 +63,24 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
                   icon: const Icon(Icons.share)),
             ],
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: CachedNetworkImage(
-                  key: UniqueKey(),
-                  imageUrl: widget.latestpostpic,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
+                    SliverPersistentHeader(
+              delegate: DetailsSliverdelegate(
+                  expendedheigth: expanded_heigth,
+                  photourl: widget.latestpostpic,
+                  round_container: round_container_heigth)),
+          // SliverToBoxAdapter(
+          //   child: Container(
+          //     margin: const EdgeInsets.all(10),
+          //     child: ClipRRect(
+          //       borderRadius: BorderRadius.circular(5),
+          //       child: CachedNetworkImage(
+          //         key: UniqueKey(),
+          //         imageUrl: widget.latestpostpic,
+          //         fit: BoxFit.cover,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SliverToBoxAdapter(
             child: Container(
               margin: const EdgeInsets.all(10),
@@ -126,5 +133,63 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
         ],
       ),
     );
+  }
+}
+
+class DetailsSliverdelegate extends SliverPersistentHeaderDelegate {
+  final double expendedheigth;
+  final String photourl;
+  final double round_container;
+  const DetailsSliverdelegate(
+      {required this.photourl,
+      required this.expendedheigth,
+      required this.round_container});
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Image.network(
+          //   photourl,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: expendedheigth,
+          //   fit: BoxFit.cover,
+          // ),
+          CachedNetworkImage(
+            key: UniqueKey(),
+            imageUrl: photourl,
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width,
+            height: expendedheigth,
+          ),
+          Positioned(
+            top: expendedheigth - round_container + 25 - shrinkOffset,
+            left: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: round_container - 10,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  )),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => expendedheigth;
+
+  @override
+  double get minExtent => 0;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
   }
 }

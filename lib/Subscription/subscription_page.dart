@@ -50,144 +50,227 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             )
           : Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
+                subscription(
                     color: payment.subscriptionuserdata == null
                         ? Colors.indigo
-                        : payment.subscriptionuserdata.any((element) => element.status == "approved")
+                        : payment.subscriptionuserdata
+                                .any((element) => element.status == "approved")
                             ? Colors.indigo.withOpacity(0.5)
                             : Colors.indigo,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: payment.subscriptionuserdata == null
-                          ? () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => const PaymentListPage(
-                                      package_price: 100,
-                                      subscription_pack_name: 'Start Up',
-                                    ),
-                                  ));
-                            }
-                          : payment.subscriptionuserdata.any((element) => element.status == "approved")
-                              ? null
-                              : () {
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                        builder: (context) =>
-                                            const PaymentListPage(
-                                          package_price: 100,
-                                          subscription_pack_name: 'Start Up',
-                                        ),
-                                      ));
-                                },
-                      borderRadius: BorderRadius.circular(10),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(10),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.06,
-                                width: MediaQuery.of(context).size.width * 0.13,
-                                decoration: BoxDecoration(
-                                    color: Colors.orange,
-                                    borderRadius: BorderRadius.circular(5)),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Startup',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white),
+                    onTap: payment.subscriptionuserdata == null
+                        ? () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => const PaymentListPage(
+                                    package_price: 100,
+                                    subscription_pack_name: 'Basic',
+                                    subs_pack_month: 1,
                                   ),
-                                  const SizedBox(
-                                    height: 5,
+                                ));
+                          }
+                        : payment.subscriptionuserdata
+                                .any((element) => element.status == "approved")
+                            ? null
+                            : () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const PaymentListPage(
+                                        package_price: 100,
+                                        subscription_pack_name: 'Basic',
+                                        subs_pack_month: 1,
+                                      ),
+                                    ));
+                              },
+                    subs_name: 'Basic',
+                    subs_package: '1 month'),
+                subscription(
+                    color: payment.subscriptionuserdata == null
+                        ? Colors.indigo
+                        : payment.subscriptionuserdata
+                                .any((element) => element.status == "approved")
+                            ? Colors.indigo.withOpacity(0.5)
+                            : Colors.indigo,
+                    onTap: payment.subscriptionuserdata == null
+                        ? () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => const PaymentListPage(
+                                    package_price: 100,
+                                    subscription_pack_name: 'Advance',
+                                    subs_pack_month: 3,
                                   ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: const [
-                                      Text('\$24',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white)),
-                                      Text('/user',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white)),
-                                    ],
+                                ));
+                          }
+                        : payment.subscriptionuserdata
+                                .any((element) => element.status == "approved")
+                            ? null
+                            : () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const PaymentListPage(
+                                        package_price: 100,
+                                        subscription_pack_name: 'Advance',
+                                        subs_pack_month: 3,
+                                      ),
+                                    ));
+                              },
+                    subs_name: 'Advance',
+                    subs_package: '3 month'),
+                subscription(
+                    color: payment.subscriptionuserdata == null
+                        ? Colors.indigo
+                        : payment.subscriptionuserdata
+                                .any((element) => element.status == "approved")
+                            ? Colors.indigo.withOpacity(0.5)
+                            : Colors.indigo,
+                    onTap: payment.subscriptionuserdata == null
+                        ? () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => const PaymentListPage(
+                                    package_price: 100,
+                                    subscription_pack_name: 'Custom',
+                                    subs_pack_month: 6,
                                   ),
-                                ],
-                              ),
-                              const Spacer(),
-                              Container(
-                                  margin: const EdgeInsets.only(right: 10),
-                                  child: const Text('1 mounth',
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.white)))
-                            ],
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            child: const Divider(
-                              color: Colors.white,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.all(10),
-                            child: Row(
-                              children: const [
-                                Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  'All features in Basic',
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 10, right: 10),
-                            child: Row(
-                              children: const [
-                                Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  'Flexible call scheduling',
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
+                                ));
+                          }
+                        : payment.subscriptionuserdata
+                                .any((element) => element.status == "approved")
+                            ? null
+                            : () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const PaymentListPage(
+                                        package_price: 100,
+                                        subscription_pack_name: 'Custom',
+                                        subs_pack_month: 6,
+                                      ),
+                                    ));
+                              },
+                    subs_name: 'Custom',
+                    subs_package: '6 month')
               ],
             ),
+    );
+  }
+
+  Widget subscription(
+      {Color? color,
+      GestureTapCallback? onTap,
+      String? subs_name,
+      String? subs_package}) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      height: MediaQuery.of(context).size.height * 0.2,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(10),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.13,
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        subs_name!,
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: const [
+                          Text('\$24',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white)),
+                          Text('/user',
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white)),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Text(subs_package!,
+                          style: TextStyle(fontSize: 18, color: Colors.white)))
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                child: const Divider(
+                  color: Colors.white,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'All features in Basic',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Flexible call scheduling',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

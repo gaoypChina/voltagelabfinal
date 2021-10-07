@@ -78,7 +78,10 @@ class _PostPageState extends State<PostPage> {
                   itemCount: post.postdata.length,
                   itemBuilder: (context, index) {
                     if (index == post.postdata.length - 1) {
-                      if (post.postdata.length == previewpostlength) {
+                      
+                      if (post.postdata.length - 1 < 4) {
+                        return Container();
+                      } else if (post.postdata.length == previewpostlength) {
                         return Container();
                       } else if (post.postdata.length != previewpostlength) {
                         return const Center(

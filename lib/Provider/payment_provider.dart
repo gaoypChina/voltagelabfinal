@@ -13,7 +13,8 @@ import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_all
 import 'package:voltagelab/pages/homepage.dart';
 
 class PaymentProvider extends ChangeNotifier {
-  String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
+  String api_token =
+      "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
   OrginalDatetime? orginalDatetime;
   List<Subscriptionuserdata> subscriptionuserdata = [];
 
@@ -42,7 +43,6 @@ class PaymentProvider extends ChangeNotifier {
     subscription_pack,
     remaining,
     payment_type,
-
     required BuildContext context,
   }) async {
     var box = Hive.box('userdata');
@@ -53,15 +53,15 @@ class PaymentProvider extends ChangeNotifier {
         body: jsonEncode({
           "fullname": box.get('name'),
           "email": box.get('email'),
-          "phone_num" : phone_num,
-          "transactionid" : transactionid,
-          "start_date" : start_date,
-          "end_date" : end_date,
-          "status" : status,
-          "remaining" : remaining,
-          "subscription_pack" : subscription_pack,
-          "payment_type" : payment_type,
-          "login_type" : box.get('type')
+          "phone_num": phone_num,
+          "transactionid": transactionid,
+          "start_date": start_date,
+          "end_date": end_date,
+          "status": status,
+          "remaining": remaining,
+          "subscription_pack": subscription_pack,
+          "payment_type": payment_type,
+          "login_type": box.get('type')
         }));
     if (response.statusCode == 200) {
       isloading = false;
@@ -88,8 +88,7 @@ class PaymentProvider extends ChangeNotifier {
   //   }
   // }
 
-  Future payment_subscription_one_month_userinfo_get(
-      String email) async {
+  Future payment_subscription_one_month_userinfo_get(String email) async {
     isloading = true;
     String url =
         "http://api.voltagelab.com/vl-app/one_month_subs/all_data_get_by_email.php?api_token=$api_token&email=$email";
@@ -116,10 +115,9 @@ class PaymentProvider extends ChangeNotifier {
     subscriptionsaveuserdatalist!.clear();
     subscriptionsaveuserdatalist = await sqlSubscriptiononemonth_DB!.getdata();
 
-
-    for( int i =0; i < subscriptionuserdata1.length; i++ ){
+    for (int i = 0; i < subscriptionuserdata1.length; i++) {
       Subscriptionsaveuserdata subscriptionsaveuserdata =
-      Subscriptionsaveuserdata(
+          Subscriptionsaveuserdata(
         subscriptionid: subscriptionuserdata1[i].id,
         startdate: subscriptionuserdata1[i].startDate.toString(),
         enddate: subscriptionuserdata1[i].endDate.toString(),
@@ -128,8 +126,8 @@ class PaymentProvider extends ChangeNotifier {
         status: subscriptionuserdata1[i].status,
       );
 
-      if (subscriptionsaveuserdatalist!.any((element) =>
-      element.subscriptionid == subscriptionuserdata1[i].id)) {
+      if (subscriptionsaveuserdatalist!.any(
+          (element) => element.subscriptionid == subscriptionuserdata1[i].id)) {
         sqlSubscriptiononemonth_DB!
             .delete(subscriptionuserdata1[i].id)
             .then((value) {
@@ -143,14 +141,7 @@ class PaymentProvider extends ChangeNotifier {
         print('data addeds');
         notifyListeners();
       }
-
-
-
     }
-
-
-
-
   }
 
   subscription_one_monthdata_listadd() async {

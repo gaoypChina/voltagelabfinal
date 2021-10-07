@@ -88,12 +88,14 @@ class Postprovider extends ChangeNotifier {
   //bangla voltage lab post details................................................
   Future<PostDetails?> getpostdetails(int postid, String sitename) async {
     if (sitename == 'voltagelab') {
+      isloading = true;
       String url =
           "https://blog.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         var jsondata = response.body;
         postDetails = postDetailsFromJson(jsondata);
+        isloading = false;
         notifyListeners();
         return postDetails;
       }
@@ -199,14 +201,19 @@ class Postprovider extends ChangeNotifier {
 
   //english https://www.voltagelab.com/ get post details..........................................
   Future get_en_voltagelabpostdetails(int postid) async {
+    isloading = true;
     String url =
         "https://www.voltagelab.com/wp-json/wp/v2/posts/${postid}?_fields[]=content&_fields[]=link";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
       postDetails = postDetailsFromJson(jsondata);
+      isloading = false;
       notifyListeners();
       return postDetails;
+    } else {
+      isloading = false;
+      notifyListeners();
     }
   }
 
@@ -222,7 +229,7 @@ class Postprovider extends ChangeNotifier {
       return searchpost;
     }
   }
-  
+
 //https://www.voltagelab.com/ searchpost details
   Future<SearchPostDetails?> en_voltagelabsearchpostdetails(int postid) async {
     searchpostloading = true;
