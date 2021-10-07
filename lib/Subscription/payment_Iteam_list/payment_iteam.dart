@@ -69,6 +69,26 @@ class _PaymentListPageState extends State<PaymentListPage> {
                 height: 50,
               ),
               name: 'Nagad'),
+              paymentiteamlist(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PaymentPage(
+                      payment_type: 2,
+                      payment_name: 'Rocket',
+                      package_price: widget.package_price,
+                      subscription_pack_name: widget.subscription_pack_name,
+                      subs_pack_month: widget.subs_pack_month,
+                    ),
+                  ),
+                );
+              },
+              imagechild: Image.asset(
+                'images/nagad.png',
+                height: 50,
+              ),
+              name: 'Rocket'),
         ],
       ),
     );
