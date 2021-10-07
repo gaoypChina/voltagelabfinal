@@ -38,7 +38,7 @@ class CategoryProvider extends ChangeNotifier {
   Future get_free_bn_vl_categorylist() async {
     loading = true;
     String url =
-        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/free_category_list/free_category_vl_bangla.php?api_token=$api_token";
+        "http://api.voltagelab.com/vl-app/free_category_list/free_category_vl_bangla.php?api_token=$api_token";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -97,7 +97,7 @@ class CategoryProvider extends ChangeNotifier {
   Future get_free_en_vl_categorylist() async {
     loading = true;
     String url =
-        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/free_category_list/free_category_vl_english.php?api_token=$api_token";
+        "http://api.voltagelab.com/vl-app/free_category_list/free_category_vl_english.php?api_token=$api_token";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -148,7 +148,7 @@ class CategoryProvider extends ChangeNotifier {
   Future get_pro_bn_vl_categorylist() async {
     loading = true;
     String url =
-        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/pro_category_list/pro_category_vl_bangla.php?api_token=$api_token";
+        "http://api.voltagelab.com/vl-app/pro_category_list/pro_category_vl_bangla.php?api_token=$api_token";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -187,7 +187,7 @@ class CategoryProvider extends ChangeNotifier {
   Future get_pro_en_vl_categorylist() async {
     loading = true;
     String url =
-        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/pro_category_list/pro_category_vl_english.php?api_token=$api_token";
+        "http://api.voltagelab.com/vl-app/pro_category_list/pro_category_vl_english.php?api_token=$api_token";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
