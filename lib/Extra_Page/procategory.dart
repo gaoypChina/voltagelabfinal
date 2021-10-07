@@ -12,7 +12,7 @@ class Procategorydata extends StatefulWidget {
 class _ProcategorydataState extends State<Procategorydata> {
   @override
   void initState() {
-    Provider.of<CategoryProvider>(context, listen: false).getpro_bvangla_voltagelabcategorylist();
+    Provider.of<CategoryProvider>(context, listen: false).get_pro_bn_vl_categorylist();
     super.initState();
   }
 
@@ -27,7 +27,7 @@ class _ProcategorydataState extends State<Procategorydata> {
         children: [
           ElevatedButton(
             onPressed: () {
-              print(data.probanglavoltagelabcategorydatabaselist.map((e) => e.categoryid).toList());
+              print(data.pro_bn_vl_categorydatabase.map((e) => e.categoryid).toList());
             },
             child: Text("pro Category"),
           )

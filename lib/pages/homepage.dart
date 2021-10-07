@@ -164,9 +164,8 @@ class _HomePageState extends State<HomePage> {
     parmissionhandeler();
     // Provider.of<NotificationService>(context, listen: false).initplatfrom();
     Provider.of<Postprovider>(context, listen: false).getvoltagelablatestpost();
-    Provider.of<CategoryProvider>(context, listen: false).getcategory();
-    Provider.of<CategoryProvider>(context, listen: false)
-        .en_voltagelabcategory();
+    Provider.of<CategoryProvider>(context, listen: false).get_free_bn_vl_categorylist();
+    Provider.of<CategoryProvider>(context, listen: false).get_free_en_vl_categorylist();
     var box = Hive.box("userdata");
     Provider.of<PaymentProvider>(context, listen: false)
         .payment_subscription_one_month_userinfo_get(box.get('email'));
@@ -325,8 +324,8 @@ class _HomePageState extends State<HomePage> {
                       name: "English Voltage Lab",
                       onTap: () {
                         post.get_en_voltagelabpostcount();
-                        Provider.of<CategoryProvider>(context, listen: false)
-                            .en_voltagelabcategory();
+                        // Provider.of<CategoryProvider>(context, listen: false)
+                        //     .en_free_vl_category();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -367,7 +366,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ProenglishVoltageCategoryListPage(),
+                              builder: (context) => const Pro_en_Vl_CategoryPage(),
                             ));
                       },
                     ),

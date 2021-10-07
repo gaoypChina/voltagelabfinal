@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-List<ProEnglishVoltagelabCategorydatabaseList> proenglishvoltagelabCategorydatabaseListFromJson(String str) => List<ProEnglishVoltagelabCategorydatabaseList>.from(json.decode(str).map((x) => ProEnglishVoltagelabCategorydatabaseList.fromJson(x)));
+List<Pro_en_vl_Categorydatabase> proenglishvoltagelabCategorydatabaseListFromJson(String str) => List<Pro_en_vl_Categorydatabase>.from(json.decode(str).map((x) => Pro_en_vl_Categorydatabase.fromJson(x)));
 
-String proEnglishvoltagelabCategorydatabaseListToJson(List<ProEnglishVoltagelabCategorydatabaseList> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String proEnglishvoltagelabCategorydatabaseListToJson(List<Pro_en_vl_Categorydatabase> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ProEnglishVoltagelabCategorydatabaseList {
-    ProEnglishVoltagelabCategorydatabaseList({
+class Pro_en_vl_Categorydatabase {
+    Pro_en_vl_Categorydatabase({
         this.id,
         this.categoryid,
     });
@@ -17,7 +17,7 @@ class ProEnglishVoltagelabCategorydatabaseList {
     String? id;
     String? categoryid;
 
-    factory ProEnglishVoltagelabCategorydatabaseList.fromJson(Map<String, dynamic> json) => ProEnglishVoltagelabCategorydatabaseList(
+    factory Pro_en_vl_Categorydatabase.fromJson(Map<String, dynamic> json) => Pro_en_vl_Categorydatabase(
         id: json["id"],
         categoryid: json["categoryid"],
     );

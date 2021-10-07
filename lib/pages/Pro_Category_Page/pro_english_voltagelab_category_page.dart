@@ -13,14 +13,14 @@ import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dar
 import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
 
-class ProenglishVoltageCategoryListPage extends StatefulWidget {
-  const ProenglishVoltageCategoryListPage({Key? key}) : super(key: key);
+class Pro_en_Vl_CategoryPage extends StatefulWidget {
+  const Pro_en_Vl_CategoryPage({Key? key}) : super(key: key);
 
   @override
-  _ProenglishVoltageCategoryListPageState createState() => _ProenglishVoltageCategoryListPageState();
+  _Pro_en_Vl_CategoryPageState createState() => _Pro_en_Vl_CategoryPageState();
 }
 
-class _ProenglishVoltageCategoryListPageState extends State<ProenglishVoltageCategoryListPage> {
+class _Pro_en_Vl_CategoryPageState extends State<Pro_en_Vl_CategoryPage> {
   int? categoryindex;
   bool subcategoryshow = false;
 
@@ -28,7 +28,7 @@ class _ProenglishVoltageCategoryListPageState extends State<ProenglishVoltageCat
 
   @override
   void initState() {
-    Provider.of<CategoryProvider>(context, listen: false).getpro_english_voltagelabcategorylist();
+    Provider.of<CategoryProvider>(context, listen: false).get_pro_en_vl_categorylist();
     super.initState();
   }
 
@@ -169,7 +169,7 @@ class _ProenglishVoltageCategoryListPageState extends State<ProenglishVoltageCat
                     (context, index) {
                       Color color = Colors
                           .primaries[Random().nextInt(Colors.primaries.length)];
-                      var procategory = category.proenglishvoltagelabcategorylist[index];
+                      var procategory = category.pro_en_vl_categorylist[index];
                       return Container(
                         margin: EdgeInsets.only(
                             left: index % 2 == 0 ? 15 : 10,
@@ -230,7 +230,7 @@ class _ProenglishVoltageCategoryListPageState extends State<ProenglishVoltageCat
                         ),
                       );
                     },
-                    childCount: category.proenglishvoltagelabcategorylist.length,
+                    childCount: category.pro_en_vl_categorylist.length,
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,

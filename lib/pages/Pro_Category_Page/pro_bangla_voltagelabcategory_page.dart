@@ -28,7 +28,7 @@ class _ProBanglaVoltageCategoryListPageState extends State<ProBanglaVoltageCateg
 
   @override
   void initState() {
-    Provider.of<CategoryProvider>(context, listen: false).getpro_bvangla_voltagelabcategorylist();
+    Provider.of<CategoryProvider>(context, listen: false).get_pro_bn_vl_categorylist();
     super.initState();
   }
 
@@ -169,7 +169,7 @@ class _ProBanglaVoltageCategoryListPageState extends State<ProBanglaVoltageCateg
                     (context, index) {
                       Color color = Colors
                           .primaries[Random().nextInt(Colors.primaries.length)];
-                      var procategory = category.probanglavoltagelabcategorylist[index];
+                      var procategory = category.pro_bn_vl_category[index];
                       return Container(
                         margin: EdgeInsets.only(
                             left: index % 2 == 0 ? 15 : 10,
@@ -230,7 +230,7 @@ class _ProBanglaVoltageCategoryListPageState extends State<ProBanglaVoltageCateg
                         ),
                       );
                     },
-                    childCount: category.probanglavoltagelabcategorylist.length,
+                    childCount: category.pro_bn_vl_category.length,
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,

@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-List<ProBanglaVoltageCategorieslist> procategorieslistFromJson(String str) => List<ProBanglaVoltageCategorieslist>.from(json.decode(str).map((x) => ProBanglaVoltageCategorieslist.fromJson(x)));
+List<Pro_bn_Vl_Categories> procategorieslistFromJson(String str) => List<Pro_bn_Vl_Categories>.from(json.decode(str).map((x) => Pro_bn_Vl_Categories.fromJson(x)));
 
-String procategorieslistToJson(List<ProBanglaVoltageCategorieslist> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String procategorieslistToJson(List<Pro_bn_Vl_Categories> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ProBanglaVoltageCategorieslist {
-    ProBanglaVoltageCategorieslist({
+class Pro_bn_Vl_Categories {
+    Pro_bn_Vl_Categories({
         this.id,
         this.name,
     });
@@ -17,7 +17,7 @@ class ProBanglaVoltageCategorieslist {
     int? id;
     String? name;
 
-    factory ProBanglaVoltageCategorieslist.fromJson(Map<String, dynamic> json) => ProBanglaVoltageCategorieslist(
+    factory Pro_bn_Vl_Categories.fromJson(Map<String, dynamic> json) => Pro_bn_Vl_Categories(
         id: json["id"],
         name: json["name"],
     );
