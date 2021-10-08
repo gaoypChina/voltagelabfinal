@@ -21,7 +21,7 @@ class SubscriptionUserStreamdata {
 
   Future<Subscriptionsingledata?> payment_user_info_get(String email) async {
     String url =
-        "http://api.voltagelab.com/vl-app/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=1";
+        "http://api.voltagelab.com/vl-app/paid_subscription/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=1";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
@@ -39,7 +39,7 @@ class SubscriptionUserStreamdata {
     var orginalDatetime = await get_today_datetime();
 
     String url =
-        "http://api.voltagelab.com/vl-app/one_month_subs/update_subs_data.php?api_token=$api_token&email=$email&status=1";
+        "http://api.voltagelab.com/vl-app/paid_subscription/update_subs_data.php?api_token=$api_token&email=$email&status=1";
 
     if (DateTime.parse(data['end_date'])
             .difference(orginalDatetime!.datetime!)

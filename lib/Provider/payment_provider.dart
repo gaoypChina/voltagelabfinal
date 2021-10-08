@@ -50,7 +50,9 @@ class PaymentProvider extends ChangeNotifier {
     var box = Hive.box('userdata');
     isloading = true;
     String url =
-        "http://api.voltagelab.com/vl-app/one_month_subs/input_subs_data.php?api_token=$api_token";
+        "http://api.voltagelab.com/vl-app/paid_subscription/input_subs_data.php?api_token=$api_token";
+    // String url =
+    //     "http://api.voltagelab.com/vl-app/one_month_subs/input_subs_data.php?api_token=$api_token";
     var response = await http.post(Uri.parse(url),
         body: jsonEncode({
           "fullname": box.get('name'),
@@ -93,7 +95,7 @@ class PaymentProvider extends ChangeNotifier {
   Future payment_subscription_one_month_userinfo_get(String email) async {
     isloading = true;
     String url =
-        "http://api.voltagelab.com/vl-app/one_month_subs/all_data_get_by_email.php?api_token=$api_token&email=$email";
+        "http://api.voltagelab.com/vl-app/paid_subscription/all_data_get_by_email.php?api_token=$api_token&email=$email";
     try {
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -155,7 +157,7 @@ class PaymentProvider extends ChangeNotifier {
   Future<Subscriptionsingledata?> payment_user__single_info_get(
       String email) async {
     String url =
-        "http://api.voltagelab.com/vl-app/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=1";
+        "http://api.voltagelab.com/vl-app/paid_subscription/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=1";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
