@@ -25,6 +25,7 @@ class SubscriptionUserStreamdata {
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
+      print(jsondata);
       var data = jsonDecode(jsondata);
       subscriptiondate_end(data, email);
       return subscriptionsingledataFromJson(jsondata);
