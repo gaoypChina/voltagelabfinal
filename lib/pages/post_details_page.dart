@@ -212,7 +212,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                           polytechnicsavecategorydb();
                           polytechnicsavepostdb(post);
                           post.getpolytechnicsavepost();
-                        } else {
+                        } else if(payment.subscriptionsingledata == null || payment.subscriptionsingledata!.status != '1') {
                           Alert(
                             context: context,
                             type: AlertType.error,
@@ -247,7 +247,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                           voltagelabsavecategory();
                           voltagelabsavepost(post);
                           post.getvoltagelabsavepost();
-                        } else {
+                        } else if(payment.subscriptionsingledata == null || payment.subscriptionsingledata!.status != '1') {
                           Alert(
                             context: context,
                             type: AlertType.error,

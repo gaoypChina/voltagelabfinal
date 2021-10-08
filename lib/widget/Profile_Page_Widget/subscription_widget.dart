@@ -44,33 +44,33 @@ class _SubscriptionWidgetPageState extends State<SubscriptionWidgetPage> {
                   itemBuilder: (context, index) {
                     var data = datalist[index];
                     return Container(
-                      margin: EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(5),
                       width: double.infinity,
                       child: Card(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               child: Text(
                                   "Package name: ${data.subscriptionpack}"),
                             ),
                             Container(
-                              padding: EdgeInsets.only(left: 10, bottom: 10),
+                              padding: const EdgeInsets.only(left: 10, bottom: 10),
                               child: Text("Start Date : ${data.startdate}"),
                             ),
                             Container(
                                 padding:
-                                    EdgeInsets.only(left: 10, bottom: 10),
+                                    const EdgeInsets.only(left: 10, bottom: 10),
                                 child: Text("End Date : ${data.enddate}")),
                             Container(
-                              padding: EdgeInsets.only(left: 10, bottom: 10),
+                              padding: const EdgeInsets.only(left: 10, bottom: 10),
                               child:
                                   Text("remaining : ${data.remaining} day"),
                             ),
                             Container(
                                 padding:
-                                    EdgeInsets.only(left: 10, bottom: 10),
+                                    const EdgeInsets.only(left: 10, bottom: 10),
                                 child:data.status == '0' ? const Text(
                                     "Status : panding") : data.status == '1' ? const Text(
                                     "Status : approved") : data.status == '2' ? const Text(
