@@ -133,12 +133,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              Container(
+              subscriptionsingledata!.status != '1' ? Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.black.withOpacity(0.5),
                 ),
-              )
+              ) : Container()
               // SizedBox(
               //     height: 50,
               //     child: subscriptionsingledata == null
