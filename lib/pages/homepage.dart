@@ -133,7 +133,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              subscriptionsingledata!.status != '1' ? Container(
+              subscriptionsingledata == null ? Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.black.withOpacity(0.5),
+                ),
+              ) : subscriptionsingledata.status != '1' ? Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.black.withOpacity(0.5),
