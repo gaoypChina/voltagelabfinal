@@ -2,14 +2,16 @@
 
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
 import 'package:voltagelab/model/Orginal_Date_time_model/date_time.dart';
 import 'package:http/http.dart' as http;
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 
 class SubscriptionUserStreamdata {
-  String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
+  String api_token =
+      "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
 
-   Stream<Subscriptionsingledata?> streamsubscriptiondata(
+  Stream<Subscriptionsingledata?> streamsubscriptiondata(
       Duration refreshTime, String email) async* {
     while (true) {
       await Future.delayed(refreshTime);
@@ -17,14 +19,15 @@ class SubscriptionUserStreamdata {
     }
   }
 
-   Future<Subscriptionsingledata?> payment_user_info_get(
-      String email) async {
-    
-    String url = "http://api.voltagelab.com/vl-app/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=approved";
+  Future<Subscriptionsingledata?> payment_user_info_get(String email) async {
+    var box = Hive.box('subsinfo');
+    String url =
+        "http://api.voltagelab.com/vl-app/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=1";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
       var data = jsonDecode(jsondata);
+      print(jsondata);
       subscriptiondate_end(data, email);
       return subscriptionsingledataFromJson(jsondata);
     } else {
@@ -32,12 +35,13 @@ class SubscriptionUserStreamdata {
     }
   }
 
-   Future subscriptiondate_end(data, String email) async {
-    String api_token= "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
+  Future subscriptiondate_end(data, String email) async {
+    String api_token =
+        "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
     var orginalDatetime = await get_today_datetime();
 
     String url =
-        "http://api.voltagelab.com/vl-app/one_month_subs/update_subs_data.php?api_token=$api_token&email=$email&status=approved";
+        "http://api.voltagelab.com/vl-app/one_month_subs/update_subs_data.php?api_token=$api_token&email=$email&status=1";
 
     if (DateTime.parse(data['end_date'])
             .difference(orginalDatetime!.datetime!)
@@ -45,7 +49,7 @@ class SubscriptionUserStreamdata {
         0) {
       var response = await http.post(Uri.parse(url),
           body: jsonEncode({
-            "status": "expair",
+            "status": "2",
             "remaining": DateTime.parse(data['end_date'])
                 .difference(orginalDatetime.datetime!)
                 .inDays,
@@ -64,7 +68,7 @@ class SubscriptionUserStreamdata {
     }
   }
 
-   Future<OrginalDatetime?> get_today_datetime() async {
+  Future<OrginalDatetime?> get_today_datetime() async {
     String url = "http://worldtimeapi.org/api/timezone/Asia/Dhaka";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {

@@ -54,7 +54,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     color: payment.subscriptionuserdata == null
                         ? Colors.indigo
                         : payment.subscriptionuserdata
-                                .any((element) => element.status == "approved")
+                                .any((element) => element.status == "1")
                             ? Colors.indigo.withOpacity(0.5)
                             : Colors.indigo,
                     onTap: payment.subscriptionuserdata == null
@@ -70,7 +70,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 ));
                           }
                         : payment.subscriptionuserdata
-                                .any((element) => element.status == "approved")
+                                .any((element) => element.status == "1")
                             ? null
                             : () {
                                 Navigator.push(
@@ -90,7 +90,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     color: payment.subscriptionuserdata == null
                         ? Colors.indigo
                         : payment.subscriptionuserdata
-                                .any((element) => element.status == "approved")
+                                .any((element) => element.status == "1")
                             ? Colors.indigo.withOpacity(0.5)
                             : Colors.indigo,
                     onTap: payment.subscriptionuserdata == null
@@ -106,7 +106,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 ));
                           }
                         : payment.subscriptionuserdata
-                                .any((element) => element.status == "approved")
+                                .any((element) => element.status == "1")
                             ? null
                             : () {
                                 Navigator.push(
@@ -126,7 +126,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     color: payment.subscriptionuserdata == null
                         ? Colors.indigo
                         : payment.subscriptionuserdata
-                                .any((element) => element.status == "approved")
+                                .any((element) => element.status == "1")
                             ? Colors.indigo.withOpacity(0.5)
                             : Colors.indigo,
                     onTap: payment.subscriptionuserdata == null
@@ -142,7 +142,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 ));
                           }
                         : payment.subscriptionuserdata
-                                .any((element) => element.status == "approved")
+                                .any((element) => element.status == "1")
                             ? null
                             : () {
                                 Navigator.push(

@@ -419,7 +419,7 @@ class _HomePageState extends State<HomePage> {
                                     name: 'VoltageLab Bookmark',
                                     onTap: snapshot.data == null
                                         ? null
-                                        : snapshot.data!.status != "approved"
+                                        : snapshot.data!.status != "1"
                                             ? null
                                             : () {
                                                 post.getpostcount();
@@ -445,7 +445,7 @@ class _HomePageState extends State<HomePage> {
                                     name: 'Polytechnic Bookmark',
                                     onTap: snapshot.data == null
                                         ? null
-                                        : snapshot.data!.status != "approved"
+                                        : snapshot.data!.status != "1"
                                             ? null
                                             : () {
                                                 post.getpostcount();
@@ -471,7 +471,7 @@ class _HomePageState extends State<HomePage> {
                                     name: 'Pro Category',
                                     onTap: snapshot.data == null
                                         ? null
-                                        : snapshot.data!.status != "approved"
+                                        : snapshot.data!.status != "1"
                                             ? null
                                             : () {
                                                 post.getpostcount();

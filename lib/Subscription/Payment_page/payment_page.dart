@@ -100,7 +100,7 @@ class _PaymentPageState extends State<PaymentPage> {
           transactionid: transaction_Id,
           start_date: startdate.toString(),
           end_date: enddate.toString(),
-          status: 'panding',
+          status: '0',
           subscription_pack: widget.subscription_pack_name,
           remaining: difference,
           payment_type: widget.payment_type,

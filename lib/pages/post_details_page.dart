@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
@@ -205,6 +206,24 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                           : Icons.bookmark_border))
                   : IconButton(
                       onPressed: () {
+                        Alert(
+                          context: context,
+                          type: AlertType.error,
+                          title: "RFLUTTER ALERT",
+                          desc:
+                              "Here we are creating a button inside alert box.",
+                          buttons: [
+                            DialogButton(
+                              child: const Text(
+                                "Button",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              width: 120,
+                            )
+                          ],
+                        ).show();
                         voltagelabsavecategory();
                         voltagelabsavepost(post);
                         post.getvoltagelabsavepost();
@@ -220,24 +239,24 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   icon: const Icon(Icons.share)),
             ],
           ),
-          SliverPersistentHeader(
-              delegate: DetailsSliverdelegate(
-                  expendedheigth: expanded_heigth,
-                  photourl: widget.postdata.yoastHeadJson!.ogImage[0].url!,
-                  round_container: round_container_heigth)),
-          // SliverToBoxAdapter(
-          //   child: Container(
-          //     margin: const EdgeInsets.all(10),
-          //     child: ClipRRect(
-          //       borderRadius: BorderRadius.circular(5),
-          //       child: CachedNetworkImage(
-          //         key: UniqueKey(),
-          //         imageUrl: widget.postdata.yoastHeadJson.ogImage[0].url,
-          //         fit: BoxFit.cover,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          // SliverPersistentHeader(
+          //     delegate: DetailsSliverdelegate(
+          //         expendedheigth: expanded_heigth,
+          //         photourl: widget.postdata.yoastHeadJson!.ogImage[0].url!,
+          //         round_container: round_container_heigth)),
+          SliverToBoxAdapter(
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: CachedNetworkImage(
+                  key: UniqueKey(),
+                  imageUrl: widget.postdata.yoastHeadJson!.ogImage[0].url!,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
 
           SliverToBoxAdapter(
             child: Container(
@@ -265,24 +284,28 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             ),
           ),
           SliverToBoxAdapter(
-            child:post.isloading ? const SizedBox(
-              height: 300,
-              child: Center(child: Text("Loading......."),),
-            ) : SingleChildScrollView(
-              child: Html(
-                data: post.postDetails!.content.rendered,
-                onLinkTap: (url, _, __, ___) async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WebViewPage(url: url!),
-                      ));
-                },
-                onImageTap: (url, context, attributes, element) {
-                  CachedNetworkImage(imageUrl: url!);
-                },
-              ),
-            ),
+            child: post.isloading
+                ? const SizedBox(
+                    height: 300,
+                    child: Center(
+                      child: Text("Loading......."),
+                    ),
+                  )
+                : SingleChildScrollView(
+                    child: Html(
+                      data: post.postDetails!.content.rendered,
+                      onLinkTap: (url, _, __, ___) async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WebViewPage(url: url!),
+                            ));
+                      },
+                      onImageTap: (url, context, attributes, element) {
+                        CachedNetworkImage(imageUrl: url!);
+                      },
+                    ),
+                  ),
           )
         ],
       ),
@@ -290,60 +313,60 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   }
 }
 
-class DetailsSliverdelegate extends SliverPersistentHeaderDelegate {
-  final double expendedheigth;
-  final String photourl;
-  final double round_container;
-  const DetailsSliverdelegate(
-      {required this.photourl,
-      required this.expendedheigth,
-      required this.round_container});
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          // Image.network(
-          //   photourl,
-          //   width: MediaQuery.of(context).size.width,
-          //   height: expendedheigth,
-          //   fit: BoxFit.cover,
-          // ),
-          CachedNetworkImage(
-            key: UniqueKey(),
-            imageUrl: photourl,
-            fit: BoxFit.cover,
-            width: MediaQuery.of(context).size.width,
-            height: expendedheigth,
-          ),
-          Positioned(
-            top: expendedheigth - round_container + 25 - shrinkOffset,
-            left: 0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: round_container - 10,
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  )),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+// class DetailsSliverdelegate extends SliverPersistentHeaderDelegate {
+//   final double expendedheigth;
+//   final String photourl;
+//   final double round_container;
+//   const DetailsSliverdelegate(
+//       {required this.photourl,
+//       required this.expendedheigth,
+//       required this.round_container});
+//   @override
+//   Widget build(
+//       BuildContext context, double shrinkOffset, bool overlapsContent) {
+//     return Scaffold(
+//       body: Stack(
+//         children: [
+//           // Image.network(
+//           //   photourl,
+//           //   width: MediaQuery.of(context).size.width,
+//           //   height: expendedheigth,
+//           //   fit: BoxFit.cover,
+//           // ),
+//           CachedNetworkImage(
+//             key: UniqueKey(),
+//             imageUrl: photourl,
+//             fit: BoxFit.cover,
+//             width: MediaQuery.of(context).size.width,
+//             height: expendedheigth,
+//           ),
+//           Positioned(
+//             top: expendedheigth - round_container + 25 - shrinkOffset,
+//             left: 0,
+//             child: Container(
+//               width: MediaQuery.of(context).size.width,
+//               height: round_container - 10,
+//               decoration: const BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.only(
+//                     topLeft: Radius.circular(30),
+//                     topRight: Radius.circular(30),
+//                   )),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
 
-  @override
-  double get maxExtent => expendedheigth;
+//   @override
+//   double get maxExtent => expendedheigth;
 
-  @override
-  double get minExtent => 0;
+//   @override
+//   double get minExtent => 0;
 
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
-}
+//   @override
+//   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+//     return true;
+//   }
+// }

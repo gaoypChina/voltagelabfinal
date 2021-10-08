@@ -278,48 +278,48 @@ class YoastHeadJson {
 
 class OgImage {
     OgImage({
-        required this.width,
-        required this.height,
+        // required this.width,
+        // required this.height,
         required this.url,
-        required this.path,
-        required this.size,
-        required this.id,
-        required this.alt,
-        required this.pixels,
-        required this.type,
+        // required this.path,
+        // required this.size,
+        // required this.id,
+        // required this.alt,
+        // required this.pixels,
+        // required this.type,
     });
 
-    int width;
-    int height;
+    // int width;
+    // int height;
     String url;
-    String path;
-    String size;
-    int id;
-    String alt;
-    int pixels;
-    String type;
+    // String path;
+    // String size;
+    // int id;
+    // String alt;
+    // int pixels;
+    // String type;
 
     factory OgImage.fromJson(Map<String, dynamic> json) => OgImage(
-        width: json["width"],
-        height: json["height"],
+        // width: json["width"],
+        // height: json["height"],
         url: json["url"],
-        path: json["path"],
-        size: json["size"],
-        id: json["id"],
-        alt: json["alt"],
-        pixels: json["pixels"],
-        type: json["type"],
+        // path: json["path"],
+        // size: json["size"],
+        // id: json["id"],
+        // alt: json["alt"],
+        // pixels: json["pixels"],
+        // type: json["type"],
     );
 
     Map<String, dynamic> toJson() => {
-        "width": width,
-        "height": height,
+        // "width": width,
+        // "height": height,
         "url": url,
-        "path": path,
-        "size": size,
-        "id": id,
-        "alt": alt,
-        "pixels": pixels,
-        "type": type,
+        // "path": path,
+        // "size": size,
+        // "id": id,
+        // "alt": alt,
+        // "pixels": pixels,
+        // "type": type,
     };
 }

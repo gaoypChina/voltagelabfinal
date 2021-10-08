@@ -71,8 +71,11 @@ class _SubscriptionWidgetPageState extends State<SubscriptionWidgetPage> {
                             Container(
                                 padding:
                                     EdgeInsets.only(left: 10, bottom: 10),
-                                child: Text(
-                                    "Status : ${data.status}")),
+                                child:data.status == '0' ? const Text(
+                                    "Status : panding") : data.status == '1' ? const Text(
+                                    "Status : approved") : data.status == '2' ? const Text(
+                                    "Status : Expair") : const Text(
+                                    "Status : panding")),
                           ],
                         ),
                       ),

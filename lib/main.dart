@@ -32,6 +32,7 @@ Future<void> main() async {
   await Hive.openBox("Polytechnicbadge");
   await Hive.openBox("notification");
   await Hive.openBox("verificationnumber");
+  await Hive.openBox("subsinfo");
   Hive.init(dir.path);
   runApp(MultiProvider(
     providers: [
