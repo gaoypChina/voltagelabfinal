@@ -20,14 +20,12 @@ class SubscriptionUserStreamdata {
   }
 
   Future<Subscriptionsingledata?> payment_user_info_get(String email) async {
-    var box = Hive.box('subsinfo');
     String url =
         "http://api.voltagelab.com/vl-app/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=1";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
       var data = jsonDecode(jsondata);
-      print(jsondata);
       subscriptiondate_end(data, email);
       return subscriptionsingledataFromJson(jsondata);
     } else {

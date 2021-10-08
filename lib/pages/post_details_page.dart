@@ -5,11 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
+import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/Model/post_model.dart';
@@ -19,6 +21,8 @@ import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
+import 'package:voltagelab/Subscription/subscription_page.dart';
+import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 
@@ -157,6 +161,12 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
     }
   }
 
+  void probookmark() {
+    var box = Hive.box("userdata");
+    Provider.of<PaymentProvider>(context, listen: false)
+        .payment_user__single_info_get(box.get('email'));
+  }
+
   @override
   void initState() {
     Provider.of<Postprovider>(context, listen: false).getvoltagelabsavepost();
@@ -165,12 +175,14 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
     sql_en_voltagelabCategoryDB = Sql_en_voltagelabCategoryDB();
     sql_en_VoltagelabPostDB = Sql_en_voltagelabPostDB();
     getsavecategoryandpost();
+    probookmark();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
+    final payment = Provider.of<PaymentProvider>(context);
     double expanded_heigth = 300;
     double round_container_heigth = 50;
     getsavecategoryandpost();
@@ -196,9 +208,34 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
               widget.sitename == 'polytechnicbd'
                   ? IconButton(
                       onPressed: () {
-                        polytechnicsavecategorydb();
-                        polytechnicsavepostdb(post);
-                        post.getpolytechnicsavepost();
+                        if (payment.subscriptionsingledata!.status == '1') {
+                          polytechnicsavecategorydb();
+                          polytechnicsavepostdb(post);
+                          post.getpolytechnicsavepost();
+                        } else {
+                          Alert(
+                            context: context,
+                            type: AlertType.error,
+                            title: "SUBSCRIPTION ALERT",
+                            desc:
+                                "First you buy any premium package. Then you can use bookmarks.",
+                            buttons: [
+                              DialogButton(
+                                child: const Text(
+                                  "Subscription Page",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SubscriptionPage())),
+                                width: 120,
+                              )
+                            ],
+                          ).show();
+                        }
                       },
                       icon: Icon(post.en_voltagelabsavepost.any(
                               (element) => element.postid == widget.postdata.id)
@@ -206,27 +243,34 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                           : Icons.bookmark_border))
                   : IconButton(
                       onPressed: () {
-                        Alert(
-                          context: context,
-                          type: AlertType.error,
-                          title: "RFLUTTER ALERT",
-                          desc:
-                              "Here we are creating a button inside alert box.",
-                          buttons: [
-                            DialogButton(
-                              child: const Text(
-                                "Button",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                              width: 120,
-                            )
-                          ],
-                        ).show();
-                        voltagelabsavecategory();
-                        voltagelabsavepost(post);
-                        post.getvoltagelabsavepost();
+                        if (payment.subscriptionsingledata!.status == '1') {
+                          voltagelabsavecategory();
+                          voltagelabsavepost(post);
+                          post.getvoltagelabsavepost();
+                        } else {
+                          Alert(
+                            context: context,
+                            type: AlertType.error,
+                            title: "SUBSCRIPTION ALERT",
+                            desc:
+                                "First you buy any premium package. Then you can use bookmarks.",
+                            buttons: [
+                              DialogButton(
+                                child: const Text(
+                                  "Subscription Page",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SubscriptionPage())),
+                                width: 120,
+                              )
+                            ],
+                          ).show();
+                        }
                       },
                       icon: Icon(post.savevoltagelabpost.any(
                               (element) => element.postid == widget.postdata.id)

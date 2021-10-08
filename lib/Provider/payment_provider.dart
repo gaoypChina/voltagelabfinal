@@ -10,6 +10,7 @@ import 'package:voltagelab/Sqflite/Subscription_save_data/Model/subscription_mod
 import 'package:voltagelab/Sqflite/Subscription_save_data/db/subscription_one_month.dart';
 import 'package:voltagelab/model/Orginal_Date_time_model/date_time.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_all_data.dart';
+import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/pages/homepage.dart';
 
 class PaymentProvider extends ChangeNotifier {
@@ -17,6 +18,7 @@ class PaymentProvider extends ChangeNotifier {
       "jhsdvcjhasdvjchsdcvjhvhgsdhgfsjhdcvbjshdcvbjsvdcjshdcvjshdfvujhsadvfcjshdcvjhsgfvjhgdcvjshdcvjhcvjshcvjsahcvjshcvjsghcvjsgcvjshgcvjhsgcvhsjcvjhsgcvsjvcjsbcvsjhcvdsjhdfvjsbv";
   OrginalDatetime? orginalDatetime;
   List<Subscriptionuserdata> subscriptionuserdata = [];
+  Subscriptionsingledata? subscriptionsingledata;
 
   SqlSubscriptiononemonth_DB? sqlSubscriptiononemonth_DB =
       SqlSubscriptiononemonth_DB();
@@ -148,6 +150,21 @@ class PaymentProvider extends ChangeNotifier {
     subscriptionsaveuserdatalist!.clear();
     subscriptionsaveuserdatalist = await sqlSubscriptiononemonth_DB!.getdata();
     notifyListeners();
+  }
+
+  Future<Subscriptionsingledata?> payment_user__single_info_get(
+      String email) async {
+    String url =
+        "http://api.voltagelab.com/vl-app/one_month_subs/subs_data_get_by_status.php?api_token=$api_token&email=$email&status=1";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsondata = response.body;
+      subscriptionsingledata = subscriptionsingledataFromJson(jsondata);
+      notifyListeners();
+    } else {
+      print('User Not found');
+      notifyListeners();
+    }
   }
 
   // Future subscriptiondate_end(data) async {
