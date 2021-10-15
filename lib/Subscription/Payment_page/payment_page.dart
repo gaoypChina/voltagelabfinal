@@ -276,6 +276,8 @@ class _PaymentPageState extends State<PaymentPage> {
                             phone_number = value;
                           });
                         },
+                        initialValue: "01",
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: '${widget.payment_name} number',
                           border: const OutlineInputBorder(),

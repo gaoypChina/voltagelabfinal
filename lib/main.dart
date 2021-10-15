@@ -1,18 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:voltagelab/Subscription/newsubscription.dart';
-import 'package:voltagelab/pages/FeedBack_Page/feedback.dart';
-import 'package:voltagelab/Extra_Page/procategory.dart';
+import 'package:voltagelab/Provider/otherprovider.dart';
 import 'package:voltagelab/Provider/payment_invoice.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/pages/homepage.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
+
 import 'Provider/notification_provider.dart';
 import 'Provider/signin_provider.dart';
 import 'Provider/post_provider.dart';
@@ -45,7 +43,9 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => YoutubeApiprovider()),
       ChangeNotifierProvider(create: (context) => NotificationService()),
       ChangeNotifierProvider(create: (context) => PaymentProvider()),
-      ChangeNotifierProvider(create: (context) => PaymentInvoiceprovider())
+      ChangeNotifierProvider(create: (context) => PaymentInvoiceprovider()),
+      ChangeNotifierProvider(create: (context) => Otherprovider()),
+
     ],
     child: MyApp(),
   ));
@@ -77,8 +77,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darktheme = Provider.of<Otherprovider>(context);
     return MaterialApp(
-      theme: ThemeData(brightness: Brightness.light),
+      // theme: ThemeData(brightness: Brightness.light),
+      theme: darktheme.themeData,
       debugShowCheckedModeBanner: false,
       navigatorKey: onesignal.appnavigator,
       home: box.get('email') != '' && box.get('type') == '2'

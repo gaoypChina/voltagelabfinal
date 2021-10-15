@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/Provider/otherprovider.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/db/category_db.dart';
@@ -183,7 +184,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const  NewSubscriptionPage())),
+                  builder: (context) => const NewSubscriptionPage())),
         )
       ],
     ).show();
@@ -205,6 +206,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
     final payment = Provider.of<PaymentProvider>(context);
+    final textsize = Provider.of<Otherprovider>(context);
     double expanded_heigth = 300;
     double round_container_heigth = 50;
     getsavecategoryandpost();
@@ -214,10 +216,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           SliverAppBar(
             elevation: 0,
             backgroundColor: Colors.blue,
-            iconTheme: const IconThemeData(color: Colors.black),
+            iconTheme: const IconThemeData(color: Colors.white),
             title: Text(
               widget.postdata.title!.rendered,
-              style: const TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.white),
             ),
             leading: IconButton(
                 onPressed: () {
@@ -331,6 +333,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                       },
                       onImageTap: (url, context, attributes, element) {
                         CachedNetworkImage(imageUrl: url!);
+                      },
+                      style: {
+                        "p": Style(fontSize: FontSize(textsize.textsize)),
+                        "li": Style(fontSize: FontSize(textsize.textsize))
                       },
                     ),
                   ),

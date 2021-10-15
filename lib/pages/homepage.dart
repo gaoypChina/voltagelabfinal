@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:voltagelab/Subscription/newsubscription.dart';
+import 'package:voltagelab/model/Subscription_details/subscription_details.dart';
 import 'package:voltagelab/pages/FeedBack_Page/feedback.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
@@ -19,14 +20,10 @@ import 'package:voltagelab/Screen/Voltage_Lab/latestpost_details.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/listcategory_page.dart';
 import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
 import 'package:voltagelab/Stream_data/Subscription_Stream_data/subscription_userdata.dart';
-import 'package:voltagelab/Extra_Page/oldsubscription_page.dart';
-import 'package:voltagelab/model/Pro_english_voltagelab/pro_category_model.dart';
-import 'package:voltagelab/model/Pro_english_voltagelab/pro_english_voltagelab_database_model.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/pages/Pro_Category_Page/pro_bangla_voltagelabcategory_page.dart';
+import 'package:voltagelab/pages/Subscription_details/subscription_details.dart';
 import 'package:voltagelab/widget/drawer.dart';
-
-import 'Pro_Category_Page/pro_english_voltagelab_category_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -187,7 +184,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const  NewSubscriptionPage())),
+                  builder: (context) => const NewSubscriptionPage())),
         )
       ],
     ).show();
@@ -205,7 +202,7 @@ class _HomePageState extends State<HomePage> {
     var box = Hive.box("userdata");
     Provider.of<PaymentProvider>(context, listen: false)
         .payment_subscription_one_month_userinfo_get(box.get('email'));
-    // Provider.of<PaymentProvider>(context, listen: false)
+   
     //     .payment_subscription_one_month_userinfo_get(box.get('email'));
 
     super.initState();
@@ -222,7 +219,6 @@ class _HomePageState extends State<HomePage> {
           SliverAppBar(
             pinned: true,
             centerTitle: true,
-            backgroundColor: Colors.indigoAccent,
             actions: [
               IconButton(
                   onPressed: () {
@@ -243,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                   height: 120,
                   width: double.infinity,
                   decoration: const BoxDecoration(
-                    color: Colors.indigoAccent,
+                    color: Colors.blue,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30),
@@ -393,6 +389,19 @@ class _HomePageState extends State<HomePage> {
                             ));
                       },
                     ),
+                    freegridviewtool(
+                      color: Colors.deepOrange,
+                      imagechild: Image.asset('images/icon.jpg'),
+                      name: "Subscription Details",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const SubscriptionDetailsPage(),
+                            ));
+                      },
+                    ),
                     // freegridviewtool(
                     //   color: Colors.deepOrange,
                     //   imagechild: Image.asset('images/icon.jpg'),
@@ -451,6 +460,7 @@ class _HomePageState extends State<HomePage> {
                                 AsyncSnapshot<Subscriptionsingledata?>
                                     snapshot) {
                               return GridView(
+                                physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(

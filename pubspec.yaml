@@ -75,6 +75,7 @@ dependencies:
       url: https://github.com/tanvirmhamud/flutter_easyloading
   rflutter_alert: ^2.0.4
   flutter_rating_bar: ^4.0.0
+  percent_indicator: ^3.4.0
 
 
   

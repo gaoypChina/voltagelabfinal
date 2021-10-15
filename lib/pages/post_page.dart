@@ -57,12 +57,11 @@ class _PostPageState extends State<PostPage> {
     final post = Provider.of<Postprovider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           widget.categoryname,
-          style: const TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: post.isloading

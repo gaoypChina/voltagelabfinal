@@ -28,7 +28,7 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
   Widget build(BuildContext context) {
     var box = Hive.box("userdata");
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -77,7 +77,8 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                                 setState(() {
                                   selectiteam = 0;
                                   pageController!.animateToPage(selectiteam,
-                                      duration: const Duration(milliseconds: 300),
+                                      duration:
+                                          const Duration(milliseconds: 300),
                                       curve: Curves.easeInOutCubic);
                                 });
                               },
@@ -98,7 +99,8 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                                 setState(() {
                                   selectiteam = 1;
                                   pageController!.animateToPage(selectiteam,
-                                      duration: const Duration(milliseconds: 300),
+                                      duration:
+                                          const Duration(milliseconds: 300),
                                       curve: Curves.easeInOutCubic);
                                 });
                               },
@@ -119,7 +121,8 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                                 setState(() {
                                   selectiteam = 2;
                                   pageController!.animateToPage(selectiteam,
-                                      duration: const Duration(milliseconds: 300),
+                                      duration:
+                                          const Duration(milliseconds: 300),
                                       curve: Curves.easeInOutCubic);
                                 });
                               },

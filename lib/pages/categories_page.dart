@@ -48,11 +48,10 @@ class _CategoryPageState extends State<CategoryPage> {
         : Scaffold(
             appBar: AppBar(
               elevation: 0,
-              backgroundColor: Colors.white,
-              iconTheme: const IconThemeData(color: Colors.black),
+              iconTheme: const IconThemeData(color: Colors.white),
               title: Text(
                 widget.categoryname,
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
             body: category.loading
@@ -61,8 +60,9 @@ class _CategoryPageState extends State<CategoryPage> {
                     child: Container(
                       margin: const EdgeInsets.only(left: 5, right: 5, top: 5),
                       child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3),
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: category.subcategory!.length,

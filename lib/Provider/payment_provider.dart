@@ -11,6 +11,7 @@ import 'package:voltagelab/Sqflite/Subscription_save_data/db/subscription_one_mo
 import 'package:voltagelab/model/Orginal_Date_time_model/date_time.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_all_data.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
+import 'package:voltagelab/model/Subscription_details/subscription_details.dart';
 import 'package:voltagelab/pages/homepage.dart';
 
 class PaymentProvider extends ChangeNotifier {
@@ -23,6 +24,8 @@ class PaymentProvider extends ChangeNotifier {
   SqlSubscriptiononemonth_DB? sqlSubscriptiononemonth_DB =
       SqlSubscriptiononemonth_DB();
   List<Subscriptionsaveuserdata>? subscriptionsaveuserdatalist = [];
+
+  SubscriptionDetails? subscriptionDetailspage;
 
   bool isloading = false;
 
@@ -123,8 +126,10 @@ class PaymentProvider extends ChangeNotifier {
       Subscriptionsaveuserdata subscriptionsaveuserdata =
           Subscriptionsaveuserdata(
         subscriptionid: subscriptionuserdata1[i].id,
-        startdate: subscriptionuserdata1[i].startDate.toString(),
-        enddate: subscriptionuserdata1[i].endDate.toString(),
+        startdate:
+            "${subscriptionuserdata1[i].startDate.year.toString()}-${subscriptionuserdata1[i].startDate.month.toString()}-${subscriptionuserdata1[i].startDate.day.toString()}",
+        enddate:
+            "${subscriptionuserdata1[i].endDate.year.toString()}-${subscriptionuserdata1[i].endDate.month.toString()}-${subscriptionuserdata1[i].endDate.day.toString()}",
         subscriptionpack: subscriptionuserdata1[i].subscriptionPack,
         remaining: subscriptionuserdata1[i].remaining,
         status: subscriptionuserdata1[i].status,
@@ -186,4 +191,20 @@ class PaymentProvider extends ChangeNotifier {
   //     print('subscription not end');
   //   }
   // }
+
+  Future subscription_details_page() async {
+    isloading = true;
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/pages/2981?_fields[]=content";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      subscriptionDetailspage = subscriptionDetailsFromJson(response.body);
+      isloading = false;
+      notifyListeners();
+    } else {
+      print(response.body);
+      isloading = false;
+      notifyListeners();
+    }
+  }
 }
