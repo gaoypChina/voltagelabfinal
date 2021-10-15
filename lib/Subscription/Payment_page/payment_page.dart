@@ -76,35 +76,47 @@ class _PaymentPageState extends State<PaymentPage> {
     //       payment_type: widget.payment_type,
     //       context: context);
     // } else {
-      final enddate = DateTime(
-          payment.orginalDatetime!.datetime!.year,
-          widget.subs_pack_month == 1 ? payment.orginalDatetime!.datetime!.month + 1 : widget.subs_pack_month == 3 ? payment.orginalDatetime!.datetime!.month + 3 : widget.subs_pack_month == 6 ? payment.orginalDatetime!.datetime!.month + 6 : payment.orginalDatetime!.datetime!.month + 1,
-          payment.orginalDatetime!.datetime!.day,
-          payment.orginalDatetime!.datetime!.hour,
-          payment.orginalDatetime!.datetime!.minute,
-          payment.orginalDatetime!.datetime!.millisecond,
-          payment.orginalDatetime!.datetime!.microsecond);
-      print(enddate);
-      final enddatecount = DateTime(
-          payment.orginalDatetime!.datetime!.year,
-          widget.subs_pack_month == 1 ? payment.orginalDatetime!.datetime!.month + 1 : widget.subs_pack_month == 3 ? payment.orginalDatetime!.datetime!.month + 3 : widget.subs_pack_month == 6 ? payment.orginalDatetime!.datetime!.month + 6 : payment.orginalDatetime!.datetime!.month + 1,
-          payment.orginalDatetime!.datetime!.day);
-          print(enddatecount);
-      final startdatecount = DateTime(
-          payment.orginalDatetime!.datetime!.year,
-          payment.orginalDatetime!.datetime!.month,
-          payment.orginalDatetime!.datetime!.day);
-      final difference = enddatecount.difference(startdatecount).inDays;
-      payment.payment_user_inputdata(
-          phone_num: phone_number!,
-          transactionid: transaction_Id,
-          start_date: startdate.toString(),
-          end_date: enddate.toString(),
-          status: '0',
-          subscription_pack: widget.subscription_pack_name,
-          remaining: difference,
-          payment_type: widget.payment_type,
-          context: context);
+    final enddate = DateTime(
+        payment.orginalDatetime!.datetime!.year,
+        widget.subs_pack_month == 1
+            ? payment.orginalDatetime!.datetime!.month + 1
+            : widget.subs_pack_month == 3
+                ? payment.orginalDatetime!.datetime!.month + 3
+                : widget.subs_pack_month == 6
+                    ? payment.orginalDatetime!.datetime!.month + 6
+                    : payment.orginalDatetime!.datetime!.month + 1,
+        payment.orginalDatetime!.datetime!.day,
+        payment.orginalDatetime!.datetime!.hour,
+        payment.orginalDatetime!.datetime!.minute,
+        payment.orginalDatetime!.datetime!.millisecond,
+        payment.orginalDatetime!.datetime!.microsecond);
+    print(enddate);
+    final enddatecount = DateTime(
+        payment.orginalDatetime!.datetime!.year,
+        widget.subs_pack_month == 1
+            ? payment.orginalDatetime!.datetime!.month + 1
+            : widget.subs_pack_month == 3
+                ? payment.orginalDatetime!.datetime!.month + 3
+                : widget.subs_pack_month == 6
+                    ? payment.orginalDatetime!.datetime!.month + 6
+                    : payment.orginalDatetime!.datetime!.month + 1,
+        payment.orginalDatetime!.datetime!.day);
+    print(enddatecount);
+    final startdatecount = DateTime(
+        payment.orginalDatetime!.datetime!.year,
+        payment.orginalDatetime!.datetime!.month,
+        payment.orginalDatetime!.datetime!.day);
+    final difference = enddatecount.difference(startdatecount).inDays;
+    payment.payment_user_inputdata(
+        phone_num: phone_number!,
+        transactionid: transaction_Id,
+        start_date: startdate.toString(),
+        end_date: enddate.toString(),
+        status: '0',
+        subscription_pack: widget.subscription_pack_name,
+        remaining: difference,
+        payment_type: widget.payment_type,
+        context: context);
     // }
   }
 
@@ -120,10 +132,12 @@ class _PaymentPageState extends State<PaymentPage> {
       appBar: AppBar(
         title: const Text('Payment Page'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
+      body: Container(
+        color: Colors.white,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 margin: const EdgeInsets.all(10),
@@ -220,11 +234,11 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget bikashfrom() {
     final payment = Provider.of<PaymentProvider>(context);
     return Card(
-      color: Colors.grey[300],
       child: Form(
         key: _formkey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
               child: Container(

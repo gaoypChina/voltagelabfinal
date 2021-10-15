@@ -41,7 +41,7 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Postprovider>(context);
-        double expanded_heigth = 300;
+    double expanded_heigth = 300;
     double round_container_heigth = 50;
     return Scaffold(
       body: CustomScrollView(
@@ -54,7 +54,6 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
               widget.latestposttitle,
               style: const TextStyle(color: Colors.black),
             ),
-            
             actions: [
               IconButton(
                   onPressed: () {
@@ -63,24 +62,24 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
                   icon: const Icon(Icons.share)),
             ],
           ),
-                    SliverPersistentHeader(
-              delegate: DetailsSliverdelegate(
-                  expendedheigth: expanded_heigth,
-                  photourl: widget.latestpostpic,
-                  round_container: round_container_heigth)),
-          // SliverToBoxAdapter(
-          //   child: Container(
-          //     margin: const EdgeInsets.all(10),
-          //     child: ClipRRect(
-          //       borderRadius: BorderRadius.circular(5),
-          //       child: CachedNetworkImage(
-          //         key: UniqueKey(),
-          //         imageUrl: widget.latestpostpic,
-          //         fit: BoxFit.cover,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          //       SliverPersistentHeader(
+          // delegate: DetailsSliverdelegate(
+          //     expendedheigth: expanded_heigth,
+          //     photourl: widget.latestpostpic,
+          //     round_container: round_container_heigth)),
+          SliverToBoxAdapter(
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: CachedNetworkImage(
+                  key: UniqueKey(),
+                  imageUrl: widget.latestpostpic,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
           SliverToBoxAdapter(
             child: Container(
               margin: const EdgeInsets.all(10),
@@ -108,6 +107,7 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
           ),
           SliverToBoxAdapter(
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: post.latestPostdetails == null
                   ? const SizedBox(
                       height: 300,

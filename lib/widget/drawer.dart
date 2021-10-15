@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:voltagelab/Subscription/newsubscription.dart';
 import 'package:voltagelab/pages/new_profile_page3.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
-import 'package:voltagelab/Subscription/subscription_page.dart';
+import 'package:voltagelab/Extra_Page/oldsubscription_page.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -109,7 +110,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SubscriptionPage(),
+                        builder: (context) => const NewSubscriptionPage(),
                       ));
                 },
                 child: Container(

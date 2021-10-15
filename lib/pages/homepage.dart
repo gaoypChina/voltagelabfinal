@@ -6,6 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:voltagelab/Subscription/newsubscription.dart';
+import 'package:voltagelab/pages/FeedBack_Page/feedback.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
@@ -16,6 +19,7 @@ import 'package:voltagelab/Screen/Voltage_Lab/latestpost_details.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/listcategory_page.dart';
 import 'package:voltagelab/Screen/Youtube/youtube_playlist.dart';
 import 'package:voltagelab/Stream_data/Subscription_Stream_data/subscription_userdata.dart';
+import 'package:voltagelab/Extra_Page/oldsubscription_page.dart';
 import 'package:voltagelab/model/Pro_english_voltagelab/pro_category_model.dart';
 import 'package:voltagelab/model/Pro_english_voltagelab/pro_english_voltagelab_database_model.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
@@ -133,17 +137,21 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              subscriptionsingledata == null ? Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: Colors.black.withOpacity(0.5),
-                ),
-              ) : subscriptionsingledata.status != '1' ? Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: Colors.black.withOpacity(0.5),
-                ),
-              ) : Container()
+              subscriptionsingledata == null
+                  ? Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                    )
+                  : subscriptionsingledata.status != '1'
+                      ? Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        )
+                      : Container()
               // SizedBox(
               //     height: 50,
               //     child: subscriptionsingledata == null
@@ -164,13 +172,36 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void alartmessage() {
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: "SUBSCRIPTION ALERT",
+      desc: "First you buy any premium package. Then you can use Pro Future.",
+      buttons: [
+        DialogButton(
+          child: const Text(
+            "Subscription Page",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const  NewSubscriptionPage())),
+        )
+      ],
+    ).show();
+  }
+
   @override
   void initState() {
     parmissionhandeler();
     // Provider.of<NotificationService>(context, listen: false).initplatfrom();
     Provider.of<Postprovider>(context, listen: false).getvoltagelablatestpost();
-    Provider.of<CategoryProvider>(context, listen: false).get_free_bn_vl_categorylist();
-    Provider.of<CategoryProvider>(context, listen: false).get_free_en_vl_categorylist();
+    Provider.of<CategoryProvider>(context, listen: false)
+        .get_free_bn_vl_categorylist();
+    Provider.of<CategoryProvider>(context, listen: false)
+        .get_free_en_vl_categorylist();
     var box = Hive.box("userdata");
     Provider.of<PaymentProvider>(context, listen: false)
         .payment_subscription_one_month_userinfo_get(box.get('email'));
@@ -188,10 +219,21 @@ class _HomePageState extends State<HomePage> {
       drawer: const DrawerPage(),
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FeedBackPage(),
+                        ));
+                  },
+                  icon: Icon(Icons.feedback))
+            ],
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -351,30 +393,32 @@ class _HomePageState extends State<HomePage> {
                             ));
                       },
                     ),
-                    freegridviewtool(
-                      color: Colors.deepOrange,
-                      imagechild: Image.asset('images/icon.jpg'),
-                      name: "pro Category",
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ProBanglaVoltageCategoryListPage(),
-                            ));
-                      },
-                    ),
-                    freegridviewtool(
-                      color: Colors.deepOrange,
-                      imagechild: Image.asset('images/icon.jpg'),
-                      name: "pro Category",
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Pro_en_Vl_CategoryPage(),
-                            ));
-                      },
-                    ),
+                    // freegridviewtool(
+                    //   color: Colors.deepOrange,
+                    //   imagechild: Image.asset('images/icon.jpg'),
+                    //   name: "pro Category",
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (context) =>
+                    //               const ProBanglaVoltageCategoryListPage(),
+                    //         ));
+                    //   },
+                    // ),
+                    // freegridviewtool(
+                    //   color: Colors.deepOrange,
+                    //   imagechild: Image.asset('images/icon.jpg'),
+                    //   name: "pro Category",
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (context) =>
+                    //               const Pro_en_Vl_CategoryPage(),
+                    //         ));
+                    //   },
+                    // ),
                   ],
                 ),
               ),
@@ -423,9 +467,13 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     name: 'VoltageLab Bookmark',
                                     onTap: snapshot.data == null
-                                        ? null
+                                        ? () {
+                                            alartmessage();
+                                          }
                                         : snapshot.data!.status != "1"
-                                            ? null
+                                            ? () {
+                                                alartmessage();
+                                              }
                                             : () {
                                                 post.getpostcount();
                                                 Navigator.push(
@@ -449,9 +497,13 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     name: 'Polytechnic Bookmark',
                                     onTap: snapshot.data == null
-                                        ? null
+                                        ? () {
+                                            alartmessage();
+                                          }
                                         : snapshot.data!.status != "1"
-                                            ? null
+                                            ? () {
+                                                alartmessage();
+                                              }
                                             : () {
                                                 post.getpostcount();
                                                 Navigator.push(
@@ -475,9 +527,13 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     name: 'Pro Category',
                                     onTap: snapshot.data == null
-                                        ? null
+                                        ? () {
+                                            alartmessage();
+                                          }
                                         : snapshot.data!.status != "1"
-                                            ? null
+                                            ? () {
+                                                alartmessage();
+                                              }
                                             : () {
                                                 post.getpostcount();
                                                 Navigator.push(

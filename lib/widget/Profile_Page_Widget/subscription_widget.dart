@@ -19,15 +19,13 @@ class _SubscriptionWidgetPageState extends State<SubscriptionWidgetPage> {
 
   savedata() async {
     datalist = await sqlSubscriptiononemonth_DB!.getdata();
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
   void initState() {
     sqlSubscriptiononemonth_DB = SqlSubscriptiononemonth_DB();
-     savedata();
+    savedata();
     super.initState();
   }
 
@@ -35,55 +33,73 @@ class _SubscriptionWidgetPageState extends State<SubscriptionWidgetPage> {
   Widget build(BuildContext context) {
     final payment = Provider.of<PaymentProvider>(context);
 
-    return payment.isloading ? const Center(child: CircularProgressIndicator(),) : Column(
-      children: [
-        Flexible(
+    return payment.isloading
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Column(
+            children: [
+              Flexible(
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: datalist.length,
                   itemBuilder: (context, index) {
                     var data = datalist[index];
-                    return Container(
-                      margin: const EdgeInsets.all(5),
-                      width: double.infinity,
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              child: Text(
-                                  "Package name: ${data.subscriptionpack}"),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(left: 10, bottom: 10),
-                              child: Text("Start Date : ${data.startdate}"),
-                            ),
-                            Container(
+                    if (datalist.isEmpty) {
+                      return const Center(
+                        child: Text("No Activity",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            )),
+                      );
+                    } else {
+                      return Container(
+                        margin: const EdgeInsets.all(5),
+                        width: double.infinity,
+                        child: Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                    "Package name: ${data.subscriptionpack}"),
+                              ),
+                              Container(
                                 padding:
                                     const EdgeInsets.only(left: 10, bottom: 10),
-                                child: Text("End Date : ${data.enddate}")),
-                            Container(
-                              padding: const EdgeInsets.only(left: 10, bottom: 10),
-                              child:
-                                  Text("remaining : ${data.remaining} day"),
-                            ),
-                            Container(
+                                child: Text("Start Date : ${data.startdate}"),
+                              ),
+                              Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, bottom: 10),
+                                  child: Text("End Date : ${data.enddate}")),
+                              Container(
                                 padding:
                                     const EdgeInsets.only(left: 10, bottom: 10),
-                                child:data.status == '0' ? const Text(
-                                    "Status : panding") : data.status == '1' ? const Text(
-                                    "Status : approved") : data.status == '2' ? const Text(
-                                    "Status : Expair") : const Text(
-                                    "Status : panding")),
-                          ],
+                                child:
+                                    Text("remaining : ${data.remaining} day"),
+                              ),
+                              Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, bottom: 10),
+                                  child: data.status == '0'
+                                      ? const Text("Status : panding")
+                                      : data.status == '1'
+                                          ? const Text("Status : approved")
+                                          : data.status == '2'
+                                              ? const Text("Status : Expair")
+                                              : const Text("Status : panding")),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   },
                 ),
               )
-      ],
-    );
+            ],
+          );
   }
 }

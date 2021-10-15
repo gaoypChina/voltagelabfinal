@@ -50,7 +50,6 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                     right: 5),
                 // height: MediaQuery.of(context).size.height * 0.17,
                 width: MediaQuery.of(context).size.width,
-
                 child: Card(
                   elevation: 3,
                   child: Column(

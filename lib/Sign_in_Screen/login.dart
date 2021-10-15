@@ -124,9 +124,26 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Row(
             children: [
-              signmenu('Sign in', () {}, left),
-              signmenu('Sign up', () {}, right),
-              
+              signmenu('Sign in', () {
+                setState(() {
+                  _pageController!.animateToPage(0,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                  right = Colors.white;
+                  left = Colors.black;
+                  positionleft = 0;
+                });
+              }, left),
+              signmenu('Sign up', () {
+                setState(() {
+                  _pageController!.animateToPage(1,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                  right = Colors.black;
+                  left = Colors.white;
+                  positionleft = 144;
+                });
+              }, right),
             ],
           ),
         ],

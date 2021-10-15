@@ -21,7 +21,8 @@ import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/category_model.dart
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
-import 'package:voltagelab/Subscription/subscription_page.dart';
+import 'package:voltagelab/Extra_Page/oldsubscription_page.dart';
+import 'package:voltagelab/Subscription/newsubscription.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/web_View/web_view.dart';
@@ -167,6 +168,27 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         .payment_user__single_info_get(box.get('email'));
   }
 
+  void alartmessage() {
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: "SUBSCRIPTION ALERT",
+      desc: "First you buy any premium package. Then you can use bookmarks.",
+      buttons: [
+        DialogButton(
+          child: const Text(
+            "Subscription Page",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const  NewSubscriptionPage())),
+        )
+      ],
+    ).show();
+  }
+
   @override
   void initState() {
     Provider.of<Postprovider>(context, listen: false).getvoltagelabsavepost();
@@ -208,33 +230,14 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
               widget.sitename == 'polytechnicbd'
                   ? IconButton(
                       onPressed: () {
-                        if (payment.subscriptionsingledata!.status == '1') {
+                        if (payment.subscriptionsingledata != null &&
+                            payment.subscriptionsingledata!.status == '1') {
                           polytechnicsavecategorydb();
                           polytechnicsavepostdb(post);
                           post.getpolytechnicsavepost();
-                        } else if(payment.subscriptionsingledata == null || payment.subscriptionsingledata!.status != '1') {
-                          Alert(
-                            context: context,
-                            type: AlertType.error,
-                            title: "SUBSCRIPTION ALERT",
-                            desc:
-                                "First you buy any premium package. Then you can use bookmarks.",
-                            buttons: [
-                              DialogButton(
-                                child: const Text(
-                                  "Subscription Page",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SubscriptionPage())),
-                                width: 120,
-                              )
-                            ],
-                          ).show();
+                        } else if (payment.subscriptionsingledata == null ||
+                            payment.subscriptionsingledata!.status != '1') {
+                          alartmessage();
                         }
                       },
                       icon: Icon(post.en_voltagelabsavepost.any(
@@ -243,33 +246,14 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                           : Icons.bookmark_border))
                   : IconButton(
                       onPressed: () {
-                        if (payment.subscriptionsingledata!.status == '1') {
+                        if (payment.subscriptionsingledata != null &&
+                            payment.subscriptionsingledata!.status == '1') {
                           voltagelabsavecategory();
                           voltagelabsavepost(post);
                           post.getvoltagelabsavepost();
-                        } else if(payment.subscriptionsingledata == null || payment.subscriptionsingledata!.status != '1') {
-                          Alert(
-                            context: context,
-                            type: AlertType.error,
-                            title: "SUBSCRIPTION ALERT",
-                            desc:
-                                "First you buy any premium package. Then you can use bookmarks.",
-                            buttons: [
-                              DialogButton(
-                                child: const Text(
-                                  "Subscription Page",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SubscriptionPage())),
-                                width: 120,
-                              )
-                            ],
-                          ).show();
+                        } else if (payment.subscriptionsingledata == null ||
+                            payment.subscriptionsingledata!.status != '1') {
+                          alartmessage();
                         }
                       },
                       icon: Icon(post.savevoltagelabpost.any(
