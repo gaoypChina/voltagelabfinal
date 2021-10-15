@@ -16,6 +16,8 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/verification_email.dart';
+import 'package:voltagelab/Sqflite/Subscription_save_data/Model/subscription_model.dart';
+import 'package:voltagelab/Sqflite/Subscription_save_data/db/subscription_one_month.dart';
 import 'package:voltagelab/model/userinformation.dart';
 import 'package:voltagelab/pages/homepage.dart';
 import 'package:voltagelab/pages/homepage2.dart';
@@ -93,12 +95,22 @@ class SignInProvider extends ChangeNotifier {
 
   Future logout(BuildContext context) async {
     var box = Hive.box("userdata");
+    SqlSubscriptiononemonth_DB? sqlSubscriptiononemonth_DB =
+        SqlSubscriptiononemonth_DB();
+    List<Subscriptionsaveuserdata> datalist = [];
+    datalist = await sqlSubscriptiononemonth_DB.getdata();
     if (box.get('type') == "0") {
       await googlesignin.disconnect();
       FirebaseAuth.instance.signOut();
       box.clear();
+      for (var i = 0; i < datalist.length; i++) {
+        sqlSubscriptiononemonth_DB.delete(datalist[i].subscriptionid);
+      }
     } else {
       box.clear();
+      for (var i = 0; i < datalist.length; i++) {
+        sqlSubscriptiononemonth_DB.delete(datalist[i].subscriptionid);
+      }
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const HomePage2()));
     }
