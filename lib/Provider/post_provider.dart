@@ -11,6 +11,7 @@ import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
 import 'package:voltagelab/model/Latest_Post_Model/latest_post.dart';
 import 'package:voltagelab/model/Latest_Post_Model/latest_post_details_model.dart';
+import 'package:voltagelab/model/Mcq/mcq_post_list_model.dart';
 import 'package:voltagelab/model/post_details_model.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/model/search_post_model.dart';
@@ -30,6 +31,8 @@ class Postprovider extends ChangeNotifier {
   LatestPostdetails? latestPostdetails;
 
   List<LatestPostData> voltagelablatestpost = [];
+
+  List<Mcqpostlist> mcqpostlist = [];
 
   SqlVoltagelabPostDB sqlPostDB = SqlVoltagelabPostDB();
   Sql_en_voltagelabPostDB sql_en_voltagelabPostDB = Sql_en_voltagelabPostDB();
@@ -279,6 +282,27 @@ class Postprovider extends ChangeNotifier {
       var jsondata = jsonDecode(response.body);
       print(jsondata);
       notifyListeners();
+    }
+  }
+
+  //bangla voltagelab mcq post get
+
+  Future mcqgetpostlist(int subcategoryid, int perpage, String sitename) async {
+    if (sitename == 'voltagelab') {
+      isloading = true;
+      String url =
+          "https://blog.voltagelab.com/wp-json/wp/v2/posts?categories=${subcategoryid}&_fields[]=id&per_page=${perpage}&_fields[]=title&_fields[]=yoast_head_json.og_image&_fields[]=link";
+      var response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        isloading = false;
+        var jsondata = response.body;
+        mcqpostlist = mcqpostlistFromJson(response.body);
+        print(mcqpostlist.first.link.toString());
+        notifyListeners();
+        return postdata;
+      }
+    } else if (sitename == 'polytechnicbd') {
+      get_en_voltagelabpost(subcategoryid, perpage);
     }
   }
 }

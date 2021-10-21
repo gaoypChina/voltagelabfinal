@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:voltagelab/model/En_voltagelab/en_vl_category.dart';
 import 'package:voltagelab/model/En_voltagelab/en_vl_db_free_category.dart';
+import 'package:voltagelab/model/Mcq/mcq_category_model.dart';
+import 'package:voltagelab/model/Mcq/mcq_main_id.dart';
+import 'package:voltagelab/model/Mcq/mcq_sub_category.dart';
 import 'package:voltagelab/model/Pro_bangla_voltagelab_Category/pro_category_database_model.dart';
 import 'package:voltagelab/model/Pro_bangla_voltagelab_Category/pro_category_model.dart';
 import 'package:voltagelab/model/Pro_english_voltagelab/pro_category_model.dart';
@@ -16,6 +19,10 @@ class CategoryProvider extends ChangeNotifier {
   int? categoryindex;
   List<Categories> category = [];
   List<SubCategory>? subcategory = [];
+
+  List<McqMainiddb> mcqmainiddb = [];
+  List<McqMaincategory> mcqmaincategory = [];
+  List<Mcqsubcategory> mcqsubcategory = [];
 
   List<Pro_bn_Vl_Category_database> pro_bn_vl_categorydatabase = [];
   List<Pro_bn_Vl_Categories> pro_bn_vl_category = [];
@@ -220,6 +227,66 @@ class CategoryProvider extends ChangeNotifier {
       loading = false;
       print("data pai nai");
       notifyListeners();
+    }
+  }
+
+  // mcq category db get......................
+
+  Future getmcqmaincategorydb() async {
+    loading = true;
+    String url =
+        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/Mcq/mcq.php?api_token=$api_token";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      mcqmainiddb = mcqMainiddbFromJson(response.body);
+      List data = mcqmainiddb.map((e) => e.mcqId).toList();
+      print(data);
+      getmcqmaincategory(data);
+      notifyListeners();
+    } else {
+      print(response.body);
+      notifyListeners();
+    }
+  }
+
+  //mcq main category get by id
+  Future getmcqmaincategory(List data) async {
+    var data2 = data.join(",");
+    print("$data2 hjsbvjsvbjsh");
+    String url =
+        "https://blog.voltagelab.com/wp-json/wp/v2/categories?include=$data2&_fields[]=id&_fields[]=name";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsondata = response.body;
+      mcqmaincategory = mcqMaincategoryFromJson(response.body);
+      print(jsondata);
+      loading = false;
+      notifyListeners();
+    } else {
+      loading = false;
+      print("data pai nai");
+      notifyListeners();
+    }
+  }
+
+  Future getmcqsubcategory(int categoryid, String sitename) async {
+    if (sitename == 'voltagelab') {
+      print(categoryid);
+      loading = true;
+      String url =
+          "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
+      var response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        var jsondata = response.body;
+        mcqsubcategory = mcqsubcategoryFromJson(jsondata);
+        print(jsondata);
+        loading = false;
+
+        notifyListeners();
+        return subcategory;
+      }
+    } else if (sitename == 'polytechnicbd') {
+      await en_voltagelabsubcategory(categoryid);
     }
   }
 }

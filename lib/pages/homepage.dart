@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:voltagelab/Screen/Voltage_Lab/MCQ/mcq_categorylist.dart';
 import 'package:voltagelab/Subscription/newsubscription.dart';
 import 'package:voltagelab/model/Subscription_details/subscription_details.dart';
 import 'package:voltagelab/pages/FeedBack_Page/feedback.dart';
@@ -202,7 +203,9 @@ class _HomePageState extends State<HomePage> {
     var box = Hive.box("userdata");
     Provider.of<PaymentProvider>(context, listen: false)
         .payment_subscription_one_month_userinfo_get(box.get('email'));
-   
+    Provider.of<CategoryProvider>(context, listen: false)
+        .getmcqmaincategorydb();
+
     //     .payment_subscription_one_month_userinfo_get(box.get('email'));
 
     super.initState();
@@ -399,6 +402,18 @@ class _HomePageState extends State<HomePage> {
                             MaterialPageRoute(
                               builder: (context) =>
                                   const SubscriptionDetailsPage(),
+                            ));
+                      },
+                    ),
+                    freegridviewtool(
+                      color: Colors.deepOrange,
+                      imagechild: Image.asset('images/icon.jpg'),
+                      name: "MCQ",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const McqCategoryList(),
                             ));
                       },
                     ),
