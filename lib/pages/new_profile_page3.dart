@@ -66,79 +66,81 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                         margin: const EdgeInsets.only(top: 5, left: 10),
                         child: Text(box.get('email')),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(top: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectiteam = 0;
-                                  pageController!.animateToPage(selectiteam,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.easeInOutCubic);
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                child: const Text('Summay'),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                  bottom: BorderSide(
-                                      color: selectiteam == 0
-                                          ? Colors.indigo
-                                          : Colors.transparent),
-                                )),
+                      Flexible(
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          margin: const EdgeInsets.only(top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectiteam = 0;
+                                    pageController!.animateToPage(selectiteam,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeInOutCubic);
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(15),
+                                  child: const Text('Summay'),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                    bottom: BorderSide(
+                                        color: selectiteam == 0
+                                            ? Colors.indigo
+                                            : Colors.transparent),
+                                  )),
+                                ),
                               ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectiteam = 1;
-                                  pageController!.animateToPage(selectiteam,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.easeInOutCubic);
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                child: const Text('Subscription'),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                  bottom: BorderSide(
-                                      color: selectiteam == 1
-                                          ? Colors.indigo
-                                          : Colors.transparent),
-                                )),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectiteam = 1;
+                                    pageController!.animateToPage(selectiteam,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeInOutCubic);
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(15),
+                                  child: const Text('Subscription'),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                    bottom: BorderSide(
+                                        color: selectiteam == 1
+                                            ? Colors.indigo
+                                            : Colors.transparent),
+                                  )),
+                                ),
                               ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectiteam = 2;
-                                  pageController!.animateToPage(selectiteam,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.easeInOutCubic);
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                child: const Text('Product purchase'),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                  bottom: BorderSide(
-                                      color: selectiteam == 2
-                                          ? Colors.indigo
-                                          : Colors.transparent),
-                                )),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectiteam = 2;
+                                    pageController!.animateToPage(selectiteam,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeInOutCubic);
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(15),
+                                  child: const Text('Product purchase'),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                    bottom: BorderSide(
+                                        color: selectiteam == 2
+                                            ? Colors.indigo
+                                            : Colors.transparent),
+                                  )),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       )
                     ],

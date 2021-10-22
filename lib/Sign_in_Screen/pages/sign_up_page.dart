@@ -13,6 +13,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formkey = GlobalKey<FormState>();
 
+  bool validationerror = false;
+
   final FocusNode focusNodePassword = FocusNode();
   final FocusNode focusNodeConfirmPassword = FocusNode();
   final FocusNode focusNodeEmail = FocusNode();
@@ -33,8 +35,15 @@ class _SignUpState extends State<SignUp> {
     final signin = Provider.of<SignInProvider>(context, listen: false);
     final from = _formkey.currentState;
     if (from!.validate()) {
+      setState(() {
+        validationerror = false;
+      });
       from.save();
       signin.fromregistation(fullname!, email, password, context);
+    } else {
+      setState(() {
+        validationerror = true;
+      });
     }
   }
 
@@ -84,6 +93,7 @@ class _SignUpState extends State<SignUp> {
     return Container(
       padding: const EdgeInsets.only(top: 23.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Stack(
             alignment: Alignment.topCenter,
@@ -94,9 +104,10 @@ class _SignUpState extends State<SignUp> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: SizedBox(
+                child: Container(
+                  padding: EdgeInsets.only(bottom: 55),
                   width: 300.0,
-                  height: 330.0,
+                  // height: 330.0,
                   child: Form(
                     key: _formkey,
                     child: Column(
@@ -215,7 +226,12 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: signin.loading ? 285.0 : 310),
+                margin: EdgeInsets.only(
+                    top: validationerror
+                        ? 400
+                        : signin.loading
+                            ? 285.0
+                            : 310),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
@@ -247,6 +263,7 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+
   void _toggleSignup() {
     setState(() {
       _obscureTextPassword = !_obscureTextPassword;
