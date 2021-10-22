@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    Provider.of<ConnectivityProvider>(context,listen: false).startmonitoring();
+    Provider.of<ConnectivityProvider>(context, listen: false).startmonitoring();
     _pageController = PageController();
     super.initState();
   }
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                           tileMode: TileMode.clamp),
                     ),
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 75.0),
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 )
-              : InternetDisconnectpage();
+              : const InternetDisconnectpage();
         } else {
           return Center(
             child: CircularProgressIndicator(),
