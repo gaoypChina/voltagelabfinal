@@ -232,7 +232,7 @@ class _En_voltagelabListcategoryPageState
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                childAspectRatio: 2 / 2,
+                childAspectRatio: 0.98,
               ))
         ],
       ),

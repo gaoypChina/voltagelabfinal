@@ -68,9 +68,11 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                       ),
                       Flexible(
                         child: Container(
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.only(
+                              bottom: 10, left: 10, right: 10),
                           margin: const EdgeInsets.only(top: 20),
                           child: Row(
+                            mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
