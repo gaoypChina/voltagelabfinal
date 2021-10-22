@@ -212,13 +212,15 @@ class _McqCategoryListState extends State<McqCategoryList> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            category.mcqmaincategory[index].name!,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: color.withOpacity(1),
-                                fontWeight: FontWeight.bold),
+                          Expanded(
+                            child: Text(
+                              category.mcqmaincategory[index].name!,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: color.withOpacity(1),
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ],
                       ),
@@ -229,7 +231,7 @@ class _McqCategoryListState extends State<McqCategoryList> {
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                childAspectRatio: 2 / 2,
+                childAspectRatio: 0.98,
               ))
         ],
       ),

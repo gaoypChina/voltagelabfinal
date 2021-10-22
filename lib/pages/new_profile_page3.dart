@@ -132,7 +132,8 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(15),
-                                    child: const Text('Product purchase'),
+                                    child: const Text('Product purchase',
+                                        overflow: TextOverflow.ellipsis),
                                     decoration: BoxDecoration(
                                         border: Border(
                                       bottom: BorderSide(

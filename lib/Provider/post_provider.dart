@@ -297,7 +297,7 @@ class Postprovider extends ChangeNotifier {
         isloading = false;
         var jsondata = response.body;
         mcqpostlist = mcqpostlistFromJson(response.body);
-        print(mcqpostlist.first.link.toString());
+      
         notifyListeners();
         return postdata;
       }
