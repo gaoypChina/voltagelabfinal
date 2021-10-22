@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -89,7 +91,8 @@ class _PaymentPageState extends State<PaymentPage> {
         payment_type: widget.payment_type,
         context: context);
 
-    numbertrangitionidsend(phone_number!, transaction_Id);
+    numbertrangitionidsend(phone_number!, transaction_Id, widget.payment_name,
+        widget.subscription_pack_name, widget.subs_pack_month);
   }
 
   @override
@@ -320,7 +323,8 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
-  Future numbertrangitionidsend(String number, transitionid) async {
+  Future numbertrangitionidsend(String number, transitionid, payment_name,
+      subscriptionname, subs_pack_month) async {
     String host = 'voltagelab.com';
 
     String name = 'Voltage Lab';
@@ -344,7 +348,8 @@ class _PaymentPageState extends State<PaymentPage> {
       ..from = Address(username, name)
       ..recipients.add("rony.pvt@gmail.com")
       ..subject = 'Payment resive'
-      ..text = 'Number: ${number} Transition id: ${transaction_Id}';
+      ..text =
+          'Number: ${number} Transition id: ${transaction_Id} payment name: $payment_name Subscription Name: $subscriptionname, Subscription Month: $subs_pack_month';
 
     try {
       final sendReport = await send(message, smtpServer);
