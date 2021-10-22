@@ -215,13 +215,15 @@ class _En_voltagelabListcategoryPageState
                           const SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            category.en_voltagelabcategorylist[index].name,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: color.withOpacity(1),
-                                fontWeight: FontWeight.bold),
+                          Flexible(
+                            child: Text(
+                              category.en_voltagelabcategorylist[index].name,
+                              // overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: color.withOpacity(1),
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ],
                       ),

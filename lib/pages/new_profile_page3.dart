@@ -119,26 +119,28 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                                   )),
                                 ),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    selectiteam = 2;
-                                    pageController!.animateToPage(selectiteam,
-                                        duration:
-                                            const Duration(milliseconds: 300),
-                                        curve: Curves.easeInOutCubic);
-                                  });
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(15),
-                                  child: const Text('Product purchase'),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                    bottom: BorderSide(
-                                        color: selectiteam == 2
-                                            ? Colors.indigo
-                                            : Colors.transparent),
-                                  )),
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      selectiteam = 2;
+                                      pageController!.animateToPage(selectiteam,
+                                          duration:
+                                              const Duration(milliseconds: 300),
+                                          curve: Curves.easeInOutCubic);
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(15),
+                                    child: const Text('Product purchase'),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                      bottom: BorderSide(
+                                          color: selectiteam == 2
+                                              ? Colors.indigo
+                                              : Colors.transparent),
+                                    )),
+                                  ),
                                 ),
                               ),
                             ],
