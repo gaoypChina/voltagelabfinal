@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                 )
               : const InternetDisconnectpage();
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
