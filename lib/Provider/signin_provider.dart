@@ -74,7 +74,7 @@ class SignInProvider extends ChangeNotifier {
           notifyListeners();
         } else {
           snakbar(context, 'Email already use');
-           EasyLoading.dismiss();
+          EasyLoading.dismiss();
           notifyListeners();
         }
       }
