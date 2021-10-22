@@ -58,7 +58,7 @@ dependencies:
   google_fonts: ^2.1.0
   carousel_slider: ^4.0.0
   badges: ^2.0.1
-  flutter_local_notifications: ^8.2.0
+  flutter_local_notifications: ^9.0.0
   flutter_spinkit: ^5.1.0
   onesignal_flutter: #^3.2.3
     git:

@@ -235,7 +235,7 @@ class CategoryProvider extends ChangeNotifier {
   Future getmcqmaincategorydb() async {
     loading = true;
     String url =
-        "http://192.168.0.108/tanvir/tanvir_mysqlfile_voltagelab/Mcq/mcq.php?api_token=$api_token";
+        "http://api.voltagelab.com/vl-app/mcq/mcq.php?api_token=$api_token";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       mcqmainiddb = mcqMainiddbFromJson(response.body);
