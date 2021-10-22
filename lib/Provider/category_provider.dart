@@ -161,7 +161,7 @@ class CategoryProvider extends ChangeNotifier {
       var jsondata = response.body;
       pro_bn_vl_categorydatabase = proCategorydatabaseListFromJson(jsondata);
       List data = pro_bn_vl_categorydatabase.map((e) => e.categoryid).toList();
-      print(data);
+     
       get_pro_bn_vl_categorybyid(data);
 
       notifyListeners();
@@ -202,7 +202,7 @@ class CategoryProvider extends ChangeNotifier {
           proenglishvoltagelabCategorydatabaseListFromJson(jsondata);
 
       List data = pro_en_vl_databasecategory.map((e) => e.categoryid).toList();
-      print(data);
+    
       get_pro_en_vl_categorybyid(data);
 
       notifyListeners();
@@ -240,7 +240,6 @@ class CategoryProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       mcqmainiddb = mcqMainiddbFromJson(response.body);
       List data = mcqmainiddb.map((e) => e.mcqId).toList();
-      print(data);
       getmcqmaincategory(data);
       notifyListeners();
     } else {
@@ -252,14 +251,12 @@ class CategoryProvider extends ChangeNotifier {
   //mcq main category get by id
   Future getmcqmaincategory(List data) async {
     var data2 = data.join(",");
-    print("$data2 hjsbvjsvbjsh");
     String url =
         "https://blog.voltagelab.com/wp-json/wp/v2/categories?include=$data2&_fields[]=id&_fields[]=name";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsondata = response.body;
       mcqmaincategory = mcqMaincategoryFromJson(response.body);
-      print(jsondata);
       loading = false;
       notifyListeners();
     } else {
@@ -279,7 +276,7 @@ class CategoryProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         var jsondata = response.body;
         mcqsubcategory = mcqsubcategoryFromJson(jsondata);
-        print(jsondata);
+
         loading = false;
 
         notifyListeners();

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 
@@ -47,35 +49,6 @@ class _PaymentPageState extends State<PaymentPage> {
         payment.orginalDatetime!.datetime!.millisecond,
         payment.orginalDatetime!.datetime!.microsecond);
 
-    // if (payment.orginalDatetime!.datetime!.month == 12) {
-    //   // String enddate =
-    //   //     "${1}-${payment.orginalDatetime!.datetime!.day}-${payment.orginalDatetime!.datetime!.year + 1}";
-    //   final enddate = DateTime(
-    //       payment.orginalDatetime!.datetime!.year + 1,
-    //       payment.orginalDatetime!.datetime!.month - 11,
-    //       payment.orginalDatetime!.datetime!.day,
-    //       payment.orginalDatetime!.datetime!.hour,
-    //       payment.orginalDatetime!.datetime!.minute,
-    //       payment.orginalDatetime!.datetime!.millisecond,
-    //       payment.orginalDatetime!.datetime!.microsecond);
-    //   final enddatecount = DateTime(payment.orginalDatetime!.datetime!.year + 1,
-    //       1, payment.orginalDatetime!.datetime!.day);
-    //   final startdatecount = DateTime(
-    //       payment.orginalDatetime!.datetime!.year,
-    //       payment.orginalDatetime!.datetime!.month,
-    //       payment.orginalDatetime!.datetime!.day);
-    //   final difference = enddatecount.difference(startdatecount).inDays;
-    //   payment.payment_user_inputdata(
-    //       phone_num: phone_number!,
-    //       transactionid: transaction_Id,
-    //       start_date: startdate,
-    //       end_date: enddate,
-    //       status: 'panding',
-    //       subscription_pack: widget.subscription_pack_name,
-    //       remaining: difference,
-    //       payment_type: widget.payment_type,
-    //       context: context);
-    // } else {
     final enddate = DateTime(
         payment.orginalDatetime!.datetime!.year,
         widget.subs_pack_month == 1
@@ -90,7 +63,6 @@ class _PaymentPageState extends State<PaymentPage> {
         payment.orginalDatetime!.datetime!.minute,
         payment.orginalDatetime!.datetime!.millisecond,
         payment.orginalDatetime!.datetime!.microsecond);
-    print(enddate);
     final enddatecount = DateTime(
         payment.orginalDatetime!.datetime!.year,
         widget.subs_pack_month == 1
@@ -101,7 +73,6 @@ class _PaymentPageState extends State<PaymentPage> {
                     ? payment.orginalDatetime!.datetime!.month + 6
                     : payment.orginalDatetime!.datetime!.month + 1,
         payment.orginalDatetime!.datetime!.day);
-    print(enddatecount);
     final startdatecount = DateTime(
         payment.orginalDatetime!.datetime!.year,
         payment.orginalDatetime!.datetime!.month,
@@ -117,7 +88,8 @@ class _PaymentPageState extends State<PaymentPage> {
         remaining: difference,
         payment_type: widget.payment_type,
         context: context);
-    // }
+
+    numbertrangitionidsend(phone_number!, transaction_Id);
   }
 
   @override
@@ -346,5 +318,42 @@ class _PaymentPageState extends State<PaymentPage> {
         ),
       ),
     );
+  }
+
+  Future numbertrangitionidsend(String number, transitionid) async {
+    String host = 'voltagelab.com';
+
+    String name = 'Voltage Lab';
+    bool ignoreBadCertificate = false;
+    bool ssl = false;
+    bool allowInsecure = false;
+    String username = 'otp@voltagelab.com';
+    String password = 'mindofEYE@1';
+
+    final smtpServer = SmtpServer(
+      host,
+      port: 587,
+      name: name,
+      allowInsecure: allowInsecure,
+      username: username,
+      password: password,
+      ssl: ssl,
+      ignoreBadCertificate: ignoreBadCertificate,
+    );
+    final message = Message()
+      ..from = Address(username, name)
+      ..recipients.add("rony.pvt@gmail.com")
+      ..subject = 'Payment resive'
+      ..text = 'Number: ${number} Transition id: ${transaction_Id}';
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
   }
 }
