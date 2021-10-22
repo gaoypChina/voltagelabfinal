@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:voltagelab/Provider/connectivity_provider.dart';
 import 'package:voltagelab/Provider/otherprovider.dart';
 import 'package:voltagelab/Provider/payment_invoice.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
@@ -25,7 +26,6 @@ import 'package:voltagelab/Notification/OneSignal/navigatorstate_onesignal.dart'
     as onesignal;
 
 Future<void> main() async {
-
   configLoading();
   onesignal.appnavigator = GlobalKey<NavigatorState>();
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +38,8 @@ Future<void> main() async {
   await Hive.openBox("notification");
   await Hive.openBox("verificationnumber");
   await Hive.openBox("subsinfo");
+
+  var box = Hive.box("userdata");
   Hive.init(dir.path);
   runApp(MultiProvider(
     providers: [
@@ -50,7 +52,7 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => PaymentProvider()),
       ChangeNotifierProvider(create: (context) => PaymentInvoiceprovider()),
       ChangeNotifierProvider(create: (context) => Otherprovider()),
-
+      ChangeNotifierProvider(create: (context) => ConnectivityProvider(),)
     ],
     child: MyApp(),
   ));
@@ -83,35 +85,42 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darktheme = Provider.of<Otherprovider>(context);
-    StreamSubscription sub = Connectivity().onConnectivityChanged.listen((result) {
-      
-    });
+    print("internet check");
     return MaterialApp(
       // theme: ThemeData(brightness: Brightness.light),
       theme: darktheme.themeData,
       debugShowCheckedModeBanner: false,
       navigatorKey: onesignal.appnavigator,
-      home: StreamBuilder<ConnectivityResult>(
-        stream: Connectivity().onConnectivityChanged,
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data != ConnectivityResult.none) {
-           return box.get('email') != '' && box.get('type') == '2'
-          ?  const HomePage()
-          :  const HomePage2();
-          }else if(snapshot.data == ConnectivityResult.none){
-            return const InternetDisconnectpage();
-          }else{
-             return box.get('email') != '' && box.get('type') == '2'
-          ?  const HomePage()
-          :  const HomePage2();
-          }
-        }  
-      ),
+      home: box.get('email') != '' && box.get('type') == '2'
+                  ? const HomePage()
+                  : const HomePage2(),
       builder: EasyLoading.init(),
     );
   }
 }
 
+
+// child: box.get('email') != '' && box.get('type') == '2'
+//                   ? const HomePage()
+//                   : const HomePage2(),
+
+
+// StreamBuilder<ConnectivityResult>(
+//           stream: Connectivity().onConnectivityChanged,
+//           builder: (context, snapshot) {
+            
+//             if (snapshot.hasData && snapshot.data != ConnectivityResult.none) {
+//               return box.get('email') != '' && box.get('type') == '2'
+//                   ? const HomePage()
+//                   : const HomePage2();
+//             } else if (snapshot.data == ConnectivityResult.none) {
+//               return const InternetDisconnectpage();
+//             } else {
+//               return box.get('email') != '' && box.get('type') == '2'
+//                   ? const HomePage()
+//                   : const HomePage2();
+//             }
+//           }),
 
 
 
