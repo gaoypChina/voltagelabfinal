@@ -56,6 +56,8 @@ class _FeedBackPageState extends State<FeedBackPage> {
     try {
       final sendReport = await send(message, smtpServer);
       print('Message sent: ' + sendReport.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("FeedBack send successfull")));
     } on MailerException catch (e) {
       print('Message not sent.');
       for (var p in e.problems) {
