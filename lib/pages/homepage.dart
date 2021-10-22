@@ -194,7 +194,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    Provider.of<ConnectivityProvider>(context, listen: false).startmonitoring();
     parmissionhandeler();
     Provider.of<Postprovider>(context, listen: false).getvoltagelablatestpost();
     Provider.of<CategoryProvider>(context, listen: false)
