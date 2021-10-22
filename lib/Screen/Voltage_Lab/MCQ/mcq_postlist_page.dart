@@ -36,7 +36,7 @@ class _McqPostlistPageState extends State<McqPostlistPage> {
     Provider.of<Postprovider>(context, listen: false)
         .mcqgetpostlist(widget.categoryid, perpagepost, widget.sitename);
     previewpostlength =
-        Provider.of<Postprovider>(context, listen: false).postdata.length;
+        Provider.of<Postprovider>(context, listen: false).mcqpostlist.length;
   }
 
   @override

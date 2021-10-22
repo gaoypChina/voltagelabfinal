@@ -41,30 +41,6 @@ class SignInProvider extends ChangeNotifier {
       //type = 0 is google
 
       if (await userinfoverify(user!.email) == false) {
-        // if (await userinfoverify(user!.email, 0) == false) {
-        //   EasyLoading.show(status: 'loading...');
-        //   await insertuserdata(user!.displayName!, user!.email, "",
-        //       user!.photoUrl, user!.id, 0, context);
-        //   singleuserdatabyemail(user!.email);
-        //   final googleAuth = await googleUser.authentication;
-        //   final credential = GoogleAuthProvider.credential(
-        //     accessToken: googleAuth.accessToken,
-        //     idToken: googleAuth.idToken,
-        //   );
-        //   await FirebaseAuth.instance.signInWithCredential(credential);
-        //
-        //   notifyListeners();
-        // } else {
-        //   EasyLoading.show(status: 'loading...');
-        //   singleuserdatabyemail(user!.email);
-        //   final googleAuth = await googleUser.authentication;
-        //   final credential = GoogleAuthProvider.credential(
-        //     accessToken: googleAuth.accessToken,
-        //     idToken: googleAuth.idToken,
-        //   );
-        //   await FirebaseAuth.instance.signInWithCredential(credential);
-        //   notifyListeners();
-        // }
         await googlelogininsertdata(user!.displayName!, user!.email,
             user!.photoUrl, user!.id, "0", context);
         await googlelogindatabyemail(user!.email);
@@ -77,15 +53,28 @@ class SignInProvider extends ChangeNotifier {
         notifyListeners();
       } else {
         if (await googlelogindatabyemail(user!.email) == true) {
+          EasyLoading.show(
+        maskType: EasyLoadingMaskType.custom,
+        indicator: SpinKitThreeBounce(
+          size: 30,
+          itemBuilder: (context, index) {
+            return DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: index.isEven ? Colors.red : Colors.green));
+          },
+        ));
           final googleAuth = await googleUser.authentication;
           final credential = GoogleAuthProvider.credential(
             accessToken: googleAuth.accessToken,
             idToken: googleAuth.idToken,
           );
           await FirebaseAuth.instance.signInWithCredential(credential);
+           EasyLoading.dismiss();
           notifyListeners();
         } else {
           snakbar(context, 'Email already use');
+           EasyLoading.dismiss();
           notifyListeners();
         }
       }

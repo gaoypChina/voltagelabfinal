@@ -98,8 +98,12 @@ class MyApp extends StatelessWidget {
            return box.get('email') != '' && box.get('type') == '2'
           ?  const HomePage()
           :  const HomePage2();
-          }else{
+          }else if(snapshot.data == ConnectivityResult.none){
             return const InternetDisconnectpage();
+          }else{
+             return box.get('email') != '' && box.get('type') == '2'
+          ?  const HomePage()
+          :  const HomePage2();
           }
         }  
       ),

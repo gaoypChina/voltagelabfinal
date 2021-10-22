@@ -95,7 +95,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              Expanded(
+                              Flexible(
                                 child: Text(
                                   category.subcategory![index].name!,
                                   // maxLines: 1,

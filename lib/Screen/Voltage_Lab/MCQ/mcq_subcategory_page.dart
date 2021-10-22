@@ -71,10 +71,15 @@ class _McqSubcategoryPAgeState extends State<McqSubcategoryPAge> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        Text(
-                          category.mcqsubcategory[index].name!,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.all(5),
+                            child: Text(
+                              category.mcqsubcategory[index].name!,
+                              // maxLines: 1,
+                              // overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         )
                       ],
                     );
