@@ -9,24 +9,22 @@ class ConnectivityProvider extends ChangeNotifier {
   bool? isonline;
 
   startmonitoring() async {
-    // await initconnectivity();
+    await initconnectivity();
     _connectivity.onConnectivityChanged.listen((event) async {
       if (event == ConnectivityResult.none) {
         isonline = false;
         notifyListeners();
       } else {
-        isonline = true;
-        notifyListeners();
-        // await _updateconnectivitystatus().then((bool isconnected) {
-        //   isonline = isconnected;
-        //   notifyListeners();
-        // });
+        await _updateconnectivitystatus().then((bool isconnected) {
+          isonline = isconnected;
+          notifyListeners();
+        });
       }
     });
   }
 
   Future initconnectivity() async {
-    print("internettttttt");
+ 
     try {
       var status = await _connectivity.checkConnectivity();
       if (status == ConnectivityResult.none) {
@@ -42,7 +40,6 @@ class ConnectivityProvider extends ChangeNotifier {
   }
 
   Future<bool> _updateconnectivitystatus() async {
-    print("lllllllllllllllllllllllllll");
     bool? isconnected;
     try {
       final List<InternetAddress> result =
