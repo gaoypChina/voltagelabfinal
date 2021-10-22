@@ -49,7 +49,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
     );
     final message = Message()
       ..from = Address(username, name)
-      ..recipients.add("shakilhassan887@gmail.com")
+      ..recipients.add("rony.pvt@gmail.com")
       ..subject = 'FeedBack'
       ..text = feedbacktext;
 
