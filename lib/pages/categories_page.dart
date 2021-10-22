@@ -95,10 +95,12 @@ class _CategoryPageState extends State<CategoryPage> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              Text(
-                                category.subcategory![index].name!,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                              Expanded(
+                                child: Text(
+                                  category.subcategory![index].name!,
+                                  // maxLines: 1,
+                                  // overflow: TextOverflow.ellipsis,
+                                ),
                               )
                             ],
                           );

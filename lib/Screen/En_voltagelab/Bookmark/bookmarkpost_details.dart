@@ -7,6 +7,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
+import 'package:voltagelab/web_View/web_view.dart';
 
 class En_voltagelabBookmarkPostDetails extends StatefulWidget {
   final int categoryid;
@@ -121,14 +122,12 @@ class _En_voltagelabBookmarkPostDetailsState extends State<En_voltagelabBookmark
               child: Html(
                 data: widget.content,
                 onLinkTap: (url, _, __, ___) async {
-                  if (await canLaunch(url!)) {
-                    await launch(
-                      url,
-                    );
-                  } else {
-                    throw 'Could not launch $url';
-                  }
-                },
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WebViewPage(url: url!),
+                            ));
+                      },
               ),
             ),
           )

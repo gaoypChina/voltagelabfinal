@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -7,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/otherprovider.dart';
 import 'package:voltagelab/Provider/payment_invoice.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
+import 'package:voltagelab/pages/Internet_Connectibity/internetdisconnect.dart';
 import 'package:voltagelab/pages/homepage.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
@@ -21,6 +25,7 @@ import 'package:voltagelab/Notification/OneSignal/navigatorstate_onesignal.dart'
     as onesignal;
 
 Future<void> main() async {
+
   configLoading();
   onesignal.appnavigator = GlobalKey<NavigatorState>();
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,18 +83,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darktheme = Provider.of<Otherprovider>(context);
+    StreamSubscription sub = Connectivity().onConnectivityChanged.listen((result) {
+      
+    });
     return MaterialApp(
       // theme: ThemeData(brightness: Brightness.light),
       theme: darktheme.themeData,
       debugShowCheckedModeBanner: false,
       navigatorKey: onesignal.appnavigator,
-      home: box.get('email') != '' && box.get('type') == '2'
-          ? const HomePage()
-          : const HomePage2(),
+      home: StreamBuilder<ConnectivityResult>(
+        stream: Connectivity().onConnectivityChanged,
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != ConnectivityResult.none) {
+           return box.get('email') != '' && box.get('type') == '2'
+          ?  const HomePage()
+          :  const HomePage2();
+          }else{
+            return const InternetDisconnectpage();
+          }
+        }  
+      ),
       builder: EasyLoading.init(),
     );
   }
 }
+
+
+
+
 
 // box.get('email') != '' && box.get('types') == '2' ? const HomePage() : const HomePage2(),);
 

@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -9,10 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
-import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
-import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
-
 import 'mcq_subcategory_page.dart';
 
 class McqCategoryList extends StatefulWidget {

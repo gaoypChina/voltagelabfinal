@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_sin
 import 'package:voltagelab/pages/Pro_Category_Page/pro_bangla_voltagelabcategory_page.dart';
 import 'package:voltagelab/pages/Subscription_details/subscription_details.dart';
 import 'package:voltagelab/widget/drawer.dart';
+import 'package:connectivity/connectivity.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -193,6 +196,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+
     parmissionhandeler();
     // Provider.of<NotificationService>(context, listen: false).initplatfrom();
     Provider.of<Postprovider>(context, listen: false).getvoltagelablatestpost();
@@ -210,6 +214,8 @@ class _HomePageState extends State<HomePage> {
 
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

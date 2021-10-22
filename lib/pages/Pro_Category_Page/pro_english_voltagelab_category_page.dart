@@ -217,13 +217,15 @@ class _Pro_en_Vl_CategoryPageState extends State<Pro_en_Vl_CategoryPage> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text(
-                                procategory.name!,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: color.withOpacity(1),
-                                    fontWeight: FontWeight.bold),
+                              Expanded(
+                                child: Text(
+                                  procategory.name!,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: color.withOpacity(1),
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ],
                           ),
@@ -234,7 +236,7 @@ class _Pro_en_Vl_CategoryPageState extends State<Pro_en_Vl_CategoryPage> {
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    childAspectRatio: 2 / 2,
+                    childAspectRatio: 0.98,
                   ),
                 )
         ],

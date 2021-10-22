@@ -248,14 +248,20 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                           : Icons.bookmark_border))
                   : IconButton(
                       onPressed: () {
-                        if (payment.subscriptionsingledata != null &&
-                            payment.subscriptionsingledata!.status == '1') {
-                          voltagelabsavecategory();
-                          voltagelabsavepost(post);
-                          post.getvoltagelabsavepost();
-                        } else if (payment.subscriptionsingledata == null ||
-                            payment.subscriptionsingledata!.status != '1') {
-                          alartmessage();
+                        if (post.isloading == true) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text("Please Wait For Content Loading")));
+                        } else {
+                          if (payment.subscriptionsingledata != null &&
+                              payment.subscriptionsingledata!.status == '1') {
+                            voltagelabsavecategory();
+                            voltagelabsavepost(post);
+                            post.getvoltagelabsavepost();
+                          } else if (payment.subscriptionsingledata == null ||
+                              payment.subscriptionsingledata!.status != '1') {
+                            alartmessage();
+                          }
                         }
                       },
                       icon: Icon(post.savevoltagelabpost.any(
