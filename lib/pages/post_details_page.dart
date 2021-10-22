@@ -232,14 +232,21 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
               widget.sitename == 'polytechnicbd'
                   ? IconButton(
                       onPressed: () {
-                        if (payment.subscriptionsingledata != null &&
-                            payment.subscriptionsingledata!.status == '1') {
-                          polytechnicsavecategorydb();
-                          polytechnicsavepostdb(post);
-                          post.getpolytechnicsavepost();
-                        } else if (payment.subscriptionsingledata == null ||
-                            payment.subscriptionsingledata!.status != '1') {
-                          alartmessage();
+                        if (post.isloading == true) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("Please Wait For Content Loading")));
+                        } else {
+                          if (payment.subscriptionsingledata != null &&
+                              payment.subscriptionsingledata!.status == '1') {
+                            polytechnicsavecategorydb();
+                            polytechnicsavepostdb(post);
+                            post.getpolytechnicsavepost();
+                          } else if (payment.subscriptionsingledata == null ||
+                              payment.subscriptionsingledata!.status != '1') {
+                            alartmessage();
+                          }
                         }
                       },
                       icon: Icon(post.en_voltagelabsavepost.any(
