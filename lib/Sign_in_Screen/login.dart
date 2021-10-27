@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/connectivity_provider.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/sign_in_page.dart';
@@ -57,11 +58,24 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 75.0),
-                          child: SvgPicture.asset(
-                            'images/login.svg',
-                            height: 190,
+                          padding: EdgeInsets.only(top: 100.0),
+                          // child: SvgPicture.asset(
+                          //   'images/login.svg',
+                          //   height: 190,
+                          // ),
+                          child: Text(
+                            'Welcome to Voltage Lab!',
+                            style: GoogleFonts.raleway(
+                              color: Colors.white,
+                              textStyle: Theme.of(context).textTheme.headline4,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
+                        ),
+                        const SizedBox(
+                          height: 100,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20.0),
