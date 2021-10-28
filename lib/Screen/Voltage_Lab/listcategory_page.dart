@@ -215,7 +215,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                             child: Text(
                               category.category[index].name!,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 16,
                                   // color: color.withOpacity(1),
                                   color: Colors.black,

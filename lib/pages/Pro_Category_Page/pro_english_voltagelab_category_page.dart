@@ -28,7 +28,8 @@ class _Pro_en_Vl_CategoryPageState extends State<Pro_en_Vl_CategoryPage> {
 
   @override
   void initState() {
-    Provider.of<CategoryProvider>(context, listen: false).get_pro_en_vl_categorylist();
+    Provider.of<CategoryProvider>(context, listen: false)
+        .get_pro_en_vl_categorylist();
     super.initState();
   }
 
@@ -203,14 +204,15 @@ class _Pro_en_Vl_CategoryPageState extends State<Pro_en_Vl_CategoryPage> {
                                 // height: 80,
                                 // width: 80,
                                 decoration: BoxDecoration(
-                                  color: color,
+                                  color: Colors.white70,
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: Image.asset(
-                                    'images/youtube.png',
-                                    height: 80,
+                                    'images/logo-icon-category.png',
+                                    height: 60,
+                                    width: 60,
                                   ),
                                 ),
                               ),
@@ -221,9 +223,9 @@ class _Pro_en_Vl_CategoryPageState extends State<Pro_en_Vl_CategoryPage> {
                                 child: Text(
                                   procategory.name!,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 16,
-                                      color: color.withOpacity(1),
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),

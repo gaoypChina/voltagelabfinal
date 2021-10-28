@@ -198,18 +198,20 @@ class _En_voltagelabListcategoryPageState
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            height: 80,
-                            width: 80,
+                            // height: 80,
+                            // width: 80,
                             decoration: BoxDecoration(
-                              color: color,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              // child: Image.asset(
-                              //   '',
-                              //   fit: BoxFit.cover,
-                              // ),
+                              child: Image.asset(
+                                'images/logo-icon-category.png',
+                                height: 60,
+                                width: 60,
+                                // fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -219,9 +221,9 @@ class _En_voltagelabListcategoryPageState
                             child: Text(
                               category.en_voltagelabcategorylist[index].name,
                               // overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 16,
-                                  color: color.withOpacity(1),
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),

@@ -17,10 +17,12 @@ class ProBanglaVoltageCategoryListPage extends StatefulWidget {
   const ProBanglaVoltageCategoryListPage({Key? key}) : super(key: key);
 
   @override
-  _ProBanglaVoltageCategoryListPageState createState() => _ProBanglaVoltageCategoryListPageState();
+  _ProBanglaVoltageCategoryListPageState createState() =>
+      _ProBanglaVoltageCategoryListPageState();
 }
 
-class _ProBanglaVoltageCategoryListPageState extends State<ProBanglaVoltageCategoryListPage> {
+class _ProBanglaVoltageCategoryListPageState
+    extends State<ProBanglaVoltageCategoryListPage> {
   int? categoryindex;
   bool subcategoryshow = false;
 
@@ -28,7 +30,8 @@ class _ProBanglaVoltageCategoryListPageState extends State<ProBanglaVoltageCateg
 
   @override
   void initState() {
-    Provider.of<CategoryProvider>(context, listen: false).get_pro_bn_vl_categorylist();
+    Provider.of<CategoryProvider>(context, listen: false)
+        .get_pro_bn_vl_categorylist();
     super.initState();
   }
 
@@ -203,14 +206,15 @@ class _ProBanglaVoltageCategoryListPageState extends State<ProBanglaVoltageCateg
                                 // height: 80,
                                 // width: 80,
                                 decoration: BoxDecoration(
-                                  color: color,
+                                  color: Colors.white70,
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: Image.asset(
-                                    'images/youtube.png',
-                                    height: 80,
+                                    'images/logo-icon-category.png',
+                                    height: 60,
+                                    width: 60,
                                   ),
                                 ),
                               ),
@@ -221,9 +225,9 @@ class _ProBanglaVoltageCategoryListPageState extends State<ProBanglaVoltageCateg
                                 child: Text(
                                   procategory.name!,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 16,
-                                      color: color.withOpacity(1),
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
