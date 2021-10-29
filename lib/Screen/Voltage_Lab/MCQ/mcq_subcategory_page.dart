@@ -47,11 +47,6 @@ class _McqSubcategoryPAgeState extends State<McqSubcategoryPAge> {
                     return Column(
                       children: [
                         Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(100)),
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
@@ -67,20 +62,61 @@ class _McqSubcategoryPAgeState extends State<McqSubcategoryPAge> {
                                                 .mcqsubcategory[index].name!)));
                               },
                               borderRadius: BorderRadius.circular(5),
+
+                              // new code
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    // height: 80,
+                                    // width: 80,
+                                    decoration: BoxDecoration(
+                                      // color: color,
+                                      color: Colors.white70,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.asset(
+                                        'images/logo-icon-category.png',
+                                        height: 60,
+                                        width: 60,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      category.mcqsubcategory[index].name!,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                      // overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          // color: color.withOpacity(1),
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 5),
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            child: Text(
-                              category.mcqsubcategory[index].name!,
-                              // maxLines: 1,
-                              // overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        )
+                        // const SizedBox(height: 5),
+                        // Expanded(
+                        //   child: Container(
+                        //     margin: const EdgeInsets.all(5),
+                        //     child: Text(
+                        //       category.mcqsubcategory[index].name!,
+                        //       // maxLines: 1,
+                        //       // overflow: TextOverflow.ellipsis,
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     );
                   },

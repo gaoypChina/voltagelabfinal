@@ -70,10 +70,10 @@ class _CategoryPageState extends State<CategoryPage> {
                           return Column(
                             children: [
                               Container(
-                                height: 80,
-                                width: 80,
+                                // height: 80,
+                                // width: 80,
                                 decoration: BoxDecoration(
-                                    color: Colors.grey[300],
+                                    color: Colors.white70,
                                     borderRadius: BorderRadius.circular(100)),
                                 child: Material(
                                   color: Colors.transparent,
@@ -91,6 +91,14 @@ class _CategoryPageState extends State<CategoryPage> {
                                                       .name!)));
                                     },
                                     borderRadius: BorderRadius.circular(5),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.asset(
+                                        'images/logo-icon-category.png',
+                                        height: 60,
+                                        width: 60,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -98,6 +106,7 @@ class _CategoryPageState extends State<CategoryPage> {
                               Flexible(
                                 child: Text(
                                   category.subcategory![index].name!,
+                                  textAlign: TextAlign.center,
                                   // maxLines: 1,
                                   // overflow: TextOverflow.ellipsis,
                                 ),
