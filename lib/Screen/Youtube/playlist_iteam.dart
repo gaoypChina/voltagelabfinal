@@ -1,9 +1,10 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/youtube_api_provider.dart';
 import 'package:voltagelab/Screen/Youtube/youtube_player.dart';
+import 'package:voltagelab/helper/global.dart';
 
 class PlaylistIteamPage extends StatefulWidget {
   final String playlistid;
@@ -63,15 +64,24 @@ class _PlaylistIteamPageState extends State<PlaylistIteamPage> {
             ),
             Container(
               height: 50,
-              color: Colors.red,
+              color: Global.defaultColor,
               child: Row(
                 children: [
                   IconButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: const Icon(Icons.arrow_back)),
-                  Text(widget.playlistname),
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      )),
+                  Text(
+                    widget.playlistname,
+                    style: GoogleFonts.hindSiliguri(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
             ),
@@ -110,7 +120,9 @@ class _PlaylistIteamPageState extends State<PlaylistIteamPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Flexible(
-                                          child: Text(iteamdata.snippet.title)),
+                                        child: Text(iteamdata.snippet.title,
+                                            style: Global.titleOfList),
+                                      ),
                                       Icon(
                                         Icons.check_circle,
                                         color: Colors.grey[400],
