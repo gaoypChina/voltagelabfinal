@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/youtube_api_provider.dart';
 import 'package:voltagelab/Screen/Youtube/playlist_iteam.dart';
+import 'package:voltagelab/helper/global.dart';
 
 class YoutubePlaylistPage extends StatefulWidget {
   const YoutubePlaylistPage({Key? key}) : super(key: key);
@@ -23,12 +25,12 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
     final youtube = Provider.of<YoutubeApiprovider>(context);
     return Scaffold(
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.white),
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: Global.defaultColor,
           title: const Text(
-            "Voltage Lab",
-            style: TextStyle(color: Colors.black),
+            "Video",
+            style: TextStyle(color: Colors.white),
           ),
         ),
         body: youtube.loading
@@ -65,11 +67,16 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(playlistdata.snippet.title),
+                                  Text(
+                                    playlistdata.snippet.title,
+                                    style: Global.titleOfList,
+                                  ),
                                   const SizedBox(height: 8),
                                   Text(
                                       "${playlistdata.contentDetails.itemCount} টি ভিডিও",
-                                      style: TextStyle(color: Colors.grey[400]))
+                                      style: GoogleFonts.hindSiliguri(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.normal))
                                 ],
                               ),
                               const Spacer(),

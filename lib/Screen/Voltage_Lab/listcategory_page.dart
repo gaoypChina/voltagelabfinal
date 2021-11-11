@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
 
@@ -216,15 +217,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                             child: Text(
                               category.category[index].name!,
                               overflow: TextOverflow.ellipsis,
-                              // style: const TextStyle(
-                              //     fontSize: 16,
-                              //     // color: color.withOpacity(1),
-                              //     color: Colors.black,
-                              //     fontWeight: FontWeight.bold),
-                              style: GoogleFonts.hindSiliguri(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                              style: Global.titleOfCategory,
                             ),
                           ),
                         ],
