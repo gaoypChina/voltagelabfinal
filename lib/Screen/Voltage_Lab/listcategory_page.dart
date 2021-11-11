@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
@@ -215,9 +216,13 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                             child: Text(
                               category.category[index].name!,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              // style: const TextStyle(
+                              //     fontSize: 16,
+                              //     // color: color.withOpacity(1),
+                              //     color: Colors.black,
+                              //     fontWeight: FontWeight.bold),
+                              style: GoogleFonts.hindSiliguri(
                                   fontSize: 16,
-                                  // color: color.withOpacity(1),
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -238,10 +243,6 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
     );
   }
 }
-
-
-
-
 
 // Column(
 //           children: [
