@@ -54,18 +54,18 @@ class _HomePageState extends State<HomePage> {
       padding: EdgeInsets.zero,
       margin: const EdgeInsets.only(left: 10, right: 5, top: 0),
       decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(40), color: color),
+          BoxDecoration(borderRadius: BorderRadius.circular(24), color: color),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: BorderRadius.circular(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 80,
-                width: 80,
+                height: 50,
+                width: 50,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(100),
@@ -354,12 +354,12 @@ class _HomePageState extends State<HomePage> {
               context: context,
               removeTop: true,
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: GridView(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    // childAspectRatio: 2 / 2,
+                    mainAxisSpacing: 15,
+                    childAspectRatio: 4 / 2,
                   ),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
