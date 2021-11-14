@@ -77,10 +77,7 @@ class _PlaylistIteamPageState extends State<PlaylistIteamPage> {
                       )),
                   Text(
                     widget.playlistname,
-                    style: GoogleFonts.hindSiliguri(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w600),
+                    style: Global.titleOfAppbar,
                   ),
                 ],
               ),
