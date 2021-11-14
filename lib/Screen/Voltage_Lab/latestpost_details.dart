@@ -52,7 +52,8 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
             backgroundColor: Colors.white,
             iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
-              widget.latestposttitle,
+              // widget.latestposttitle,
+              "hello",
               style: Global.titleCarosal,
             ),
             actions: [

@@ -225,10 +225,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.white,
             title: Text(
               "Hi, ${box.get('name')}",
-              style: GoogleFonts.poppins(
-                  color: Global.defaultColor,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
+              style: Global.titleName,
             ),
             actions: [
               IconButton(
@@ -336,7 +333,10 @@ class _HomePageState extends State<HomePage> {
                               width: double.infinity,
                               alignment: Alignment.center,
                               padding: const EdgeInsets.all(0),
-                              child: Text(latestpost.title!.rendered),
+                              child: Text(
+                                latestpost.title!.rendered,
+                                style: Global.titleCarosal,
+                              ),
                             ),
                           );
                         },

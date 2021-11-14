@@ -12,7 +12,16 @@ class Global {
       color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
 
   static TextStyle titleCarosal = GoogleFonts.hindSiliguri(
-      color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
+      color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w500);
+
+  static TextStyle titleName = GoogleFonts.roboto(
+      color: defaultColor, fontSize: 20.0, fontWeight: FontWeight.bold);
+
+  static var bottomSelectedNavText = GoogleFonts.roboto(
+      color: defaultColor, fontSize: 16.0, fontWeight: FontWeight.bold);
+
+  static var bottomUnselectedNavText =
+      GoogleFonts.roboto(color: defaultColor, fontSize: 13.0);
 
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
 }
