@@ -11,5 +11,8 @@ class Global {
   static TextStyle titleOfAppbar = GoogleFonts.hindSiliguri(
       color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
 
+  static TextStyle titleCarosal = GoogleFonts.hindSiliguri(
+      color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
+
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
 }

@@ -4,6 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 
 class LatestPostDetails extends StatefulWidget {
@@ -52,7 +53,7 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
             iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
               widget.latestposttitle,
-              style: const TextStyle(color: Colors.black),
+              style: Global.titleCarosal,
             ),
             actions: [
               IconButton(

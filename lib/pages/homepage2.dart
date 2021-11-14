@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:voltagelab/Sign_in_Screen/login.dart';
+import 'package:voltagelab/pages/home_init_page.dart';
 import 'package:voltagelab/pages/homepage.dart';
-
 
 class HomePage2 extends StatefulWidget {
   const HomePage2({Key? key}) : super(key: key);
@@ -14,9 +14,9 @@ class HomePage2 extends StatefulWidget {
 class _HomePage2State extends State<HomePage2> {
   @override
   void initState() {
-    
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,8 @@ class _HomePage2State extends State<HomePage2> {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData) {
-            return const HomePage();
+            // return const HomePage();
+            return const HomeInitPage();
           } else if (snapshot.hasError) {
             return const Text("something Wrong");
           } else {

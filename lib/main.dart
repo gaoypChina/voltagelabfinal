@@ -12,6 +12,7 @@ import 'package:voltagelab/Provider/otherprovider.dart';
 import 'package:voltagelab/Provider/payment_invoice.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/pages/Internet_Connectibity/internetdisconnect.dart';
+import 'package:voltagelab/pages/home_init_page.dart';
 import 'package:voltagelab/pages/homepage.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 import 'Provider/category_provider.dart';
@@ -52,7 +53,9 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => PaymentProvider()),
       ChangeNotifierProvider(create: (context) => PaymentInvoiceprovider()),
       ChangeNotifierProvider(create: (context) => Otherprovider()),
-      ChangeNotifierProvider(create: (context) => ConnectivityProvider(),)
+      ChangeNotifierProvider(
+        create: (context) => ConnectivityProvider(),
+      )
     ],
     child: MyApp(),
   ));
@@ -92,8 +95,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: onesignal.appnavigator,
       home: box.get('email') != '' && box.get('type') == '2'
-                  ? const HomePage()
-                  : const HomePage2(),
+          ? const HomeInitPage()
+          : const HomePage2(),
+      // : const HomeInitPage(),
+
       builder: EasyLoading.init(),
     );
   }
