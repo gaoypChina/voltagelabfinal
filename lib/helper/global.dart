@@ -26,6 +26,9 @@ class Global {
   static var bottomUnselectedNavText =
       GoogleFonts.roboto(color: defaultColor, fontSize: 13.0);
 
+  static TextStyle subscriptionFeatureText = GoogleFonts.hindSiliguri(
+      color: defaultColor, fontSize: 20.0, fontWeight: FontWeight.w600);
+
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
   static Color backgroundColor = Colors.blue.shade50;
 }

@@ -46,7 +46,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget freegridviewtool({
-    Widget? imagechild,
+    // Widget? imagechild,
+    Icon? icon,
     GestureTapCallback? onTap,
     String? name,
     Color? color,
@@ -75,16 +76,17 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: ClipRRect(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(100),
-                    child: imagechild),
-              ),
+                  ),
+                  child: icon
+
+                  // child: imagechild
+
+                  ),
               const SizedBox(
                 height: 10,
               ),
@@ -155,15 +157,15 @@ class _HomePageState extends State<HomePage> {
               subscriptionsingledata == null
                   ? Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(24),
+                        color: Colors.grey.withOpacity(0.5),
                       ),
                     )
                   : subscriptionsingledata.status != '1'
                       ? Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: Colors.black.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(24),
+                            color: Colors.grey.withOpacity(0.5),
                           ),
                         )
                       : Container()
@@ -382,7 +384,11 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     freegridviewtool(
                       color: Colors.white,
-                      imagechild: Image.asset('images/icon.jpg'),
+                      // imagechild: Image.asset('images/icon.jpg'),
+                      icon: Icon(
+                        Icons.book,
+                        color: Colors.blue,
+                      ),
                       name: "Voltage Lab",
                       onTap: () {
                         post.getpostcount();
@@ -395,7 +401,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     freegridviewtool(
                       color: Colors.white,
-                      imagechild: Image.asset('images/icon.jpg'),
+                      // imagechild: Image.asset('images/icon.jpg'),
+                      icon: Icon(Icons.book, color: Colors.blue),
                       name: "English Voltage Lab",
                       onTap: () {
                         post.get_en_voltagelabpostcount();
@@ -411,7 +418,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     freegridviewtool(
                       color: Colors.white,
-                      imagechild: Image.asset('images/icon.jpg'),
+                      icon: Icon(Icons.book, color: Colors.blue),
                       name: "Youtube",
                       onTap: () {
                         Navigator.push(
@@ -423,7 +430,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     freegridviewtool(
                       color: Colors.white,
-                      imagechild: Image.asset('images/icon.jpg'),
+                      icon: Icon(Icons.book),
                       name: "Subscription Details",
                       onTap: () {
                         Navigator.push(
@@ -488,13 +495,15 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     padding: const EdgeInsets.all(0),
                     alignment: Alignment.center,
+                    margin: EdgeInsets.only(top: 20, bottom: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Pro Futures',
-                          style: GoogleFonts.roboto(fontSize: 20),
+                          'সাবস্ক্রিপশন ফিচার',
+                          style: Global.subscriptionFeatureText,
                         ),
+                        //TODO: color need add
                         const Divider(),
                         StreamBuilder(
                             stream: SubscriptionUserStreamdata()
