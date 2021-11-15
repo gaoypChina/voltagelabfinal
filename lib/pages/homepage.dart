@@ -45,16 +45,27 @@ class _HomePageState extends State<HomePage> {
     } else {}
   }
 
-  Widget freegridviewtool(
-      {Widget? imagechild,
-      GestureTapCallback? onTap,
-      String? name,
-      Color? color}) {
+  Widget freegridviewtool({
+    Widget? imagechild,
+    GestureTapCallback? onTap,
+    String? name,
+    Color? color,
+  }) {
     return Container(
-      padding: EdgeInsets.zero,
-      margin: const EdgeInsets.only(left: 10, right: 5, top: 0),
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(24), color: color),
+      // padding: EdgeInsets.only(left: 15, right: 15),
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 10),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.grey.shade100,
+          blurRadius: 5.0,
+          // has the effect of softening the shadow
+          spreadRadius: 2.0,
+          offset: Offset(
+            1.0, // horizontal, move right 10
+            5.0, // vertical, move down 10
+          ),
+        )
+      ], borderRadius: BorderRadius.circular(24), color: color),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -79,10 +90,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Text(
                 name!,
-                style: GoogleFonts.roboto(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500),
+                style: Global.gridTitleName,
               ),
             ],
           ),
@@ -98,9 +106,20 @@ class _HomePageState extends State<HomePage> {
       Color? color,
       Subscriptionsingledata? subscriptionsingledata}) {
     return Container(
-      margin: const EdgeInsets.only(left: 10, right: 5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40), color: Colors.indigo),
+      // margin: const EdgeInsets.only(left: 10, right: 5),
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 10),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.grey.shade100,
+          blurRadius: 5.0,
+          // has the effect of softening the shadow
+          spreadRadius: 2.0,
+          offset: Offset(
+            1.0, // horizontal, move right 10
+            5.0, // vertical, move down 10
+          ),
+        )
+      ], borderRadius: BorderRadius.circular(24), color: color),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -113,8 +132,8 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 80,
-                    width: 80,
+                    height: 50,
+                    width: 50,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(100),
@@ -129,10 +148,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Text(
                     name!,
-                    style: GoogleFonts.roboto(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500),
+                    style: Global.gridTitleName,
                   ),
                 ],
               ),
@@ -309,7 +325,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 : Container(
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    height: MediaQuery.of(context).size.height * 0.08,
                     child: CarouselSlider.builder(
                         itemCount: post.voltagelablatestpost.length,
                         itemBuilder: (context, index, realIndex) {
@@ -354,18 +370,18 @@ class _HomePageState extends State<HomePage> {
               context: context,
               removeTop: true,
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                // margin: const EdgeInsets.symmetric(horizontal: 12),
                 child: GridView(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    childAspectRatio: 4 / 2,
+                    mainAxisSpacing: 0,
+                    childAspectRatio: 3 / 2,
                   ),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   children: [
                     freegridviewtool(
-                      color: Colors.indigo,
+                      color: Colors.white,
                       imagechild: Image.asset('images/icon.jpg'),
                       name: "Voltage Lab",
                       onTap: () {
@@ -378,7 +394,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     freegridviewtool(
-                      color: Colors.orange,
+                      color: Colors.white,
                       imagechild: Image.asset('images/icon.jpg'),
                       name: "English Voltage Lab",
                       onTap: () {
@@ -394,7 +410,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     freegridviewtool(
-                      color: Colors.deepOrange,
+                      color: Colors.white,
                       imagechild: Image.asset('images/icon.jpg'),
                       name: "Youtube",
                       onTap: () {
@@ -406,7 +422,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     freegridviewtool(
-                      color: Colors.deepOrange,
+                      color: Colors.white,
                       imagechild: Image.asset('images/icon.jpg'),
                       name: "Subscription Details",
                       onTap: () {
@@ -418,18 +434,19 @@ class _HomePageState extends State<HomePage> {
                             ));
                       },
                     ),
-                    freegridviewtool(
-                      color: Colors.deepOrange,
-                      imagechild: Image.asset('images/icon.jpg'),
-                      name: "MCQ",
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const McqCategoryList(),
-                            ));
-                      },
-                    ),
+                    // freegridviewtool(
+                    //   color: Colors.white,
+                    //   imagechild: Image.asset('images/icon.jpg'),
+                    //   name: "MCQ",
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (context) => const McqCategoryList(),
+                    //         ));
+                    //   },
+                    // ),
+
                     // freegridviewtool(
                     //   color: Colors.deepOrange,
                     //   imagechild: Image.asset('images/icon.jpg'),
@@ -469,7 +486,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(0),
                     alignment: Alignment.center,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -492,18 +509,21 @@ class _HomePageState extends State<HomePage> {
                                 shrinkWrap: true,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
+                                  // crossAxisCount: 2,
+                                  // mainAxisSpacing: 10,
                                   // childAspectRatio: 2 / 2,
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 0,
+                                  childAspectRatio: 3 / 2,
                                 ),
                                 children: [
                                   progridviewtool(
-                                    color: Colors.indigo,
+                                    color: Colors.white,
                                     imagechild: Image.asset(
                                       'images/icon.jpg',
                                       fit: BoxFit.cover,
                                     ),
-                                    name: 'VoltageLab Bookmark',
+                                    name: 'VL Bookmark',
                                     onTap: snapshot.data == null
                                         ? () {
                                             alartmessage();
@@ -528,12 +548,12 @@ class _HomePageState extends State<HomePage> {
                                             : snapshot.data!,
                                   ),
                                   progridviewtool(
-                                    color: Colors.blueGrey,
+                                    color: Colors.white,
                                     imagechild: Image.asset(
                                       'images/icon.jpg',
                                       fit: BoxFit.cover,
                                     ),
-                                    name: 'Polytechnic Bookmark',
+                                    name: 'PL Bookmark',
                                     onTap: snapshot.data == null
                                         ? () {
                                             alartmessage();
@@ -558,7 +578,7 @@ class _HomePageState extends State<HomePage> {
                                             : snapshot.data!,
                                   ),
                                   progridviewtool(
-                                    color: Colors.blueGrey,
+                                    color: Colors.white,
                                     imagechild: Image.asset(
                                       'images/icon.jpg',
                                       fit: BoxFit.cover,
@@ -579,6 +599,36 @@ class _HomePageState extends State<HomePage> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         const ProBanglaVoltageCategoryListPage(),
+                                                  ),
+                                                );
+                                              },
+                                    subscriptionsingledata:
+                                        snapshot.data == null
+                                            ? null
+                                            : snapshot.data!,
+                                  ),
+                                  progridviewtool(
+                                    color: Colors.white,
+                                    imagechild: Image.asset(
+                                      'images/icon.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                    name: 'MCQ',
+                                    onTap: snapshot.data == null
+                                        ? () {
+                                            alartmessage();
+                                          }
+                                        : snapshot.data!.status != "1"
+                                            ? () {
+                                                alartmessage();
+                                              }
+                                            : () {
+                                                post.getpostcount();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const McqCategoryList(),
                                                   ),
                                                 );
                                               },

@@ -20,8 +20,12 @@ class Global {
   static var bottomSelectedNavText = GoogleFonts.roboto(
       color: defaultColor, fontSize: 16.0, fontWeight: FontWeight.bold);
 
+  static TextStyle gridTitleName = GoogleFonts.hindSiliguri(
+      color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w500);
+
   static var bottomUnselectedNavText =
       GoogleFonts.roboto(color: defaultColor, fontSize: 13.0);
 
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
+  static Color backgroundColor = Colors.blue.shade50;
 }
