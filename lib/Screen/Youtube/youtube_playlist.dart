@@ -25,12 +25,12 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
     final youtube = Provider.of<YoutubeApiprovider>(context);
     return Scaffold(
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.black),
           elevation: 0,
-          backgroundColor: Global.defaultColor,
-          title: const Text(
-            "Video",
-            style: TextStyle(color: Colors.white),
+          backgroundColor: Global.appBarColor,
+          title: Text(
+            "ভিডিও",
+            style: Global.gridTitleName,
           ),
         ),
         body: youtube.loading

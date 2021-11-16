@@ -28,8 +28,8 @@ class _HomePage2State extends State<HomePage2> {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData) {
-            // return const HomePage();
             return const HomeInitPage();
+            // return const HomeInitPage();
           } else if (snapshot.hasError) {
             return const Text("something Wrong");
           } else {

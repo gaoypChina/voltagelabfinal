@@ -20,6 +20,7 @@ import 'package:voltagelab/Sqflite/Subscription_save_data/Model/subscription_mod
 import 'package:voltagelab/Sqflite/Subscription_save_data/db/subscription_one_month.dart';
 import 'package:voltagelab/main.dart';
 import 'package:voltagelab/model/userinformation.dart';
+import 'package:voltagelab/pages/home_init_page.dart';
 import 'package:voltagelab/pages/homepage.dart';
 import 'package:voltagelab/pages/homepage2.dart';
 
@@ -403,7 +404,7 @@ class SignInProvider extends ChangeNotifier {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => const HomeInitPage(),
         ));
   }
 

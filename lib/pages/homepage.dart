@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:voltagelab/Extra_Page/bottom_navbar.dart';
 import 'package:voltagelab/Provider/connectivity_provider.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/MCQ/mcq_categorylist.dart';
 import 'package:voltagelab/Subscription/newsubscription.dart';
@@ -25,6 +26,7 @@ import 'package:voltagelab/Stream_data/Subscription_Stream_data/subscription_use
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/pages/Pro_Category_Page/pro_bangla_voltagelabcategory_page.dart';
 import 'package:voltagelab/pages/Subscription_details/subscription_details.dart';
+import 'package:voltagelab/pages/home_init_page.dart';
 import 'package:voltagelab/widget/drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -228,6 +230,7 @@ class _HomePageState extends State<HomePage> {
     var box = Hive.box("userdata");
     final post = Provider.of<Postprovider>(context);
     return Scaffold(
+      // bottomNavigationBar: HomeInitPage(),
       // drawer: const DrawerPage(),
       body: CustomScrollView(
         slivers: [
@@ -543,7 +546,7 @@ class _HomePageState extends State<HomePage> {
                                       'images/icon.jpg',
                                       fit: BoxFit.cover,
                                     ),
-                                    name: 'VL Bookmark',
+                                    name: 'বুকমার্ক',
                                     onTap: snapshot.data == null
                                         ? () {
                                             alartmessage();

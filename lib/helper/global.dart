@@ -33,5 +33,6 @@ class Global {
       color: Colors.black45, fontSize: 12.0, fontWeight: FontWeight.normal);
 
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
+  static Color appBarColor = Colors.white;
   static Color backgroundColor = Colors.blue.shade50;
 }
