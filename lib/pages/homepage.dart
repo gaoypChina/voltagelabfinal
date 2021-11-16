@@ -45,15 +45,16 @@ class _HomePageState extends State<HomePage> {
     } else {}
   }
 
-  Widget freegridviewtool({
-    // Widget? imagechild,
-    Icon? icon,
-    GestureTapCallback? onTap,
-    String? name,
-    Color? color,
-  }) {
+  Widget freegridviewtool(
+      {
+      // Widget? imagechild,
+      Icon? icon,
+      GestureTapCallback? onTap,
+      String? name,
+      Color? color,
+      String? gridTopText}) {
     return Container(
-      // padding: EdgeInsets.only(left: 15, right: 15),
+      padding: EdgeInsets.all(5),
       margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 10),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
@@ -67,35 +68,28 @@ class _HomePageState extends State<HomePage> {
           ),
         )
       ], borderRadius: BorderRadius.circular(24), color: color),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: icon
-
-                  // child: imagechild
-
-                  ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                name!,
-                style: Global.gridTitleName,
-              ),
-            ],
-          ),
+      child: InkWell(
+        onTap: onTap,
+        child: Stack(
+          children: [
+            Positioned(
+                child: Container(
+              margin: EdgeInsets.only(bottom: 20),
+              width: double.infinity,
+              height: double.infinity,
+              child: icon,
+            )),
+            Positioned(
+                top: 0,
+                right: 10,
+                child: Text(gridTopText.toString(), style: Global.gridtopfont)),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 6),
+                  child: Text(name!, style: Global.gridTitleName)),
+            )
+          ],
         ),
       ),
     );
@@ -386,10 +380,12 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                       // imagechild: Image.asset('images/icon.jpg'),
                       icon: Icon(
-                        Icons.book,
-                        color: Colors.blue,
+                        Icons.chrome_reader_mode_outlined,
+                        color: Global.defaultColor,
+                        size: 30,
                       ),
-                      name: "Voltage Lab",
+                      name: "পড়াশুনা",
+                      gridTopText: "বাংলা",
                       onTap: () {
                         post.getpostcount();
                         Navigator.push(
@@ -402,8 +398,13 @@ class _HomePageState extends State<HomePage> {
                     freegridviewtool(
                       color: Colors.white,
                       // imagechild: Image.asset('images/icon.jpg'),
-                      icon: Icon(Icons.book, color: Colors.blue),
-                      name: "English Voltage Lab",
+                      icon: Icon(
+                        Icons.chrome_reader_mode_outlined,
+                        color: Global.defaultColor,
+                        size: 30,
+                      ),
+                      name: "পড়াশুনা",
+                      gridTopText: "ইংরেজি",
                       onTap: () {
                         post.get_en_voltagelabpostcount();
                         // Provider.of<CategoryProvider>(context, listen: false)
@@ -418,8 +419,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     freegridviewtool(
                       color: Colors.white,
-                      icon: Icon(Icons.book, color: Colors.blue),
-                      name: "Youtube",
+                      icon: Icon(
+                        Icons.video_library_outlined,
+                        color: Colors.blue,
+                        size: 30,
+                      ),
+                      name: "ভিডিও",
+                      gridTopText: "",
                       onTap: () {
                         Navigator.push(
                             context,
@@ -430,8 +436,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     freegridviewtool(
                       color: Colors.white,
-                      icon: Icon(Icons.book),
-                      name: "Subscription Details",
+                      icon: Icon(
+                        Icons.payment,
+                        size: 30,
+                        color: Global.defaultColor,
+                      ),
+                      name: "সাবস্ক্রিপশন তথ্য",
+                      gridTopText: "",
                       onTap: () {
                         Navigator.push(
                             context,

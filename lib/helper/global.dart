@@ -29,6 +29,9 @@ class Global {
   static TextStyle subscriptionFeatureText = GoogleFonts.hindSiliguri(
       color: defaultColor, fontSize: 20.0, fontWeight: FontWeight.w600);
 
+  static TextStyle gridtopfont = GoogleFonts.hindSiliguri(
+      color: Colors.black45, fontSize: 12.0, fontWeight: FontWeight.normal);
+
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
   static Color backgroundColor = Colors.blue.shade50;
 }
