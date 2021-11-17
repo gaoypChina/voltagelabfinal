@@ -284,7 +284,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.white,
             title: Text(
               "Hi, ${box.get('name')}",
-              style: Global.titleName,
+              style: Global.entitleName,
             ),
             actions: [
               IconButton(

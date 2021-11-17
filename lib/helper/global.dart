@@ -11,23 +11,23 @@ class Global {
   static TextStyle bntitleOfAppbar = GoogleFonts.hindSiliguri(
       color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
 
-      static TextStyle entitleOfAppbar = GoogleFonts.roboto(
+  static TextStyle entitleOfAppbar = GoogleFonts.lato(
       color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
 
   static TextStyle titleCarosal = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w500);
 
-  static TextStyle titleName = GoogleFonts.roboto(
-      color: defaultColor, fontSize: 20.0, fontWeight: FontWeight.bold);
+  static TextStyle entitleName = GoogleFonts.lato(
+      color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold);
 
-  static var bottomSelectedNavText = GoogleFonts.roboto(
+  static var bottomSelectedNavText = GoogleFonts.hindSiliguri(
       color: defaultColor, fontSize: 16.0, fontWeight: FontWeight.bold);
 
   static TextStyle gridTitleName = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w500);
 
   static var bottomUnselectedNavText =
-      GoogleFonts.roboto(color: defaultColor, fontSize: 13.0);
+      GoogleFonts.hindSiliguri(color: defaultColor, fontSize: 13.0);
 
   static TextStyle subscriptionFeatureText = GoogleFonts.hindSiliguri(
       color: defaultColor, fontSize: 20.0, fontWeight: FontWeight.w600);
@@ -38,13 +38,13 @@ class Global {
   static TextStyle bncategorySearchhintText = GoogleFonts.hindSiliguri(
       color: Colors.black45, fontSize: 16.0, fontWeight: FontWeight.normal);
 
-      static TextStyle encategorySearchhintText = GoogleFonts.roboto(
+  static TextStyle encategorySearchhintText = GoogleFonts.lato(
       color: Colors.black45, fontSize: 16.0, fontWeight: FontWeight.normal);
 
   static TextStyle bncategoryTitleText = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w600);
 
-      static TextStyle encategoryTitleText = GoogleFonts.roboto(
+  static TextStyle encategoryTitleText = GoogleFonts.lato(
       color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w600);
 
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
