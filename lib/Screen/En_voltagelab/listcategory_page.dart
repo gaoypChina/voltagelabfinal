@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
 
@@ -43,11 +44,14 @@ class _En_voltagelabListcategoryPageState
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
-            title: Text("Voltagelab Category"),
+            title: Text(
+              "Subject List",
+              style: Global.entitleOfAppbar,
+            ),
             actions: [
               // IconButton(
               //     onPressed: () {
@@ -137,7 +141,8 @@ class _En_voltagelabListcategoryPageState
                                       BorderRadius.all(Radius.circular(50)),
                                   borderSide: BorderSide(
                                       width: 0, color: Colors.transparent)),
-                              hintText: "Search Anything",
+                              hintText: "Search any topic from here",
+                              hintStyle: Global.encategorySearchhintText,
                             ),
                           ),
                         ),
@@ -149,18 +154,18 @@ class _En_voltagelabListcategoryPageState
             ),
           ),
           SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.all(20),
-              child: const Text(
-                "Categories",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5),
+              // child: Container(
+              //   margin: const EdgeInsets.only(top: 10),
+              //   padding: const EdgeInsets.all(20),
+              //   child: const Text(
+              //     "Categories",
+              //     style: TextStyle(
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //         letterSpacing: 0.5),
+              //   ),
+              // ),
               ),
-            ),
-          ),
           SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {

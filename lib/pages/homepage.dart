@@ -97,6 +97,50 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget progridviewtools(
+      {Icon? icon,
+      GestureTapCallback? onTap,
+      String? name,
+      String? gridTopText,
+      Color? color,
+      Subscriptionsingledata? subscriptionsingledata}) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 10),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: Colors.grey.shade100,
+            blurRadius: 5.0,
+            spreadRadius: 2.0,
+            offset: Offset(1.0, 5.0))
+      ], borderRadius: BorderRadius.circular(24), color: color),
+      child: InkWell(
+        onTap: onTap,
+        child: Stack(
+          children: [
+            Positioned(
+                child: Container(
+              margin: EdgeInsets.only(bottom: 20),
+              width: double.infinity,
+              height: double.infinity,
+              child: icon,
+            )),
+            Positioned(
+                top: 0,
+                right: 10,
+                child: Text(gridTopText.toString(), style: Global.gridtopfont)),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 6),
+                  child: Text(name!, style: Global.gridTitleName)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget progridviewtool(
       {Widget? imagechild,
       GestureTapCallback? onTap,

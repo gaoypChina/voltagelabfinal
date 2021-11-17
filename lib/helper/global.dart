@@ -8,7 +8,10 @@ class Global {
   static TextStyle titleOfCategory = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w700);
 
-  static TextStyle titleOfAppbar = GoogleFonts.hindSiliguri(
+  static TextStyle bntitleOfAppbar = GoogleFonts.hindSiliguri(
+      color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
+
+      static TextStyle entitleOfAppbar = GoogleFonts.roboto(
       color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
 
   static TextStyle titleCarosal = GoogleFonts.hindSiliguri(
@@ -31,6 +34,18 @@ class Global {
 
   static TextStyle gridtopfont = GoogleFonts.hindSiliguri(
       color: Colors.black45, fontSize: 12.0, fontWeight: FontWeight.normal);
+
+  static TextStyle bncategorySearchhintText = GoogleFonts.hindSiliguri(
+      color: Colors.black45, fontSize: 16.0, fontWeight: FontWeight.normal);
+
+      static TextStyle encategorySearchhintText = GoogleFonts.roboto(
+      color: Colors.black45, fontSize: 16.0, fontWeight: FontWeight.normal);
+
+  static TextStyle bncategoryTitleText = GoogleFonts.hindSiliguri(
+      color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w600);
+
+      static TextStyle encategoryTitleText = GoogleFonts.roboto(
+      color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w600);
 
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
   static Color appBarColor = Colors.white;

@@ -42,11 +42,14 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
-            title: Text("Category"),
+            title: Text(
+              "বিভাগ সমূহ",
+              style: Global.bntitleOfAppbar,
+            ),
             actions: [
               // IconButton(
               //     onPressed: () {
@@ -135,7 +138,8 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                                       BorderRadius.all(Radius.circular(50)),
                                   borderSide: BorderSide(
                                       width: 0, color: Colors.transparent)),
-                              hintText: "Search Anything",
+                              hintText: "যে কোন টপিক খুঁজুন",
+                              hintStyle: Global.bncategorySearchhintText,
                             ),
                           ),
                         ),
@@ -147,18 +151,15 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.all(20),
-              child: const Text(
-                "Categories",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5),
+              // child: Container(
+              //   margin: const EdgeInsets.only(top: 10),
+              //   padding: const EdgeInsets.all(20),
+              //   child: Text(
+              //     "তালিকা",
+              //     style: Global.categoryTitleText,
+              //   ),
+              // ),
               ),
-            ),
-          ),
           SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
