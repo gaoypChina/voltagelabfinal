@@ -125,7 +125,15 @@ class _ContactFormState extends State<ContactForm> {
               height: 10,
             ),
             Container(
-              child: Text("test"),
+              child: Container(
+                margin: EdgeInsets.only(top: 10),
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Text(
+                  "Or",
+                  style: Global.encategoryTitleText,
+                ),
+              ),
             )
           ],
         ),

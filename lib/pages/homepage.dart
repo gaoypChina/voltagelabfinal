@@ -142,9 +142,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget progridviewtool(
-      {Widget? imagechild,
+      {
+      // Widget? imagechild,
+      Icon? icon,
       GestureTapCallback? onTap,
       String? name,
+      String? gridTopText,
       Color? color,
       Subscriptionsingledata? subscriptionsingledata}) {
     return Container(
@@ -174,15 +177,27 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 50,
-                    width: 50,
+                    margin: EdgeInsets.only(right: 10),
+                    alignment: Alignment.topRight,
+                    width: double.infinity,
+                    child: Text(
+                      gridTopText.toString(),
+                      style: Global.gridtopfont,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    // height: 50,
+                    // width: 50,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: imagechild,
+                      child: icon,
                     ),
                   ),
                   const SizedBox(
@@ -586,10 +601,16 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   progridviewtool(
                                     color: Colors.white,
-                                    imagechild: Image.asset(
-                                      'images/icon.jpg',
-                                      fit: BoxFit.cover,
+                                    // imagechild: Image.asset(
+                                    //   'images/icon.jpg',
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                    icon: Icon(
+                                      Icons.chrome_reader_mode_outlined,
+                                      color: Global.defaultColor,
+                                      size: 30,
                                     ),
+                                    gridTopText: "বাংলা",
                                     name: 'বুকমার্ক',
                                     onTap: snapshot.data == null
                                         ? () {
@@ -616,11 +637,17 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   progridviewtool(
                                     color: Colors.white,
-                                    imagechild: Image.asset(
-                                      'images/icon.jpg',
-                                      fit: BoxFit.cover,
+                                    // imagechild: Image.asset(
+                                    //   'images/icon.jpg',
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                    icon: Icon(
+                                      Icons.chrome_reader_mode_outlined,
+                                      color: Global.defaultColor,
+                                      size: 30,
                                     ),
-                                    name: 'PL Bookmark',
+                                    gridTopText: "ইংরেজি",
+                                    name: 'বুকমার্ক',
                                     onTap: snapshot.data == null
                                         ? () {
                                             alartmessage();
@@ -646,11 +673,17 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   progridviewtool(
                                     color: Colors.white,
-                                    imagechild: Image.asset(
-                                      'images/icon.jpg',
-                                      fit: BoxFit.cover,
+                                    // imagechild: Image.asset(
+                                    //   'images/icon.jpg',
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                    icon: Icon(
+                                      Icons.category_outlined,
+                                      color: Colors.blue,
+                                      size: 30,
                                     ),
-                                    name: 'Pro Category',
+                                    gridTopText: "",
+                                    name: 'বিভাগ',
                                     onTap: snapshot.data == null
                                         ? () {
                                             alartmessage();
@@ -676,10 +709,16 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   progridviewtool(
                                     color: Colors.white,
-                                    imagechild: Image.asset(
-                                      'images/icon.jpg',
-                                      fit: BoxFit.cover,
+                                    // imagechild: Image.asset(
+                                    //   'images/icon.jpg',
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                    icon: Icon(
+                                      Icons.question_answer_outlined,
+                                      color: Colors.blue,
+                                      size: 30,
                                     ),
+                                    gridTopText: "",
                                     name: 'MCQ',
                                     onTap: snapshot.data == null
                                         ? () {
