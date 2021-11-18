@@ -244,7 +244,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void alartmessage() {
+  void alartmessages() {
     Alert(
       context: context,
       type: AlertType.error,
@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePage> {
         DialogButton(
           child: const Text(
             "Subscription Page",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(color: Colors.white, fontSize: 16),
           ),
           onPressed: () => Navigator.push(
               context,
@@ -263,6 +263,70 @@ class _HomePageState extends State<HomePage> {
         )
       ],
     ).show();
+  }
+
+  void alartmessage() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            "সাবস্ক্রিপশন এলার্ট!!",
+            style: GoogleFonts.hindSiliguri(
+                color: Colors.red.shade300,
+                fontSize: 16,
+                fontWeight: FontWeight.w600),
+          ),
+          content: Text(
+            "এই ফিচারটি শুধুমাত্র সাবস্ক্রিপশন ইউজার দের জন্য। সাবস্ক্রিপশন করতে চাইলে নিচের Subscribe বাটনটিতে ক্লিক করুন।\n\nআপনি যদি সাবস্ক্রাইব ইউজার হোন তবে ফিচার একটিভ করতে নেট কানেকশন অন রেখে পেইজটিকে রিফ্রেশ করুন।",
+            style: GoogleFonts.hindSiliguri(
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.normal),
+          ),
+          actions: <Widget>[
+            // TextButton(
+            //   onPressed: () => Navigator.pop(context, 'Cancel'),
+            //   child: const Text('Cancel'),
+            // ),
+            // TextButton(
+            //   onPressed: () => Navigator.pop(context, 'OK'),
+            //   child: const Text('OK'),
+            // ),
+
+            Row(
+              children: [
+                DialogButton(
+                  width: 80,
+                  color: Colors.white,
+                  child: Text("Subscribe",
+                      style: GoogleFonts.lato(
+                        fontSize: 14,
+                        color: Global.defaultColor,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const NewSubscriptionPage()));
+                  },
+                ),
+                DialogButton(
+                    width: 50,
+                    color: Colors.white,
+                    child: Text("Close",
+                        style: GoogleFonts.lato(
+                          color: Colors.red.shade300,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    onPressed: () => Navigator.pop(context)),
+              ],
+            )
+          ],
+        );
+      },
+    );
   }
 
   @override

@@ -12,6 +12,7 @@ import 'package:voltagelab/model/Orginal_Date_time_model/date_time.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_all_data.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/model/Subscription_details/subscription_details.dart';
+import 'package:voltagelab/pages/home_init_page.dart';
 import 'package:voltagelab/pages/homepage.dart';
 
 class PaymentProvider extends ChangeNotifier {
@@ -76,7 +77,8 @@ class PaymentProvider extends ChangeNotifier {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            // builder: (context) => const HomePage(),
+            builder: (context) => const HomeInitPage(),
           ));
       notifyListeners();
     } else {
