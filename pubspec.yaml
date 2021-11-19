@@ -76,10 +76,9 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   percent_indicator: ^3.4.0
   flutter_native_splash: ^1.2.4
-  connectivity: ^3.0.6
-  google_fonts: 2.1.0 
-
-
+  google_fonts: 2.1.0
+  connectivity: ^3.0.6 
+  fluttertoast: ^8.0.8 
 
   
 

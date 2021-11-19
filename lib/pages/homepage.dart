@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,6 +29,7 @@ import 'package:voltagelab/pages/Pro_Category_Page/pro_bangla_voltagelabcategory
 import 'package:voltagelab/pages/Subscription_details/subscription_details.dart';
 import 'package:voltagelab/pages/home_init_page.dart';
 import 'package:voltagelab/widget/drawer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -244,26 +246,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void alartmessages() {
-    Alert(
-      context: context,
-      type: AlertType.error,
-      title: "SUBSCRIPTION ALERT",
-      desc: "First you buy any premium package. Then you can use Pro Future.",
-      buttons: [
-        DialogButton(
-          child: const Text(
-            "Subscription Page",
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-          onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const NewSubscriptionPage())),
-        )
-      ],
-    ).show();
-  }
+  // void alartmessages() {
+  //   Alert(
+  //     context: context,
+  //     type: AlertType.error,
+  //     title: "SUBSCRIPTION ALERT",
+  //     desc: "First you buy any premium package. Then you can use Pro Future.",
+  //     buttons: [
+  //       DialogButton(
+  //         child: const Text(
+  //           "Subscription Page",
+  //           style: TextStyle(color: Colors.white, fontSize: 16),
+  //         ),
+  //         onPressed: () => Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //                 builder: (context) => const NewSubscriptionPage())),
+  //       )
+  //     ],
+  //   ).show();
+  // }
 
   void alartmessage() {
     showDialog(
@@ -278,12 +280,8 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.w600),
           ),
           content: Text(
-            "এই ফিচারটি শুধুমাত্র সাবস্ক্রিপশন ইউজার দের জন্য। সাবস্ক্রিপশন করতে চাইলে নিচের Subscribe বাটনটিতে ক্লিক করুন।\n\nআপনি যদি সাবস্ক্রাইব ইউজার হোন তবে ফিচার একটিভ করতে নেট কানেকশন অন রেখে পেইজটিকে রিফ্রেশ করুন।",
-            style: GoogleFonts.hindSiliguri(
-                color: Colors.black,
-                fontSize: 12,
-                fontWeight: FontWeight.normal),
-          ),
+              "এই ফিচারটি শুধুমাত্র সাবস্ক্রিপশন ইউজার দের জন্য। সাবস্ক্রিপশন করতে চাইলে নিচের Subscribe বাটনটিতে ক্লিক করুন।",
+              style: Global.bnAlertText),
           actions: <Widget>[
             // TextButton(
             //   onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -321,10 +319,36 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold,
                         )),
                     onPressed: () => Navigator.pop(context)),
+                // SizedBox(
+                //   height: 50,
+                // ),
+                // DialogButton(
+                //     width: 60,
+                //     color: Colors.white,
+                //     child: Text("Reload",
+                //         style: GoogleFonts.lato(
+                //           color: Colors.red.shade300,
+                //           fontSize: 14,
+                //           fontWeight: FontWeight.bold,
+                //         )),
+                //     onPressed: () {
+                //       onrefreshlist();
+                //     })
               ],
             )
           ],
         );
+      },
+    );
+  }
+
+  Future<void> onrefreshlist() async {
+    final post = Provider.of<Postprovider>(context, listen: false);
+    await Future.delayed(
+      Duration(seconds: 2),
+      () {
+        // Provider.of<>(context, listen: false).getallmybook();
+        post.connectivityCheck();
       },
     );
   }
@@ -352,6 +376,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var box = Hive.box("userdata");
     final post = Provider.of<Postprovider>(context);
+    post.connectivityCheck();
+
     return Scaffold(
       // bottomNavigationBar: HomeInitPage(),
       // drawer: const DrawerPage(),
@@ -679,10 +705,16 @@ class _HomePageState extends State<HomePage> {
                                     onTap: snapshot.data == null
                                         ? () {
                                             alartmessage();
+                                            // post.isInternet == false
+                                            //     ? alartmessage()
+                                            //     : null;
                                           }
                                         : snapshot.data!.status != "1"
                                             ? () {
-                                                alartmessage();
+                                                // alartmessage();
+                                                // post.isInternet == false
+                                                //     ? alartmessage()
+                                                //     : null;
                                               }
                                             : () {
                                                 post.getpostcount();
@@ -741,7 +773,7 @@ class _HomePageState extends State<HomePage> {
                                     //   'images/icon.jpg',
                                     //   fit: BoxFit.cover,
                                     // ),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.category_outlined,
                                       color: Colors.blue,
                                       size: 30,
@@ -777,7 +809,7 @@ class _HomePageState extends State<HomePage> {
                                     //   'images/icon.jpg',
                                     //   fit: BoxFit.cover,
                                     // ),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.question_answer_outlined,
                                       color: Colors.blue,
                                       size: 30,
@@ -817,6 +849,84 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
+          SliverToBoxAdapter(
+            // child: Column(
+            //   children: [
+            //     Container(
+            //       width: double.infinity,
+            //       padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+            //       child: Text(
+            //         "আপনি যদি সাবস্ক্রাইব ইউজার হোন এবং কিন্তু ইন্টারনেট কানেকশন দুর্বল বা না থাকে তবে প্রো ফিচার ডিজাবল দেখতে পাবেন, সেক্ষেত্রে ফিচারটি একটিভ করতে নেট কানেকশন অন রেখে পেইজটিকে রিফ্রেশ করুন।",
+            //         style: GoogleFonts.hindSiliguri(
+            //             color: Colors.red.shade200,
+            //             fontSize: 12,
+            //             fontWeight: FontWeight.normal),
+            //       ),
+            //     ),
+            //     Container(
+            //       child: TextButton(
+            //         style: TextButton.styleFrom(
+            //           padding: const EdgeInsets.all(16.0),
+            //           primary: Colors.black,
+            //           textStyle: const TextStyle(fontSize: 12),
+            //         ),
+            //         onPressed: () {},
+            //         child: Text('Refresh', style: GoogleFonts.lato()),
+            //       ),
+            //     )
+            //   ],
+            // ),
+
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+              child: RichText(
+                text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text:
+                              "আপনি যদি সাবস্ক্রাইব ইউজার হোন কিন্তু ইন্টারনেট কানেকশন দুর্বল বা না থাকে তবে প্রো ফিচার ডিজাবল দেখতে পাবেন, সেক্ষেত্রে ফিচারটি একটিভ করতে নেট কানেকশন অন রেখে রিফ্রেশ ক্লিক করুন  ",
+                          style: GoogleFonts.hindSiliguri(
+                            color: Colors.black54,
+                            fontSize: 12,
+                          )),
+                      TextSpan(
+                          text: "Refresh",
+                          style: GoogleFonts.lato(
+                            backgroundColor: Colors.grey,
+                            color: Global.defaultColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => setState(() {
+                                  onrefreshlist();
+                                  Fluttertoast.showToast(
+                                      msg: "Wait a bit to refresh the page",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.white,
+                                      textColor: Colors.black54,
+                                      fontSize: 16.0);
+                                }))
+                    ]),
+              ),
+            ),
+          )
+          // Container(
+          //   // width: double.infinity,
+          //   // padding: EdgeInsets.all(20),
+          //   child: Text(
+          //     "আপনি যদি সাবস্ক্রাইব ইউজার হোন তবে ফিচার একটিভ করতে নেট কানেকশন অন রেখে পেইজটিকে রিফ্রেশ করুন।",
+          //     style: GoogleFonts.hindSiliguri(
+          //         color: Colors.black,
+          //         fontSize: 12,
+          //         fontWeight: FontWeight.normal),
+          //   ),
+          // )
         ],
       ),
     );

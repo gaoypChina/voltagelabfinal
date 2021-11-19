@@ -130,7 +130,7 @@ class _ContactFormState extends State<ContactForm> {
                 width: double.infinity,
                 alignment: Alignment.center,
                 child: Text(
-                  "Or",
+                  "Or Whatsapp Live Chat!!!",
                   style: Global.encategoryTitleText,
                 ),
               ),

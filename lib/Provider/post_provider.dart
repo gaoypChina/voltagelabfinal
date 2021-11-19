@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -170,6 +171,10 @@ class Postprovider extends ChangeNotifier {
     if (response.statusCode == 200) {
       voltagelablatestpost = latestPostDataFromJson(response.body);
       isloading = false;
+      // connectivityCheck();
+      notifyListeners();
+    } else {
+      connectivityCheck();
       notifyListeners();
     }
   }
@@ -297,12 +302,24 @@ class Postprovider extends ChangeNotifier {
         isloading = false;
         var jsondata = response.body;
         mcqpostlist = mcqpostlistFromJson(response.body);
-      
+
         notifyListeners();
         return postdata;
       }
     } else if (sitename == 'polytechnicbd') {
       get_en_voltagelabpost(subcategoryid, perpage);
+    }
+  }
+
+  bool? isInternet;
+  Future connectivityCheck() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      isInternet = true;
+      notifyListeners();
+    } else {
+      isInternet = false;
     }
   }
 }
