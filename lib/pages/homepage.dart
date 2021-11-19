@@ -345,7 +345,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> onrefreshlist() async {
     final post = Provider.of<Postprovider>(context, listen: false);
     await Future.delayed(
-      Duration(seconds: 2),
+      Duration(seconds: 5),
       () {
         // Provider.of<>(context, listen: false).getallmybook();
         post.connectivityCheck();
@@ -376,7 +376,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var box = Hive.box("userdata");
     final post = Provider.of<Postprovider>(context);
-    post.connectivityCheck();
+    // post.connectivityCheck();
 
     return Scaffold(
       // bottomNavigationBar: HomeInitPage(),
@@ -676,6 +676,7 @@ class _HomePageState extends State<HomePage> {
                             builder: (context,
                                 AsyncSnapshot<Subscriptionsingledata?>
                                     snapshot) {
+                              print("checksubscriber:  $snapshot.data!.status");
                               return GridView(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
