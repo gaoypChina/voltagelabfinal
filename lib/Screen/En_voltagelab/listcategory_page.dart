@@ -225,11 +225,8 @@ class _En_voltagelabListcategoryPageState
                           Flexible(
                             child: Text(
                               category.en_voltagelabcategorylist[index].name,
-                              // overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                              style: Global.enListTitleText,
                             ),
                           ),
                         ],

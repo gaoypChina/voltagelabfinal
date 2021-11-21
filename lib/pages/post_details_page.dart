@@ -24,9 +24,12 @@ import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
 import 'package:voltagelab/Extra_Page/oldsubscription_page.dart';
 import 'package:voltagelab/Subscription/newsubscription.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/model/post_model.dart';
 import 'package:voltagelab/web_View/web_view.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class PostDetailsPage extends StatefulWidget {
   final String categoryname;
@@ -215,11 +218,11 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         slivers: [
           SliverAppBar(
             elevation: 0,
-            backgroundColor: Colors.blue,
-            iconTheme: const IconThemeData(color: Colors.white),
+            backgroundColor: Colors.white,
+            iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
               widget.postdata.title!.rendered,
-              style: const TextStyle(color: Colors.white),
+              style: Global.bnPostListAppbarText,
             ),
             leading: IconButton(
                 onPressed: () {
@@ -234,9 +237,9 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                       onPressed: () {
                         if (post.isloading == true) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
+                               SnackBar(
                                   content:
-                                      Text("Please Wait For Content Loading")));
+                                      Text("Please Wait For Content Loading", style: GoogleFonts.lato()),));
                         } else {
                           if (payment.subscriptionsingledata != null &&
                               payment.subscriptionsingledata!.status == '1') {
@@ -258,7 +261,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         if (post.isloading == true) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content:
-                                  Text("Please Wait For Content Loading")));
+                                  Text("Please Wait For Content Loading", style: GoogleFonts.lato(),)));
                         } else {
                           if (payment.subscriptionsingledata != null &&
                               payment.subscriptionsingledata!.status == '1') {
@@ -311,8 +314,9 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                     child: Text(
                       widget.postdata.title!.rendered,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         fontSize: 22,
+                        fontFamily: 'SolaimanLipi'
                       ),
                     ),
                   ),
@@ -328,10 +332,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           ),
           SliverToBoxAdapter(
             child: post.isloading
-                ? const SizedBox(
+                ? SizedBox(
                     height: 300,
                     child: Center(
-                      child: Text("Loading......."),
+                      child: Text("Loading.......",style: GoogleFonts.lato(),),
                     ),
                   )
                 : SingleChildScrollView(
@@ -348,8 +352,18 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         CachedNetworkImage(imageUrl: url!);
                       },
                       style: {
-                        "p": Style(fontSize: FontSize(textsize.textsize)),
-                        "li": Style(fontSize: FontSize(textsize.textsize))
+                        // "p": Style(fontSize: FontSize(textsize.textsize), fontFamily: 'SolaimanLipi', letterSpacing: 1.0),
+
+                        "p": Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi', letterSpacing: 1.5, lineHeight:LineHeight(1.8) ),
+                        "li": Style(fontSize:  FontSize(18), fontFamily: 'SolaimanLipi', letterSpacing: 1.5, lineHeight:LineHeight(1.8)),
+                        "alt": Style(fontSize: FontSize(textsize.textsize), fontFamily: 'SolaimanLipi'),
+                        "strong":  Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
+                        "h1":  Style(fontSize: FontSize(24), fontFamily: 'SolaimanLipi'),
+                        "h2":  Style(fontSize: FontSize(22), fontFamily: 'SolaimanLipi'),
+                        "h3":  Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
+                        "h4":  Style(fontSize: FontSize(16), fontFamily: 'SolaimanLipi'),
+                        "h5":  Style(fontSize: FontSize(12), fontFamily: 'SolaimanLipi'),
+                        "h6":  Style(fontSize: FontSize(10), fontFamily: 'SolaimanLipi')
                       },
                     ),
                   ),

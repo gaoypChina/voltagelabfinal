@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/pages/post_page.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -48,10 +49,11 @@ class _CategoryPageState extends State<CategoryPage> {
         : Scaffold(
             appBar: AppBar(
               elevation: 0,
-              iconTheme: const IconThemeData(color: Colors.white),
+              backgroundColor: Colors.white,
+              iconTheme: const IconThemeData(color: Colors.black),
               title: Text(
                 widget.categoryname,
-                style: const TextStyle(color: Colors.white),
+                style: Global.bnPostListAppbarText,
               ),
             ),
             body: category.loading
@@ -107,6 +109,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                 child: Text(
                                   category.subcategory![index].name!,
                                   textAlign: TextAlign.center,
+                                  style: Global.bnListTitleText,
                                   // maxLines: 1,
                                   // overflow: TextOverflow.ellipsis,
                                 ),

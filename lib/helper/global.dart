@@ -5,14 +5,11 @@ class Global {
   static TextStyle titleOfList = GoogleFonts.hindSiliguri(
       color: Colors.black, fontWeight: FontWeight.w600);
 
-  static TextStyle titleOfCategory = GoogleFonts.hindSiliguri(
-      color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w700);
-
   static TextStyle bnCategorytitleOfAppbar = GoogleFonts.hindSiliguri(
       color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600);
 
   static TextStyle enCategorytitleOfAppbar = GoogleFonts.lato(
-      color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
+      color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600);
 
   static TextStyle titleCarosal = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w500);
@@ -41,8 +38,9 @@ class Global {
   static TextStyle encategorySearchhintText = GoogleFonts.lato(
       color: Colors.black45, fontSize: 16.0, fontWeight: FontWeight.normal);
 
-  static TextStyle bncategoryTitleText = GoogleFonts.hindSiliguri(
-      color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w600);
+  // static TextStyle bncategoryTitleText = GoogleFonts.hindSiliguri(
+  //     color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w600);
+
 
   static TextStyle bnListTitleText = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600);
