@@ -124,17 +124,67 @@ class _ContactFormState extends State<ContactForm> {
             SizedBox(
               height: 10,
             ),
+            Column(
+              children: [
+                Container(
+                    child: Container(
+                        margin: EdgeInsets.only(top: 10),
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Or Whatsapp Live Chat!!!",
+                          style: Global.encategoryTitleText,
+                        ))),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Container(
-              child: Container(
-                margin: EdgeInsets.only(top: 10),
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: Text(
-                  "Or Whatsapp Live Chat!!!",
-                  style: Global.encategoryTitleText,
+              margin: EdgeInsets.only(left: 100, right: 100),
+              // color: Colors.green,
+              width: 200,
+              height: 50,
+              child: Material(
+                elevation: 8,
+                borderRadius: BorderRadius.circular(5),
+                child: InkWell(
+                  onTap: () {},
+                  // child: Container(
+                  // color: Colors.grey,
+                  child: Row(
+                    // mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.chat_bubble_outlined,
+                        color: Color.fromRGBO(7, 94, 84, 5),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("Live Chat",
+                          style: GoogleFonts.lato(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ))
+                    ],
+                  ),
+                  // ),
                 ),
               ),
             )
+            // Container(
+            //   child: Container(
+            //     margin: EdgeInsets.only(top: 10),
+            //     width: double.infinity,
+            //     alignment: Alignment.center,
+            //     child: Text(
+            //       "Or Whatsapp Live Chat!!!",
+            //       style: Global.encategoryTitleText,
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
@@ -183,3 +233,7 @@ Future _openMailLauncher(
   //   await launch(url);
   // }
 }
+
+// void launchWhatsapp({@required number, @required message}) async {
+//   String url = 'whatsapp'
+// }
