@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -149,7 +150,9 @@ class _ContactFormState extends State<ContactForm> {
                 elevation: 8,
                 borderRadius: BorderRadius.circular(5),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    openwhatsapp();
+                  },
                   // child: Container(
                   // color: Colors.grey,
                   child: Row(
@@ -223,7 +226,6 @@ Future _openMailLauncher(
     {required String toEmil,
     required String toSubject,
     required String message}) async {
-  print("buttonclick");
   final url =
       'mailto: $toEmil?subject=${Uri.encodeFull(toSubject)}&body=${Uri.encodeFull(message)}';
   launch(url);
@@ -234,6 +236,16 @@ Future _openMailLauncher(
   // }
 }
 
-// void launchWhatsapp({@required number, @required message}) async {
-//   String url = 'whatsapp'
-// }
+openwhatsapp() async{
+  var whatsapp ="+8801713509349";
+  var whatsappURl_android = "whatsapp://send?phone="+whatsapp+"&text=[From: VoltageLab App]\n\n";
+
+    // android , web
+    // if( await canLaunch(whatsappURl_android)){
+      await launch(whatsappURl_android);
+    // }else{
+    //
+    // }
+
+}
+
