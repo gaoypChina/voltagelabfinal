@@ -77,7 +77,7 @@ class _PlaylistIteamPageState extends State<PlaylistIteamPage> {
                       )),
                   Text(
                     widget.playlistname,
-                    style: Global.bntitleOfAppbar,
+                    style: Global.bnCategorytitleOfAppbar,
                   ),
                 ],
               ),

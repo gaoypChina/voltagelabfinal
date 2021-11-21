@@ -48,7 +48,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
             backgroundColor: Colors.indigoAccent,
             title: Text(
               "বিভাগ সমূহ",
-              style: Global.bntitleOfAppbar,
+              style: Global.bnCategorytitleOfAppbar,
             ),
             actions: [
               // IconButton(

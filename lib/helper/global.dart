@@ -8,10 +8,10 @@ class Global {
   static TextStyle titleOfCategory = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w700);
 
-  static TextStyle bntitleOfAppbar = GoogleFonts.hindSiliguri(
-      color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
+  static TextStyle bnCategorytitleOfAppbar = GoogleFonts.hindSiliguri(
+      color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600);
 
-  static TextStyle entitleOfAppbar = GoogleFonts.lato(
+  static TextStyle enCategorytitleOfAppbar = GoogleFonts.lato(
       color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w600);
 
   static TextStyle titleCarosal = GoogleFonts.hindSiliguri(
@@ -44,11 +44,20 @@ class Global {
   static TextStyle bncategoryTitleText = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w600);
 
+  static TextStyle bnListTitleText = GoogleFonts.hindSiliguri(
+      color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600);
+
+  static TextStyle enListTitleText = GoogleFonts.lato(
+      color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600);
+
   static TextStyle encategoryTitleText = GoogleFonts.lato(
       color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w600);
 
   static TextStyle bnAlertText = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 12, fontWeight: FontWeight.normal);
+
+  static TextStyle bnPostListAppbarText = GoogleFonts.hindSiliguri(
+      color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w500);
 
   static Color defaultColor = Color.fromRGBO(0, 116, 255, 1);
   static Color appBarColor = Colors.white;

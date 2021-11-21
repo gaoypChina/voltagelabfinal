@@ -50,7 +50,7 @@ class _En_voltagelabListcategoryPageState
             backgroundColor: Colors.indigoAccent,
             title: Text(
               "Subject List",
-              style: Global.entitleOfAppbar,
+              style: Global.enCategorytitleOfAppbar,
             ),
             actions: [
               // IconButton(
