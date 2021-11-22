@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/db/category_db.dart';
+import 'package:voltagelab/helper/global.dart';
 
 import 'bookmarkpost_page.dart';
 
@@ -38,13 +39,21 @@ class _En_voltagelabBookMarkCategoryPageState
     final post = Provider.of<Postprovider>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         leading: IconButton(
             onPressed: () {
               post.get_en_voltagelabpostcount();
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.arrow_back)),
-        title: const Text("Polytechnic Bookmark"),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            )),
+        title: Text(
+          "Bookmark-English Topic",
+          style: Global.enPostListAppbarText,
+        ),
       ),
       body: ListView.builder(
         itemCount: en_voltagelabsavecategoyr.length,
@@ -52,8 +61,21 @@ class _En_voltagelabBookMarkCategoryPageState
           return Container(
             margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(6)),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 4,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ]),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
@@ -61,9 +83,11 @@ class _En_voltagelabBookMarkCategoryPageState
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PolytechnicBookmarkPostpage(
+                        builder: (context) => VLEngBookmarkPostPage(
                           categorymainid: en_voltagelabsavecategoyr[index].id!,
-                          categoryid: en_voltagelabsavecategoyr[index].categoryid,
+                          categoryid:
+                              en_voltagelabsavecategoyr[index].categoryid,
+                          categoryName: en_voltagelabsavecategoyr[index].categoryname,
                         ),
                       )).then((value) {
                     setState(() {
@@ -73,18 +97,18 @@ class _En_voltagelabBookMarkCategoryPageState
                 },
                 borderRadius: BorderRadius.circular(6),
                 child: Container(
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(20),
                   child: Row(
                     children: [
                       Text(
                         en_voltagelabsavecategoyr[index].categoryname,
-                        style: const TextStyle(fontSize: 17),
+                        style: Global.enListTitleText,
                       ),
                       const Spacer(),
                       Container(
                         padding: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
-                            color: Colors.grey[400],
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(100)),
                         child: const Icon(
                           Icons.arrow_forward_ios,

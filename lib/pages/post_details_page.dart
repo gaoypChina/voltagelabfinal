@@ -139,7 +139,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         categoryname: widget.categoryname, categoryid: widget.categoryid);
     if (en_voltagelabSaveCategory
         .any((element) => element.categoryid == widget.categoryid)) {
-      print("polyechnic category allrady added");
+      // print("polyechnic category allrady added");
     } else {
       sql_en_voltagelabCategoryDB!.insertdata(polytechnicCategory);
     }

@@ -4,22 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/db/category_db.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/db/post_db.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'bookmarkpost_details.dart';
 
-class PolytechnicBookmarkPostpage extends StatefulWidget {
+class VLEngBookmarkPostPage extends StatefulWidget {
   final int categoryid;
   final int categorymainid;
-  const PolytechnicBookmarkPostpage(
-      {Key? key, required this.categoryid, required this.categorymainid})
+  String categoryName;
+  VLEngBookmarkPostPage(
+      {Key? key, required this.categoryid, required this.categorymainid, required this.categoryName})
       : super(key: key);
 
   @override
-  _PolytechnicBookmarkPostpageState createState() =>
-      _PolytechnicBookmarkPostpageState();
+  _VLEngBookmarkPostPageState createState() =>
+      _VLEngBookmarkPostPageState();
 }
 
-class _PolytechnicBookmarkPostpageState
-    extends State<PolytechnicBookmarkPostpage> {
+class _VLEngBookmarkPostPageState
+    extends State<VLEngBookmarkPostPage> {
 
 
   List<En_voltagelabSavepost> en_voltagelabsavepost = [];
@@ -49,7 +51,10 @@ class _PolytechnicBookmarkPostpageState
         .forEach((element) => postlist.add(element));
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Post"),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
+        title:  Text(widget.categoryName.toString(),style: Global.enPostListAppbarText,),
       ),
       body: ListView.builder(
         itemCount: postlist.length,
@@ -57,8 +62,20 @@ class _PolytechnicBookmarkPostpageState
           return Container(
             margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(6)),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)
+                ),
+                boxShadow: [
+            BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 4,
+            offset: Offset(0, 3), // changes position of shadow
+          ),]),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
@@ -77,14 +94,14 @@ class _PolytechnicBookmarkPostpageState
                 },
                 borderRadius: BorderRadius.circular(6),
                 child: Container(
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Text(
                           postlist[index].posttitle,
-                          style: const TextStyle(fontSize: 15),
+                          style: Global.enListTitleText,
                         ),
                       ),
                       InkWell(

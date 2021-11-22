@@ -7,6 +7,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 
 class VoltagelabBookmarkPostDetails extends StatefulWidget {
@@ -64,7 +65,7 @@ class _VoltagelabBookmarkPostDetailsState
             iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
               widget.title,
-              style: const TextStyle(color: Colors.black),
+              style: Global.bnPostListAppbarText,
             ),
             pinned: true,
             actions: [
@@ -102,8 +103,9 @@ class _VoltagelabBookmarkPostDetailsState
                     child: Text(
                       widget.title,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                          fontFamily: 'SolaimanLipi'
                       ),
                     ),
                   ),
@@ -128,6 +130,17 @@ class _VoltagelabBookmarkPostDetailsState
                               builder: (context) => WebViewPage(url: url!),
                             ));
                       },
+              style: {
+                "p": Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi', letterSpacing: 1.5, lineHeight:LineHeight(1.8) ),
+                "li": Style(fontSize:  FontSize(18), fontFamily: 'SolaimanLipi', letterSpacing: 1.5, lineHeight:LineHeight(1.8)),
+                "strong":  Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
+                "h1":  Style(fontSize: FontSize(24), fontFamily: 'SolaimanLipi'),
+                "h2":  Style(fontSize: FontSize(22), fontFamily: 'SolaimanLipi'),
+                "h3":  Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
+                "h4":  Style(fontSize: FontSize(16), fontFamily: 'SolaimanLipi'),
+                "h5":  Style(fontSize: FontSize(12), fontFamily: 'SolaimanLipi'),
+                "h6":  Style(fontSize: FontSize(10), fontFamily: 'SolaimanLipi')
+              },
               ),
             ),
           )

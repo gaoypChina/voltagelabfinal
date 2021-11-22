@@ -5,6 +5,7 @@ import 'package:voltagelab/Sqflite/VoltageLab_local_db/Model/post_model.dart';
 
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/category_db.dart';
 import 'package:voltagelab/Sqflite/VoltageLab_local_db/db/post_db.dart';
+import 'package:voltagelab/helper/global.dart';
 
 
 import 'bookmarkpost_details.dart';
@@ -13,8 +14,9 @@ import 'bookmarkpost_details.dart';
 class VoltagelabBookmarkPostpage extends StatefulWidget {
   final int categoryid;
   final int categorymainid;
+  final String categoryName;
   const VoltagelabBookmarkPostpage(
-      {Key? key, required this.categoryid, required this.categorymainid})
+      {Key? key, required this.categoryid, required this.categorymainid, required this.categoryName})
       : super(key: key);
 
   @override
@@ -47,7 +49,11 @@ class _VoltagelabBookmarkPostpageState extends State<VoltagelabBookmarkPostpage>
         .forEach((element) => postlist.add(element));
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Post"),
+        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title:  Text(widget.categoryName, style: Global.bnPostListAppbarText,),
+
       ),
       body: ListView.builder(
         itemCount: postlist.length,
@@ -55,8 +61,21 @@ class _VoltagelabBookmarkPostpageState extends State<VoltagelabBookmarkPostpage>
           return Container(
             margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(6)),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 4,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ]),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
@@ -76,14 +95,14 @@ class _VoltagelabBookmarkPostpageState extends State<VoltagelabBookmarkPostpage>
                 },
                 borderRadius: BorderRadius.circular(6),
                 child: Container(
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Text(
                           postlist[index].posttitle,
-                          style: const TextStyle(fontSize: 15),
+                          style: Global.bnListTitleText,
                         ),
                       ),
                       InkWell(
@@ -102,11 +121,11 @@ class _VoltagelabBookmarkPostpageState extends State<VoltagelabBookmarkPostpage>
                         child: Container(
                           padding: const EdgeInsets.all(2),
                           decoration: BoxDecoration(
-                              color: Colors.grey[400],
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(100)),
                           child: const Icon(
                             Icons.delete,
-                            size: 18,
+                            size: 20,
                           ),
                         ),
                       )

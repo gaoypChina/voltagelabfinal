@@ -150,7 +150,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
               ],
             ),
           ),
-          SliverToBoxAdapter(
+          // SliverToBoxAdapter(
               // child: Container(
               //   margin: const EdgeInsets.only(top: 10),
               //   padding: const EdgeInsets.all(20),
@@ -159,7 +159,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
               //     style: Global.categoryTitleText,
               //   ),
               // ),
-              ),
+              // ),
           SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -215,7 +215,8 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                             height: 10,
                           ),
                           Flexible(
-                            child: Text(
+                            child:
+                            Text(
                               category.category[index].name!,
                               overflow: TextOverflow.ellipsis,
                               style: Global.bnListTitleText,

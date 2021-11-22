@@ -7,6 +7,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share/share.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 
 class En_voltagelabBookmarkPostDetails extends StatefulWidget {
@@ -64,7 +65,7 @@ class _En_voltagelabBookmarkPostDetailsState extends State<En_voltagelabBookmark
             iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
               widget.title,
-              style: const TextStyle(color: Colors.black),
+              style: Global.enPostListAppbarText,
             ),
             pinned: true,
             actions: [
@@ -101,10 +102,7 @@ class _En_voltagelabBookmarkPostDetailsState extends State<En_voltagelabBookmark
                   Flexible(
                     child: Text(
                       widget.title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
+                      style: Global.enListTitleText,
                     ),
                   ),
                 ],
@@ -128,6 +126,19 @@ class _En_voltagelabBookmarkPostDetailsState extends State<En_voltagelabBookmark
                               builder: (context) => WebViewPage(url: url!),
                             ));
                       },
+                style: {
+
+                    "p": Style(fontSize: FontSize(16), fontFamily: 'Lato', letterSpacing: 1.5, lineHeight:LineHeight(1.8) ),
+                    "li": Style(fontSize:  FontSize(18), fontFamily: 'Lato', letterSpacing: 1.5, lineHeight:LineHeight(1.8)),
+                    "strong":  Style(fontSize: FontSize(18), fontFamily: 'Lato'),
+                    "h1":  Style(fontSize: FontSize(24), fontFamily: 'Lato'),
+                    "h2":  Style(fontSize: FontSize(22), fontFamily: 'Lato'),
+                    "h3":  Style(fontSize: FontSize(18), fontFamily: 'Lato'),
+                    "h4":  Style(fontSize: FontSize(16), fontFamily: 'Lato'),
+                    "h5":  Style(fontSize: FontSize(12), fontFamily: 'Lato'),
+                    "h6":  Style(fontSize: FontSize(10), fontFamily: 'Lato')
+
+                },
               ),
             ),
           )
