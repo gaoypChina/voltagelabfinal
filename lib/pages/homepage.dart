@@ -572,17 +572,19 @@ class _HomePageState extends State<HomePage> {
                     freegridviewtool(
                       color: Colors.white,
                       icon: Icon(
-                        Icons.video_library_outlined,
+                        Icons.question_answer_outlined,
                         color: Colors.blue,
                         size: 30,
                       ),
-                      name: "ভিডিও",
+                      name: "MCQ",
                       gridTopText: "",
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const YoutubePlaylistPage(),
+                              // builder: (context) => const YoutubePlaylistPage(),
+                              builder: (context) => const McqCategoryList(),
+
                             ));
                       },
                     ),
@@ -811,12 +813,13 @@ class _HomePageState extends State<HomePage> {
                                     //   fit: BoxFit.cover,
                                     // ),
                                     icon: const Icon(
-                                      Icons.question_answer_outlined,
+                                      Icons.video_library_outlined,
                                       color: Colors.blue,
                                       size: 30,
                                     ),
                                     gridTopText: "",
-                                    name: 'MCQ',
+                                    name: 'ভিডিও',
+
                                     onTap: snapshot.data == null
                                         ? () {
                                             alartmessage();
@@ -831,7 +834,8 @@ class _HomePageState extends State<HomePage> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const McqCategoryList(),
+                                                        // const McqCategoryList(),
+                                                    const YoutubePlaylistPage()
                                                   ),
                                                 );
                                               },
