@@ -197,7 +197,9 @@ class PaymentProvider extends ChangeNotifier {
   Future subscription_details_page() async {
     isloading = true;
     String url =
-        "https://blog.voltagelab.com/wp-json/wp/v2/pages/2981?_fields[]=content";
+        // "https://blog.voltagelab.com/wp-json/wp/v2/pages/2981?_fields[]=content";
+        // "https://blog.voltagelab.com/wp-json/wp/v2/pages/24260?_fields[]=content";
+        "https://blog.voltagelab.com/wp-json/wp/v2/posts/24260";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       subscriptionDetailspage = subscriptionDetailsFromJson(response.body);
