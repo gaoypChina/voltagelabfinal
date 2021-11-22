@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/MCQ/mcq_postlist_page.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/pages/post_page.dart';
 
 class McqSubcategoryPAge extends StatefulWidget {
@@ -26,10 +27,11 @@ class _McqSubcategoryPAgeState extends State<McqSubcategoryPAge> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           widget.categoryname,
-          style: const TextStyle(color: Colors.white),
+          style: Global.bnPostListAppbarText,
         ),
       ),
       body: category.loading
@@ -94,11 +96,8 @@ class _McqSubcategoryPAgeState extends State<McqSubcategoryPAge> {
                                       maxLines: 2,
                                       textAlign: TextAlign.center,
                                       // overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          // color: color.withOpacity(1),
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
+                                      style: Global.bnListTitleText,
+
                                     ),
                                   ),
                                 ],

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/pages/post_details_page.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 
@@ -59,10 +60,11 @@ class _McqPostlistPageState extends State<McqPostlistPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           widget.categoryname,
-          style: const TextStyle(color: Colors.white),
+          style: Global.bnPostListAppbarText,
         ),
       ),
       body: post.isloading
@@ -187,9 +189,8 @@ class _McqPostlistPageState extends State<McqPostlistPage> {
                                               post.mcqpostlist[index].title!
                                                   .rendered!,
                                               softWrap: true,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16),
+                                              style: Global.bnListTitleText,
+
                                             ),
                                           ),
                                           Container(
