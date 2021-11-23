@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:voltagelab/helper/global.dart';
 
 class FeedBackPage extends StatefulWidget {
   const FeedBackPage({Key? key}) : super(key: key);
@@ -49,7 +51,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
     );
     final message = Message()
       ..from = Address(username, name)
-      ..recipients.add("rony.pvt@gmail.com")
+      ..recipients.add("vlapp")
       ..subject = 'FeedBack'
       ..text = feedbacktext;
 
@@ -85,7 +87,15 @@ class _FeedBackPageState extends State<FeedBackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("FeedBack"),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        title: Text(
+          "FeedBack",
+          style: Global.enPostListAppbarText,
+        ),
       ),
       body: Container(
         child: Column(
@@ -111,7 +121,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 },
               ),
             ),
-            Text("Rating: $_rating"),
+            Text("Rating: $_rating", style: GoogleFonts.lato(),),
             Form(
               key: _formkey,
               child: Container(
@@ -129,7 +139,9 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       return "Write Something";
                     }
                   },
-                  decoration: InputDecoration(hintText: "Write Anything"),
+                  decoration: InputDecoration(
+                      hintText: "Tell us your opinion",
+                      hintStyle: Global.encategorySearchhintText),
                 ),
               ),
             ),
@@ -137,9 +149,10 @@ class _FeedBackPageState extends State<FeedBackPage> {
               onPressed: () {
                 validationchack(context);
               },
-              child: const Text(
+              child: Text(
                 "Send FeedBack",
-                style: TextStyle(color: Colors.white),
+                style: GoogleFonts.lato(
+                    color: Colors.white, fontWeight: FontWeight.w600),
               ),
               color: Colors.blueAccent,
             )

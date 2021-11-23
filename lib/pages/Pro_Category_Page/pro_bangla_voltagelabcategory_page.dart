@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/category_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/Bookmark/bookmarkcategory_page.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/pages/categories_page.dart';
 import 'package:voltagelab/pages/search_page.dart';
 
@@ -42,12 +43,15 @@ class _ProBanglaVoltageCategoryListPageState
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+           SliverAppBar(
             pinned: true,
             centerTitle: true,
             backgroundColor: Colors.indigoAccent,
-            title: Text("Category"),
-            actions: [
+            title: Text(
+              "বিভাগ সমূহ",
+              style: Global.bnCategorytitleOfAppbar,
+            ),
+            // actions: [
               // IconButton(
               //     onPressed: () {
               //       box.clear();
@@ -63,7 +67,7 @@ class _ProBanglaVoltageCategoryListPageState
               //         badgeContent:
               //             Text(post.voltagelabsavepostbadge.toString()),
               //         child: const Icon(Icons.bookmark_outline)))
-            ],
+            // ],
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -135,8 +139,8 @@ class _ProBanglaVoltageCategoryListPageState
                                       BorderRadius.all(Radius.circular(50)),
                                   borderSide: BorderSide(
                                       width: 0, color: Colors.transparent)),
-                              hintText: "Search Anything",
-                            ),
+                              hintText: "যে কোন টপিক খুঁজুন",
+                              hintStyle: Global.bncategorySearchhintText,                            ),
                           ),
                         ),
                       )
@@ -146,19 +150,19 @@ class _ProBanglaVoltageCategoryListPageState
               ],
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.all(20),
-              child: const Text(
-                "Pro Categories",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5),
-              ),
-            ),
-          ),
+          // SliverToBoxAdapter(
+          //   child: Container(
+          //     margin: const EdgeInsets.only(top: 10),
+          //     padding: const EdgeInsets.all(20),
+          //     child: const Text(
+          //       "Pro Categories",
+          //       style: TextStyle(
+          //           fontSize: 18,
+          //           fontWeight: FontWeight.bold,
+          //           letterSpacing: 0.5),
+          //     ),
+          //   ),
+          // ),
           category.loading
               ? SliverToBoxAdapter(
                   child: Container(
@@ -225,10 +229,8 @@ class _ProBanglaVoltageCategoryListPageState
                                 child: Text(
                                   procategory.name!,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                  style: Global.bnListTitleText,
+
                                 ),
                               ),
                             ],
@@ -248,10 +250,6 @@ class _ProBanglaVoltageCategoryListPageState
     );
   }
 }
-
-
-
-
 
 // Column(
 //           children: [

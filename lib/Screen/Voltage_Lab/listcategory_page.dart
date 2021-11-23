@@ -50,7 +50,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
               "বিভাগ সমূহ",
               style: Global.bnCategorytitleOfAppbar,
             ),
-            actions: [
+            // actions: [
               // IconButton(
               //     onPressed: () {
               //       box.clear();
@@ -66,7 +66,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
               //         badgeContent:
               //             Text(post.voltagelabsavepostbadge.toString()),
               //         child: const Icon(Icons.bookmark_outline)))
-            ],
+            // ],
           ),
           SliverToBoxAdapter(
             child: Column(
