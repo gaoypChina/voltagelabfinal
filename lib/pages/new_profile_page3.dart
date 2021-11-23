@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
+import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/widget/Profile_Page_Widget/subscription_widget.dart';
 
 class NewProfilePage3 extends StatefulWidget {
@@ -32,9 +34,9 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        title: const Text(
+        title:  Text(
           'Profile',
-          style: TextStyle(color: Colors.black),
+          style: Global.enPostListAppbarText,
         ),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.black),
@@ -60,11 +62,11 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                         margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.05,
                             left: 10),
-                        child: Text(box.get('name')),
+                        child: Text(box.get('name'), style: GoogleFonts.lato(),),
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 5, left: 10),
-                        child: Text(box.get('email')),
+                        child: Text(box.get('email'),style: GoogleFonts.lato()),
                       ),
                       Flexible(
                         child: Container(
@@ -87,7 +89,7 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(15),
-                                  child: const Text('Summay'),
+                                  child:  Text('Summay', style: GoogleFonts.lato(fontSize: 16),),
                                   decoration: BoxDecoration(
                                       border: Border(
                                     bottom: BorderSide(
@@ -109,7 +111,7 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(15),
-                                  child: const Text('Subscription'),
+                                  child: Text('Subscription',style: GoogleFonts.lato(fontSize: 16)),
                                   decoration: BoxDecoration(
                                       border: Border(
                                     bottom: BorderSide(
@@ -132,7 +134,8 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(15),
-                                    child: const Text('Product purchase',
+                                    child:  Text('Product purchase',
+                                        style: GoogleFonts.lato(fontSize: 16),
                                         overflow: TextOverflow.ellipsis),
                                     decoration: BoxDecoration(
                                         border: Border(
@@ -162,14 +165,16 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                   child: Container(
                     height: 60,
                     width: 60,
+                    padding: EdgeInsets.all(5.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: Colors.indigo,
-                        border: Border.all(color: const Color(0xFFE0E0E0))),
+                        // color: Colors.indigo,
+                        // border: Border.all(color: const Color(0xFFE0E0E0))
+                    ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset(
-                        'images/profilepic2.jpg',
+                        'images/man.png',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -186,11 +191,11 @@ class _NewProfilePage3State extends State<NewProfilePage3> {
                   selectiteam = value;
                 });
               },
-              children: const [
+              children:  [
                 SubscriptionWidgetPage(),
                 SubscriptionWidgetPage(),
                 Center(
-                  child: Text('Comming Soon'),
+                  child: Text('Comming Soon', style: GoogleFonts.lato(),),
                 )
               ],
             ),

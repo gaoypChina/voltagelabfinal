@@ -28,7 +28,7 @@ class _SubscriptionDetailsPageState extends State<SubscriptionDetailsPage> {
         elevation: 0,
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
-        title: Text("সাবস্ক্রিবশন তথ্য", style: Global.bnPostListAppbarText,),
+        title: Text("সাবস্ক্রিপশন তথ্য", style: Global.bnPostListAppbarText,),
       ),
       body: payment.isloading
           ? Center(

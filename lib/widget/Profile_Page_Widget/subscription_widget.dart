@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
@@ -64,33 +65,33 @@ class _SubscriptionWidgetPageState extends State<SubscriptionWidgetPage> {
                               Container(
                                 padding: const EdgeInsets.all(10),
                                 child: Text(
-                                    "Package name: ${data.subscriptionpack}"),
+                                    "Package name: ${data.subscriptionpack}", style: GoogleFonts.lato(),),
                               ),
                               Container(
                                 padding:
                                     const EdgeInsets.only(left: 10, bottom: 10),
-                                child: Text("Start Date : ${data.startdate}"),
+                                child: Text("Start Date : ${data.startdate}", style: GoogleFonts.lato()),
                               ),
                               Container(
                                   padding: const EdgeInsets.only(
                                       left: 10, bottom: 10),
-                                  child: Text("End Date : ${data.enddate}")),
+                                  child: Text("End Date : ${data.enddate}", style: GoogleFonts.lato())),
                               Container(
                                 padding:
                                     const EdgeInsets.only(left: 10, bottom: 10),
                                 child:
-                                    Text("remaining : ${data.remaining} day"),
+                                    Text("Remaining : ${data.remaining} day", style: GoogleFonts.lato()),
                               ),
                               Container(
                                   padding: const EdgeInsets.only(
                                       left: 10, bottom: 10),
                                   child: data.status == '0'
-                                      ? const Text("Status : panding")
+                                      ?  Text("Status : Pending", style: GoogleFonts.lato())
                                       : data.status == '1'
-                                          ? const Text("Status : approved")
+                                          ?  Text("Status : Approved", style: GoogleFonts.lato())
                                           : data.status == '2'
-                                              ? const Text("Status : Expair")
-                                              : const Text("Status : panding")),
+                                              ? Text("Status : Expired", style: GoogleFonts.lato())
+                                              : Text("Status : Pending", style: GoogleFonts.lato())),
                             ],
                           ),
                         ),
