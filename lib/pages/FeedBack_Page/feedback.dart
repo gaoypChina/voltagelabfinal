@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -32,7 +33,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
   Future feedbacksend() async {
     String host = 'voltagelab.com';
 
-    String name = 'Voltage Lab';
+    String name = '[APP]Voltage Lab';
     bool ignoreBadCertificate = false;
     bool ssl = false;
     bool allowInsecure = false;
@@ -51,9 +52,9 @@ class _FeedBackPageState extends State<FeedBackPage> {
     );
     final message = Message()
       ..from = Address(username, name)
-      ..recipients.add("vlapp")
+      ..recipients.add("vlappfeedback@gmail.com")
       ..subject = 'FeedBack'
-      ..text = feedbacktext;
+      ..text = "Rating: $_rating\nFeedback Message: $feedbacktext";
 
     try {
       final sendReport = await send(message, smtpServer);
@@ -68,11 +69,25 @@ class _FeedBackPageState extends State<FeedBackPage> {
     }
   }
 
+  feedbackToast(BuildContext context) {
+    Fluttertoast.showToast(
+        msg: "Feedback message has been sent successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.SNACKBAR,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.white,
+        textColor: Colors.black,
+        fontSize: 16.0
+    );
+  }
+
   validationchack(BuildContext context) {
     final from = _formkey.currentState;
     if (from!.validate()) {
       from.save();
       feedbacksend();
+      feedbackToast(context);
+      Navigator.pop(context);
     }
   }
 

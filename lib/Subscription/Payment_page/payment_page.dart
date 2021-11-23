@@ -346,10 +346,10 @@ class _PaymentPageState extends State<PaymentPage> {
     );
     final message = Message()
       ..from = Address(username, name)
-      ..recipients.add("rony.pvt@gmail.com")
-      ..subject = 'Payment resive'
+      ..recipients.add("vlappfeedback@gmail.com")
+      ..subject = 'Payment Receive'
       ..text =
-          'Number: ${number} Transition id: ${transaction_Id} payment name: $payment_name Subscription Name: $subscriptionname, Subscription Month: $subs_pack_month';
+          'Number: ${number} \nTransition id: ${transaction_Id} \npayment name: $payment_name \nSubscription Name: $subscriptionname, \nSubscription Month: $subs_pack_month';
 
     try {
       final sendReport = await send(message, smtpServer);
