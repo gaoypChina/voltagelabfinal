@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Subscription/payment_Iteam_list/payment_iteam.dart';
+import 'package:voltagelab/helper/global.dart';
 
 class NewSubscriptionPage extends StatefulWidget {
   const NewSubscriptionPage({Key? key}) : super(key: key);
@@ -153,7 +155,8 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
         }
         return Center(
           child: SizedBox(
-            height: Curves.easeOut.transform(value) * 250,
+
+            height: Curves.easeOut.transform(value) * 300,
             width: 600.0,
             child: child,
           ),
@@ -177,7 +180,10 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
           // ],
         ),
         child: Card(
+
           child: Column(
+
+
             children: [
               Row(
                 children: [
@@ -194,8 +200,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                     children: [
                       Text(
                         package_name!,
-                        style:
-                            const TextStyle(fontSize: 18, color: Colors.black),
+                        style: GoogleFonts.hindSiliguri(fontSize: 18, color: Colors.black)
                       ),
                       const SizedBox(
                         height: 5,
@@ -203,12 +208,11 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text('\$$package_prize',
-                              style: const TextStyle(
-                                  fontSize: 18, color: Colors.black)),
-                          const Text('/user',
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.black)),
+                          Text('৳$package_prize',
+                              style:GoogleFonts.hindSiliguri(fontSize: 18, color: Colors.black)),
+                           // Text('/user',
+                           //    style:
+                           //        GoogleFonts.hindSiliguri(fontSize: 14, color: Colors.black)),
                         ],
                       ),
                     ],
@@ -217,8 +221,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                   Container(
                       margin: const EdgeInsets.only(right: 10),
                       child: Text(package_month!,
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.black)))
+                          style: GoogleFonts.hindSiliguri( fontSize: 18, color: Colors.black)))
                 ],
               ),
               Container(
@@ -227,21 +230,24 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                   color: Colors.black,
                 ),
               ),
+
+
+
               Container(
                 margin: const EdgeInsets.all(10),
                 child: Row(
-                  children: const [
-                    Icon(
+                  children:  [
+                  const  Icon(
                       Icons.check,
                       color: Colors.black,
                       size: 16,
                     ),
-                    SizedBox(
+                  const  SizedBox(
                       width: 10,
                     ),
                     Text(
-                      'All features in Basic',
-                      style: TextStyle(color: Colors.black),
+                      'বাংলা ও ইংরেজি টপিক সমূহ বুকমার্কিং',
+                      style: GoogleFonts.hindSiliguri(color: Colors.black),
                     )
                   ],
                 ),
@@ -249,45 +255,62 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10),
                 child: Row(
-                  children: const [
-                    Icon(
+                  children:  [
+                const    Icon(
                       Icons.check,
                       color: Colors.black,
                       size: 16,
                     ),
-                    SizedBox(
+                   const SizedBox(
                       width: 10,
                     ),
-                    Text('Flexible call scheduling',
-                        style: TextStyle(color: Colors.black))
+                    Text('বিভাগ সেকশনে - লিখিত পরীক্ষার প্রস্তুতি,\n ভাইবা প্রস্তুতি',
+                      style: GoogleFonts.hindSiliguri(color: Colors.black)),
                   ],
                 ),
               ),
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                 child: Row(
-                  children: const [
-                    Icon(
+                  children:  [
+                const    Icon(
                       Icons.check,
                       color: Colors.black,
                       size: 16,
                     ),
-                    SizedBox(
+                   const SizedBox(
                       width: 10,
                     ),
-                    Text('15 TB Cloud Storage',
-                        style: TextStyle(color: Colors.black))
+                    Text('ইলেকট্রিক্যাল, ইলেকট্রনিক্স এর বিভিন্ন\n কোর্সসমূহ',
+                        style: GoogleFonts.hindSiliguri(color: Colors.black)),
                   ],
                 ),
               ),
+              // Container(
+              //   margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              //   child: Row(
+              //     children:  [
+              //   const    Icon(
+              //         Icons.check,
+              //         color: Colors.black,
+              //         size: 16,
+              //       ),
+              //      const SizedBox(
+              //         width: 10,
+              //       ),
+              //       Text('ভিডিও - ইলেকট্রিক্যাল, ইলেকট্রনিক্স,\n টেলিকমিউনিকেশন ও অন্যান্য ভিডিও',
+              //           style: GoogleFonts.hindSiliguri(color: Colors.black)),
+              //     ],
+              //   ),
+              // ),
               Flexible(
                 child: Container(
                   margin: EdgeInsets.all(10),
                   child: ElevatedButton(
                     onPressed: buttontab,
-                    child: const Text(
+                    child:  Text(
                       "Choose Plan ->",
-                      style: TextStyle(color: Colors.white),
+                        style: GoogleFonts.hindSiliguri(color: Colors.black),
                     ),
                   ),
                 ),
@@ -314,7 +337,9 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
     final payment = Provider.of<PaymentProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Subscription"),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text("সাবস্ক্রিপশন করুন", style: Global.enPostListAppbarText,),
       ),
       body: payment.isloading
           ? const Center(
@@ -324,20 +349,21 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
               children: [
                 Container(
                   padding: EdgeInsets.all(10),
-                  child: const Text(
-                    "Flexible Plans",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  child:  Text(
+                    "সাবস্ক্রিবশন তালিকা",
+                    style: GoogleFonts.hindSiliguri(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    "Choose a plan that works best for you and your team",
+                    "এই মুহূর্তে শুধু বেসিক প্ল্যান রয়েছে। অন্যান্য প্ল্যান গুলো খুব শিগ্রয় যুক্ত করা হবে",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey[500], fontSize: 18),
+                    style: GoogleFonts.hindSiliguri(fontSize: 12, color: Colors.black54),
                   ),
                 ),
                 Container(
+                  // height: MediaQuery.of(context).size.height * 0.4,
                   height: MediaQuery.of(context).size.height * 0.4,
                   child: PageView(
                     onPageChanged: (value) {
@@ -349,9 +375,9 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                     children: [
                       aniumationpageview(
                         index: 0,
-                        package_name: "Basic",
-                        package_month: "1 Month",
-                        package_prize: 10,
+                        package_name: "বেসিক",
+                        package_month: "২ মাস",
+                        package_prize: "৩০০ টাকা",
                         buttontab: payment.subscriptionuserdata == null
                             ? () {
                                 Navigator.push(
@@ -359,7 +385,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                                     CupertinoPageRoute(
                                       builder: (context) =>
                                           const PaymentListPage(
-                                        package_price: 100,
+                                        package_price: 300,
                                         subscription_pack_name: 'Basic',
                                         subs_pack_month: 1,
                                       ),
@@ -374,81 +400,81 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                                         CupertinoPageRoute(
                                           builder: (context) =>
                                               const PaymentListPage(
-                                            package_price: 100,
+                                            package_price: 300,
                                             subscription_pack_name: 'Basic',
                                             subs_pack_month: 1,
                                           ),
                                         ));
                                   },
                       ),
-                      aniumationpageview(
-                        index: 1,
-                        package_name: "Startup",
-                        package_month: "3 Month",
-                        package_prize: 30,
-                        buttontab: payment.subscriptionuserdata == null
-                            ? () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) =>
-                                          const PaymentListPage(
-                                        package_price: 100,
-                                        subscription_pack_name: 'Advance',
-                                        subs_pack_month: 3,
-                                      ),
-                                    ));
-                              }
-                            : payment.subscriptionuserdata
-                                    .any((element) => element.status == "1")
-                                ? null
-                                : () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                          builder: (context) =>
-                                              const PaymentListPage(
-                                            package_price: 100,
-                                            subscription_pack_name: 'Advance',
-                                            subs_pack_month: 3,
-                                          ),
-                                        ));
-                                  },
-                      ),
-                      aniumationpageview(
-                        index: 2,
-                        package_name: "Advance",
-                        package_month: "6 Month",
-                        package_prize: 60,
-                        buttontab: payment.subscriptionuserdata == null
-                            ? () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) =>
-                                          const PaymentListPage(
-                                        package_price: 100,
-                                        subscription_pack_name: 'Custom',
-                                        subs_pack_month: 6,
-                                      ),
-                                    ));
-                              }
-                            : payment.subscriptionuserdata
-                                    .any((element) => element.status == "1")
-                                ? null
-                                : () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                          builder: (context) =>
-                                              const PaymentListPage(
-                                            package_price: 100,
-                                            subscription_pack_name: 'Custom',
-                                            subs_pack_month: 6,
-                                          ),
-                                        ));
-                                  },
-                      ),
+                      // aniumationpageview(
+                      //   index: 1,
+                      //   package_name: "Startup",
+                      //   package_month: "3 Month",
+                      //   package_prize: 30,
+                      //   buttontab: payment.subscriptionuserdata == null
+                      //       ? () {
+                      //           Navigator.push(
+                      //               context,
+                      //               CupertinoPageRoute(
+                      //                 builder: (context) =>
+                      //                     const PaymentListPage(
+                      //                   package_price: 100,
+                      //                   subscription_pack_name: 'Advance',
+                      //                   subs_pack_month: 3,
+                      //                 ),
+                      //               ));
+                      //         }
+                      //       : payment.subscriptionuserdata
+                      //               .any((element) => element.status == "1")
+                      //           ? null
+                      //           : () {
+                      //               Navigator.push(
+                      //                   context,
+                      //                   CupertinoPageRoute(
+                      //                     builder: (context) =>
+                      //                         const PaymentListPage(
+                      //                       package_price: 100,
+                      //                       subscription_pack_name: 'Advance',
+                      //                       subs_pack_month: 3,
+                      //                     ),
+                      //                   ));
+                      //             },
+                      // ),
+                      // aniumationpageview(
+                      //   index: 2,
+                      //   package_name: "Advance",
+                      //   package_month: "6 Month",
+                      //   package_prize: 60,
+                      //   buttontab: payment.subscriptionuserdata == null
+                      //       ? () {
+                      //           Navigator.push(
+                      //               context,
+                      //               CupertinoPageRoute(
+                      //                 builder: (context) =>
+                      //                     const PaymentListPage(
+                      //                   package_price: 100,
+                      //                   subscription_pack_name: 'Custom',
+                      //                   subs_pack_month: 6,
+                      //                 ),
+                      //               ));
+                      //         }
+                      //       : payment.subscriptionuserdata
+                      //               .any((element) => element.status == "1")
+                      //           ? null
+                      //           : () {
+                      //               Navigator.push(
+                      //                   context,
+                      //                   CupertinoPageRoute(
+                      //                     builder: (context) =>
+                      //                         const PaymentListPage(
+                      //                       package_price: 100,
+                      //                       subscription_pack_name: 'Custom',
+                      //                       subs_pack_month: 6,
+                      //                     ),
+                      //                   ));
+                      //             },
+                      // ),
                     ],
                   ),
                 ),
