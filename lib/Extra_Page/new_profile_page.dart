@@ -161,7 +161,7 @@ class _NewProfilePAgeState extends State<NewProfilePAge> {
                   top: 10,
                   left: 30,
                   child: CircleAvatar(
-                    backgroundImage: AssetImage('images/profilepic2.jpg'),
+                    backgroundImage: AssetImage('images/man.png'),
                     maxRadius: 30,
                   ),
                 )
