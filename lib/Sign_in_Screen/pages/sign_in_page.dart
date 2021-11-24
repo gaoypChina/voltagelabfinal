@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/Recover_Password/recovery_password.dart';
@@ -55,7 +56,7 @@ class _SignInState extends State<SignIn> {
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: 17.0),
+          hintStyle: GoogleFonts.hindSiliguri(fontSize: 17.0),
         ),
       ),
     );
@@ -92,7 +93,7 @@ class _SignInState extends State<SignIn> {
                       child: Column(
                         children: [
                           signinform(
-                              hintText: 'Email Address',
+                              hintText: 'ইমেইল এড্রেস',
                               keyboardType: TextInputType.emailAddress,
                               onSaved: (newValue) {
                                 setState(() {
@@ -101,9 +102,9 @@ class _SignInState extends State<SignIn> {
                               },
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Enter your Email Address";
+                                  return "ইমেইল এড্রেস দিন";
                                 } else if (!value.contains('@')) {
-                                  return "Enter your Valid Email Address";
+                                  return "সঠিক ইমেইল এড্রেস দিন!!!";
                                 }
                               },
                               prefixIcon: const Icon(
@@ -114,7 +115,7 @@ class _SignInState extends State<SignIn> {
                               suffixIcon: null,
                               obscureText: false),
                           signinform(
-                            hintText: 'Password',
+                            hintText: 'পাসওয়ার্ড',
                             keyboardType: TextInputType.text,
                             onSaved: (newValue) {
                               setState(() {
@@ -123,9 +124,9 @@ class _SignInState extends State<SignIn> {
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return "Enter your password";
+                                return "পাসওয়ার্ড দিন";
                               } else if (value.length < 6) {
-                                return "Enter minimam 6 digit password";
+                                return "৬ ডিজিটের পাসওয়ার্ড দিন";
                               }
                             },
                             prefixIcon: const Icon(
@@ -159,12 +160,12 @@ class _SignInState extends State<SignIn> {
                           onPressed: () {                            
                             validationchack(context);
                           },
-                          child: const Padding(
+                          child:  Padding(
                             padding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 42.0),
                             child: Text(
-                              'Login',
-                              style: TextStyle(fontSize: 20),
+                              'লগইন',
+                              style: GoogleFonts.hindSiliguri(fontSize: 20, fontWeight: FontWeight.w600),
                             ),
                           )),
                   // child: ElevatedButton(
@@ -206,13 +207,10 @@ class _SignInState extends State<SignIn> {
                           builder: (context) => const RecoveryPasswordPage(),
                         ));
                   },
-                  child: const Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Colors.white,
-                      fontSize: 16.0,
-                    ),
+                  child:  Text(
+                    'পাসওয়ার্ড ভুলে গিয়েছেন?',
+                    style: GoogleFonts.hindSiliguri(color: Colors.white,
+                      fontSize: 16.0)
                   )),
             ),
             Padding(
@@ -235,14 +233,12 @@ class _SignInState extends State<SignIn> {
                     width: 100.0,
                     height: 1.0,
                   ),
-                  const Padding(
+                   Padding(
                     padding: EdgeInsets.only(left: 15.0, right: 15.0),
                     child: Text(
-                      'Or',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      ),
+                      'অথবা',
+                      style: GoogleFonts.hindSiliguri(color: Colors.white,
+                        fontSize: 16.0,)
                     ),
                   ),
                   Container(

@@ -47,74 +47,82 @@ class _LoginPageState extends State<LoginPage> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     decoration: const BoxDecoration(
+                      // color: Colors.white60,
                       gradient: LinearGradient(
-                          colors: <Color>[Color(0xFF8E66FB), Color(0xFF4172F7)],
+                          colors: <Color>[Color(0xFFAAB2F5), Color(0xFF6F8DE3)],
                           begin: FractionalOffset(0.0, 0.0),
                           end: FractionalOffset(1.0, 1.0),
                           stops: <double>[0.0, 1.0],
                           tileMode: TileMode.clamp),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 100.0),
-                          // child: SvgPicture.asset(
-                          //   'images/login.svg',
-                          //   height: 190,
+                    child: Padding(
+
+                      padding: const EdgeInsets.only(top: 80.0),
+                      child: Column(
+                        // mainAxisSize: MainAxisSize.min,
+
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,                        children: [
+                          Image.asset('images/ractagle_black_logo.png',width: 200, ),
+                          // Padding(
+                          //   padding: EdgeInsets.only(top: 100.0),
+                            // child: SvgPicture.asset(
+                            //   'images/login.svg',
+                            //   height: 190,
+                            // ),
+                            //
+                            //  Text(
+                            //   'স্বাগতম',
+                            //   style: GoogleFonts.hindSiliguri(
+                            //     color: Colors.black,
+                            //     textStyle: Theme.of(context).textTheme.headline4,
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w700,
+                            //   ),
+                            // ),
                           // ),
-                          child: Text(
-                            'Welcome to Voltage Lab!',
-                            style: GoogleFonts.raleway(
-                              color: Colors.white,
-                              textStyle: Theme.of(context).textTheme.headline4,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              fontStyle: FontStyle.italic,
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: menubar(context),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: PageView(
+                              controller: _pageController,
+                              physics: const ClampingScrollPhysics(),
+                              onPageChanged: (int i) {
+                                FocusScope.of(context).requestFocus(FocusNode());
+                                if (i == 0) {
+                                  setState(() {
+                                    right = Colors.white;
+                                    left = Colors.black;
+                                    positionleft = 0;
+                                  });
+                                } else if (i == 1) {
+                                  setState(() {
+                                    right = Colors.black;
+                                    left = Colors.white;
+                                    positionleft = 144;
+                                  });
+                                }
+                              },
+                              children: [
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints.expand(),
+                                  child: const SignIn(),
+                                ),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints.expand(),
+                                  child: const SignUp(),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 100,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: menubar(context),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: PageView(
-                            controller: _pageController,
-                            physics: const ClampingScrollPhysics(),
-                            onPageChanged: (int i) {
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              if (i == 0) {
-                                setState(() {
-                                  right = Colors.white;
-                                  left = Colors.black;
-                                  positionleft = 0;
-                                });
-                              } else if (i == 1) {
-                                setState(() {
-                                  right = Colors.black;
-                                  left = Colors.white;
-                                  positionleft = 144;
-                                });
-                              }
-                            },
-                            children: [
-                              ConstrainedBox(
-                                constraints: const BoxConstraints.expand(),
-                                child: const SignIn(),
-                              ),
-                              ConstrainedBox(
-                                constraints: const BoxConstraints.expand(),
-                                child: const SignUp(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 )
@@ -153,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Row(
             children: [
-              signmenu('Sign in', () {
+              signmenu('লগ ইন', () {
                 setState(() {
                   _pageController!.animateToPage(0,
                       duration: Duration(milliseconds: 300),
@@ -163,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                   positionleft = 0;
                 });
               }, left),
-              signmenu('Sign up', () {
+              signmenu('রেজিস্ট্রেশন', () {
                 setState(() {
                   _pageController!.animateToPage(1,
                       duration: Duration(milliseconds: 300),
@@ -189,10 +197,8 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(
-            color: color,
-            fontSize: 16.0,
-          ),
+          style: GoogleFonts.hindSiliguri(color: color,fontWeight: FontWeight.w600,
+            fontSize: 16.0,)
         ),
       ),
     );

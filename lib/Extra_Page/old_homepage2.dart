@@ -196,7 +196,7 @@
 //                                   mainAxisAlignment: MainAxisAlignment.center,
 //                                   children: [
 //                                     Image.asset(
-//                                       'images/plytechnicbd.png',
+//                                       'images/gfplytechnicbd.png',
 //                                       height: 100,
 //                                     )
 //                                   ],

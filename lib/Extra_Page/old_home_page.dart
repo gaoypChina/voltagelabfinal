@@ -69,7 +69,7 @@
 //                         borderRadius: BorderRadius.circular(100),
 //                       ),
 //                       // ignore: unnecessary_brace_in_string_interps
-//                       child: Image.asset("images/img0.png", fit: BoxFit.cover),
+//                       child: Image.asset("images/img0s.png", fit: BoxFit.cover),
 //                     ),
 //                   ),
 //                   const SizedBox(height: 5),
@@ -102,7 +102,7 @@
 //                         borderRadius: BorderRadius.circular(100),
 //                       ),
 //                       // ignore: unnecessary_brace_in_string_interps
-//                       child: Image.asset("images/img0.png", fit: BoxFit.cover),
+//                       child: Image.asset("images/img0s.png", fit: BoxFit.cover),
 //                     ),
 //                   ),
 //                   const SizedBox(height: 5),
@@ -134,7 +134,7 @@
 //                         borderRadius: BorderRadius.circular(100),
 //                       ),
 //                       // ignore: unnecessary_brace_in_string_interps
-//                       child: Image.asset("images/img1.png", fit: BoxFit.cover),
+//                       child: Image.asset("images/imdgg1.png", fit: BoxFit.cover),
 //                     ),
 //                   ),
 //                   const SizedBox(height: 5),
