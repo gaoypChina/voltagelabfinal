@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/Recover_Password/new_password.dart';
@@ -45,7 +46,7 @@ class _RecoveryCodeSendPAgeState extends State<RecoveryCodeSendPAge> {
           EasyLoading.dismiss();
         } else {
           ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Wrong Code")));
+              .showSnackBar( SnackBar(content: Text("ভুল কোড",style: GoogleFonts.hindSiliguri(),)));
           EasyLoading.dismiss();
         }
       });

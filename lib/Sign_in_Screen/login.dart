@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: const BoxDecoration(
                       // color: Colors.white60,
                       gradient: LinearGradient(
-                          colors: <Color>[Color(0xFFAAB2F5), Color(0xFF6F8DE3)],
+                          colors: <Color>[Color(0xFFBDC6EE), Color(0xFF415499)],
                           begin: FractionalOffset(0.0, 0.0),
                           end: FractionalOffset(1.0, 1.0),
                           stops: <double>[0.0, 1.0],

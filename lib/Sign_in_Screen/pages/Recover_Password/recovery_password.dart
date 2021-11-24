@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/Recover_Password/recovery_code_send.dart';
@@ -71,9 +72,9 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Recover By Email",
-                style: TextStyle(fontSize: 20, color: Colors.white),
+               Text(
+                "ইমেইলে পাসওয়ার্ড পুনরুদ্ধার করুন",
+                style: GoogleFonts.hindSiliguri(fontSize: 20, color: Colors.white),
               ),
               const SizedBox(height: 20),
               Card(
@@ -97,22 +98,22 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
                                 },
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "Enter your Email Address";
+                                    return "আপনার ইমেইল এড্রেস দিন";
                                   } else if (!value.contains('@gmail')) {
-                                    return "Enter your Valid Email Address";
+                                    return "সঠিক ইমেইল এড্রেস প্রদান করুন!!!";
                                   }
                                 },
                                 keyboardType: TextInputType.emailAddress,
                                 style: const TextStyle(
                                     fontSize: 16.0, color: Colors.black),
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   prefixIcon: Icon(
                                     FontAwesomeIcons.envelope,
                                     color: Colors.black,
                                     size: 22.0,
                                   ),
-                                  hintText: 'Email Address',
-                                  hintStyle: TextStyle(fontSize: 17.0),
+                                  hintText: 'ইমেইল এড্রেস',
+                                  hintStyle: GoogleFonts.hindSiliguri(fontSize: 17.0),
                                 ),
                               ),
                             ),
@@ -126,7 +127,7 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
                           onPressed: () {
                             validationchack(context);
                           },
-                          child: const Text("Verify"))
+                          child: Text("যাচাই করুন",style: GoogleFonts.hindSiliguri(),))
                     ],
                   ),
                 ),

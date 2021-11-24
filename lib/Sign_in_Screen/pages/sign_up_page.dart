@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 
@@ -65,7 +66,7 @@ class _SignUpState extends State<SignUp> {
         onSaved: onSaved,
         validator: validator,
         keyboardType: keyboardType,
-        style: const TextStyle(fontSize: 16.0, color: Colors.black),
+        style: GoogleFonts.hindSiliguri(fontSize: 16.0, color: Colors.black),
         obscureText: obscureText!,
         decoration: InputDecoration(
           // border: InputBorder.none,
@@ -120,7 +121,7 @@ class _SignUpState extends State<SignUp> {
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter your full name";
+                              return "আপনার পুরো নাম লিখুন";
                             }
                           },
                           onChanged: (value) {},
@@ -129,7 +130,7 @@ class _SignUpState extends State<SignUp> {
                             FontAwesomeIcons.user,
                             color: Colors.black,
                           ),
-                          hintText: 'Full Name',
+                          hintText: 'পুরো নাম',
                           obscureText: false,
                           suffixIcon: null,
                         ),
@@ -139,9 +140,9 @@ class _SignUpState extends State<SignUp> {
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter your Email Address";
+                              return "ইমেইল এড্রেস প্রদান করুন";
                             } else if (!value.contains('@')) {
-                              return "Enter your Valid Email Address";
+                              return "সঠিক ইমেইল এড্রেস প্রদান করুন!!!";
                             }
                           },
                           onChanged: (value) {},
@@ -150,7 +151,7 @@ class _SignUpState extends State<SignUp> {
                             FontAwesomeIcons.envelope,
                             color: Colors.black,
                           ),
-                          hintText: 'Email Address',
+                          hintText: 'ইমেইল এড্রেস',
                           obscureText: false,
                           suffixIcon: null,
                         ),
@@ -160,9 +161,9 @@ class _SignUpState extends State<SignUp> {
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter your password";
+                              return "পাসওয়ার্ড দিন";
                             } else if (value.length < 6) {
-                              return "Enter minimam 6 digit password";
+                              return "৬ ডিজিটের পাসওয়ার্ড দিন";
                             }
                           },
                           onChanged: (value) {
@@ -185,7 +186,7 @@ class _SignUpState extends State<SignUp> {
                               color: Colors.black,
                             ),
                           ),
-                          hintText: 'Password',
+                          hintText: 'পাসওয়ার্ড',
                         ),
                         signupform(
                           onSaved: (newValue) {
@@ -193,9 +194,9 @@ class _SignUpState extends State<SignUp> {
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Again Password";
+                              return "পুনরায় পাসওয়ার্ড দিন";
                             } else if (value != password) {
-                              return "password not match";
+                              return "একই পাসওয়ার্ড ব্যবহার করুন";
                             }
                           },
                           onChanged: (value) {
@@ -208,7 +209,7 @@ class _SignUpState extends State<SignUp> {
                             FontAwesomeIcons.lock,
                             color: Colors.black,
                           ),
-                          hintText: 'Confirmation',
+                          hintText: 'পুনরায় পাসওয়ার্ড দিন',
                           suffixIcon: GestureDetector(
                             onTap: _toggleSignupConfirm,
                             child: Icon(
@@ -243,15 +244,13 @@ class _SignUpState extends State<SignUp> {
                         onPressed: () {
                           validationchack(context);
                         },
-                        child: const Padding(
+                        child:  Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 42.0),
                           child: Text(
-                            'SIGN UP',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                            ),
+                            'রেজিস্ট্রেশন করুন',
+                            style: GoogleFonts.hindSiliguri(color: Colors.white, fontWeight: FontWeight.w600,
+                              fontSize: 20.0,)
                           ),
                         ),
                         // onPressed: () => _toggleSignUpButton(),
