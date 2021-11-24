@@ -1,12 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
+import 'package:voltagelab/helper/global.dart';
 
 class PaymentPage extends StatefulWidget {
   final String payment_name;
@@ -14,6 +19,7 @@ class PaymentPage extends StatefulWidget {
   final String subscription_pack_name;
   final int subs_pack_month;
   final int payment_type;
+
   const PaymentPage(
       {Key? key,
       required this.payment_name,
@@ -36,6 +42,16 @@ class _PaymentPageState extends State<PaymentPage> {
     if (from!.validate()) {
       from.save();
       subscription_date(context);
+      Fluttertoast.showToast(
+          msg: "Form Submitted, We will active it and inform you in your mail withing 24 hour,",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+
+
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
     }
   }
 
@@ -105,7 +121,15 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payment Page'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        title: Text(
+          'পেমেন্ট করুন',
+          style: Global.bnPostListAppbarText,
+        ),
       ),
       body: Container(
         color: Colors.white,
@@ -115,10 +139,11 @@ class _PaymentPageState extends State<PaymentPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                margin: const EdgeInsets.all(10),
-                child: const Text(
-                  'Your order',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                // margin: const EdgeInsets.all(10),
+                child: Text(
+                  'অর্ডার বিস্তারিত',
+                  style: GoogleFonts.hindSiliguri(
+                      fontWeight: FontWeight.w600, fontSize: 18),
                 ),
               ),
               const Divider(),
@@ -126,16 +151,18 @@ class _PaymentPageState extends State<PaymentPage> {
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: const Text(
-                      'Product',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    child: Text(
+                      'আইটেম সমূহ',
+                      style:
+                          GoogleFonts.hindSiliguri(fontWeight: FontWeight.w600),
                     ),
                   ),
                   const Spacer(),
                   Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: const Text('Subtotal',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
+                      child: Text('সর্বমোট',
+                          style: GoogleFonts.hindSiliguri(
+                              fontWeight: FontWeight.w600))),
                 ],
               ),
               const Divider(),
@@ -143,7 +170,26 @@ class _PaymentPageState extends State<PaymentPage> {
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: const Text('Basic to Advance'),
+                    child: Text(
+                      'বেসিক প্ল্যান',
+                      style: GoogleFonts.hindSiliguri(),
+                    ),
+                  ),
+                  const Spacer(),
+                  Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('৳${widget.package_price}')),
+                ],
+              ),
+              const Divider(),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'সর্বমোট',
+                      style: GoogleFonts.hindSiliguri(),
+                    ),
                   ),
                   const Spacer(),
                   Container(
@@ -156,20 +202,10 @@ class _PaymentPageState extends State<PaymentPage> {
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: const Text('Subtotal'),
-                  ),
-                  const Spacer(),
-                  Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text('৳${widget.package_price}')),
-                ],
-              ),
-              const Divider(),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text('${widget.payment_name} Charge'),
+                    child: Text(
+                      '${widget.payment_name} চার্জ',
+                      style: GoogleFonts.hindSiliguri(),
+                    ),
                   ),
                   const Spacer(),
                   Container(
@@ -182,17 +218,17 @@ class _PaymentPageState extends State<PaymentPage> {
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: const Text(
-                      'Total',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    child: Text(
+                      'সর্বমোট',
+                      style:
+                          GoogleFonts.hindSiliguri(fontWeight: FontWeight.w600),
                     ),
                   ),
                   const Spacer(),
                   Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         '৳${widget.package_price}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
                       )),
                 ],
               ),
@@ -215,17 +251,58 @@ class _PaymentPageState extends State<PaymentPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                'পেমেন্ট পদ্ধতি',
+                style: GoogleFonts.hindSiliguri(
+                    fontWeight: FontWeight.w600, fontSize: 18),
+              ),
+            ),
             Flexible(
               child: Container(
-                margin: const EdgeInsets.all(10),
-                child: const Text(
-                    'Please complete your bKash payment at first, then fill up the form below. Also note that 1.85% bKash "SEND MONEY" cost will be added with net price. Total amount you need to send us at ৳ 7130'),
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "> সর্বপ্রথম পেমেন্ট সম্পন্ন করুন (Send Money)",
+                      style: GoogleFonts.hindSiliguri(),
+                    ),
+                    Text(
+                      "> নিচের ফর্মটি পূরণ করুন",
+                      style: GoogleFonts.hindSiliguri(),
+                    ),
+                    Text(
+                      "> সাবমিট বাটনে ক্লিক করুন",
+                      style: GoogleFonts.hindSiliguri(),
+                    ),
+                    Text(
+                      "> পেমেন্ট ও সবকিছু ঠিক থাকলে ২৪ ঘন্টার ভেতর সাবস্ক্রিপশন একটিভ হবে",
+                      style: GoogleFonts.hindSiliguri(),
+                    ),Text(
+                      "> ২৪ ঘন্টার ভেতর একটিভ না হলে আমাদের সাথে যোগাযোগ করুন এপের যোগাযোগ পেইজ থেকে",
+                      style: GoogleFonts.hindSiliguri(),
+                    ),
+                    // Container(
+                    //   margin: const EdgeInsets.all(10),
+                    //   child:
+                    //
+                    //   Text(
+                    //     "> সর্বপ্রথম পেমেন্ট সম্পন্ন করুন",
+                    //     style: GoogleFonts.hindSiliguri(),
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
             ),
             Container(
               margin: const EdgeInsets.all(10),
               child:
-                  Text('${widget.payment_name} Personal Number : 01751331330'),
+
+                  // Text('${widget.payment_name} Personal Number : 01751331330'),
+                  Text(widget.payment_name =="rocket" ? "Send Money: 017135093490" : "Send Money: 01713509349", style: GoogleFonts.lato(fontWeight: FontWeight.w600),),
             ),
             Container(
               margin: const EdgeInsets.all(10),
@@ -316,6 +393,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         validationchack(context);
                       },
                       child: const Text('Submit')),
+
             )
           ],
         ),

@@ -156,7 +156,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
         return Center(
           child: SizedBox(
 
-            height: Curves.easeOut.transform(value) * 300,
+            height: Curves.easeOut.transform(value) * 400,
             width: 600.0,
             child: child,
           ),
@@ -181,6 +181,8 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
         ),
         child: Card(
 
+
+
           child: Column(
 
 
@@ -192,8 +194,9 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                     height: MediaQuery.of(context).size.height * 0.06,
                     width: MediaQuery.of(context).size.width * 0.13,
                     decoration: BoxDecoration(
-                        color: Colors.orange,
+                        color: Colors.blue.shade200,
                         borderRadius: BorderRadius.circular(5)),
+                    child: Icon(Icons.payments, color: Colors.white,),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,23 +289,23 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                   ],
                 ),
               ),
-              // Container(
-              //   margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-              //   child: Row(
-              //     children:  [
-              //   const    Icon(
-              //         Icons.check,
-              //         color: Colors.black,
-              //         size: 16,
-              //       ),
-              //      const SizedBox(
-              //         width: 10,
-              //       ),
-              //       Text('ভিডিও - ইলেকট্রিক্যাল, ইলেকট্রনিক্স,\n টেলিকমিউনিকেশন ও অন্যান্য ভিডিও',
-              //           style: GoogleFonts.hindSiliguri(color: Colors.black)),
-              //     ],
-              //   ),
-              // ),
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                child: Row(
+                  children:  [
+                const    Icon(
+                      Icons.check,
+                      color: Colors.black,
+                      size: 16,
+                    ),
+                   const SizedBox(
+                      width: 10,
+                    ),
+                    Text('ভিডিও - ইলেকট্রিক্যাল, ইলেকট্রনিক্স ভিডিও',
+                        style: GoogleFonts.hindSiliguri(color: Colors.black)),
+                  ],
+                ),
+              ),
               Flexible(
                 child: Container(
                   margin: EdgeInsets.all(10),
@@ -339,6 +342,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
         title: Text("সাবস্ক্রিপশন করুন", style: Global.enPostListAppbarText,),
       ),
       body: payment.isloading
