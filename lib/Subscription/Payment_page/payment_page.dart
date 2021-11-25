@@ -70,7 +70,7 @@ class _PaymentPageState extends State<PaymentPage> {
     final enddate = DateTime(
         payment.orginalDatetime!.datetime!.year,
         widget.subs_pack_month == 1
-            ? payment.orginalDatetime!.datetime!.month + 1
+            ? payment.orginalDatetime!.datetime!.month + 2
             : widget.subs_pack_month == 3
                 ? payment.orginalDatetime!.datetime!.month + 3
                 : widget.subs_pack_month == 6
@@ -84,7 +84,7 @@ class _PaymentPageState extends State<PaymentPage> {
     final enddatecount = DateTime(
         payment.orginalDatetime!.datetime!.year,
         widget.subs_pack_month == 1
-            ? payment.orginalDatetime!.datetime!.month + 1
+            ? payment.orginalDatetime!.datetime!.month + 2 // 2 month set for first package
             : widget.subs_pack_month == 3
                 ? payment.orginalDatetime!.datetime!.month + 3
                 : widget.subs_pack_month == 6
@@ -106,6 +106,8 @@ class _PaymentPageState extends State<PaymentPage> {
         remaining: difference,
         payment_type: widget.payment_type,
         context: context);
+
+    print("diff: $difference");
 
     numbertrangitionidsend(phone_number!, transaction_Id, widget.payment_name,
         widget.subscription_pack_name, widget.subs_pack_month);

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
@@ -12,6 +13,7 @@ class LatestPostDetails extends StatefulWidget {
   final String latestposttitle;
 
   final String latestpostpic;
+
   const LatestPostDetails(
       {Key? key,
       required this.latestpostid,
@@ -53,7 +55,7 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
             iconTheme: const IconThemeData(color: Colors.black),
             title: Text(
               // widget.latestposttitle,
-              "hello",
+              widget.latestposttitle,
               style: Global.titleCarosal,
             ),
             actions: [
@@ -92,9 +94,9 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
                     child: Text(
                       widget.latestposttitle,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                          fontFamily: 'SolaimanLipi'),
                     ),
                   ),
                 ],
@@ -111,10 +113,11 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: post.latestPostdetails == null
-                  ? const SizedBox(
+                  ? SizedBox(
                       height: 300,
                       child: Center(
-                        child: Text("Loading........"),
+                        child:
+                            Text("Loading........", style: GoogleFonts.lato()),
                       ),
                     )
                   : Html(
@@ -129,6 +132,35 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
                       onImageTap: (url, context, attributes, element) {
                         CachedNetworkImage(imageUrl: url!);
                       },
+                      style: {
+                        // "p": Style(fontSize: FontSize(textsize.textsize), fontFamily: 'SolaimanLipi', letterSpacing: 1.0),
+
+                        "p": Style(
+                            fontSize: FontSize(18),
+                            fontFamily: 'SolaimanLipi',
+                            letterSpacing: 1.5,
+                            lineHeight: LineHeight(1.8)),
+                        "li": Style(
+                            fontSize: FontSize(18),
+                            fontFamily: 'SolaimanLipi',
+                            letterSpacing: 1.5,
+                            lineHeight: LineHeight(1.8)),
+                        // "alt": Style(fontSize: FontSize(textsize.textsize), fontFamily: 'SolaimanLipi'),
+                        "strong": Style(
+                            fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
+                        "h1": Style(
+                            fontSize: FontSize(24), fontFamily: 'SolaimanLipi'),
+                        "h2": Style(
+                            fontSize: FontSize(22), fontFamily: 'SolaimanLipi'),
+                        "h3": Style(
+                            fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
+                        "h4": Style(
+                            fontSize: FontSize(16), fontFamily: 'SolaimanLipi'),
+                        "h5": Style(
+                            fontSize: FontSize(12), fontFamily: 'SolaimanLipi'),
+                        "h6": Style(
+                            fontSize: FontSize(10), fontFamily: 'SolaimanLipi')
+                      },
                     ),
             ),
           )
@@ -142,10 +174,12 @@ class DetailsSliverdelegate extends SliverPersistentHeaderDelegate {
   final double expendedheigth;
   final String photourl;
   final double round_container;
+
   const DetailsSliverdelegate(
       {required this.photourl,
       required this.expendedheigth,
       required this.round_container});
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
