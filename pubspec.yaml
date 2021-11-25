@@ -78,9 +78,9 @@ dependencies:
   flutter_native_splash: ^1.2.4
   google_fonts: 2.1.0
   connectivity: ^3.0.6 
-  fluttertoast: ^8.0.8 
+  fluttertoast: ^8.0.8
 
-  
+
 
 dev_dependencies:
   flutter_test:
@@ -94,7 +94,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 
 flutter_native_splash:
-  image: images/splash_logo.jpg
+  image: images/splash.png
   color: "#FFFFFF"
   android: true
   ios: true

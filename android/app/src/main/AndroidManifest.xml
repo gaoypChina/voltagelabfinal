@@ -12,7 +12,7 @@
     </intent>
   </queries>
    <application
-        android:label="voltagelab"
+        android:label="Voltage Lab"
         android:icon="@mipmap/ic_launcher">
 
 

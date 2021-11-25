@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: const BoxDecoration(
                       // color: Colors.white60,
                       gradient: LinearGradient(
-                          colors: <Color>[Color(0xFFBDC6EE), Color(0xFF415499)],
+                          colors: <Color>[Color(0xFF919CFF), Color(0xFF5066D2)],
                           begin: FractionalOffset(0.0, 0.0),
                           end: FractionalOffset(1.0, 1.0),
                           stops: <double>[0.0, 1.0],
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,                        children: [
-                          Image.asset('images/ractagle_black_logo.png',width: 200, ),
+                          Image.asset('images/rectagle_white_logo.png',width: 200, ),
                           // Padding(
                           //   padding: EdgeInsets.only(top: 100.0),
                             // child: SvgPicture.asset(

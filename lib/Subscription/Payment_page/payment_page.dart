@@ -43,7 +43,7 @@ class _PaymentPageState extends State<PaymentPage> {
       from.save();
       subscription_date(context);
       Fluttertoast.showToast(
-          msg: "Form Submitted, We will active it and inform you in your mail withing 24 hour,",
+          msg: "We will active it and inform you in your mail withing 24 hour,",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
 
@@ -70,7 +70,7 @@ class _PaymentPageState extends State<PaymentPage> {
     final enddate = DateTime(
         payment.orginalDatetime!.datetime!.year,
         widget.subs_pack_month == 1
-            ? payment.orginalDatetime!.datetime!.month + 2
+            ? payment.orginalDatetime!.datetime!.month + 1
             : widget.subs_pack_month == 3
                 ? payment.orginalDatetime!.datetime!.month + 3
                 : widget.subs_pack_month == 6
@@ -84,7 +84,7 @@ class _PaymentPageState extends State<PaymentPage> {
     final enddatecount = DateTime(
         payment.orginalDatetime!.datetime!.year,
         widget.subs_pack_month == 1
-            ? payment.orginalDatetime!.datetime!.month + 2 // 2 month set for first package
+            ? payment.orginalDatetime!.datetime!.month + 1 // 2 month set for first package
             : widget.subs_pack_month == 3
                 ? payment.orginalDatetime!.datetime!.month + 3
                 : widget.subs_pack_month == 6

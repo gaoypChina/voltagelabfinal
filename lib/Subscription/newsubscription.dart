@@ -267,7 +267,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                    const SizedBox(
                       width: 10,
                     ),
-                    Text('বিভাগ সেকশনে - লিখিত পরীক্ষার প্রস্তুতি,\n ভাইবা প্রস্তুতি',
+                    Text('লিখিত পরীক্ষা ও ভাইবা প্রস্তুতি',
                       style: GoogleFonts.hindSiliguri(color: Colors.black)),
                   ],
                 ),
@@ -380,8 +380,8 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                       aniumationpageview(
                         index: 0,
                         package_name: "বেসিক",
-                        package_month: "২ মাস",
-                        package_prize: "৩০০ টাকা",
+                        package_month: "১ মাস",
+                        package_prize: "২০০ টাকা",
                         buttontab: payment.subscriptionuserdata == null
                             ? () {
                                 Navigator.push(
@@ -389,7 +389,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                                     CupertinoPageRoute(
                                       builder: (context) =>
                                           const PaymentListPage(
-                                        package_price: 300,
+                                        package_price: 200,
                                         subscription_pack_name: 'Basic',
                                         subs_pack_month: 1,
                                       ),
@@ -404,7 +404,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                                         CupertinoPageRoute(
                                           builder: (context) =>
                                               const PaymentListPage(
-                                            package_price: 300,
+                                            package_price: 200,
                                             subscription_pack_name: 'Basic',
                                             subs_pack_month: 1,
                                           ),
