@@ -80,7 +80,8 @@ class CategoryProvider extends ChangeNotifier {
     if (sitename == 'voltagelab') {
       loading = true;
       String url =
-          "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
+          // "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&_fields[]=id&_fields[]=name";
+          "https://blog.voltagelab.com/wp-json/wp/v2/categories?parent=${categoryid}&per_page=50&_fields[]=id&_fields[]=name";
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         var jsondata = response.body;

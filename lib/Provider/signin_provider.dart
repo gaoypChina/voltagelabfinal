@@ -151,7 +151,7 @@ class SignInProvider extends ChangeNotifier {
     //type = 2 is from registation
     if (await userinfoverify(_email) == false) {
       gmailotpsend(_email);
-      snakbar(context, "email send");
+      snakbar(context, "email send, Check Inbox or Spam folder");
       Navigator.push(
         context,
         MaterialPageRoute(
