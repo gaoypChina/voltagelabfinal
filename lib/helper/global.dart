@@ -45,6 +45,9 @@ class Global {
   static TextStyle bnListTitleText = GoogleFonts.hindSiliguri(
       color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600);
 
+  static TextStyle bnListTitleCategory = GoogleFonts.hindSiliguri(
+      color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.normal);
+
   static TextStyle enListTitleText = GoogleFonts.lato(
       color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600);
 

@@ -56,36 +56,39 @@ class _LoginPageState extends State<LoginPage> {
                           tileMode: TileMode.clamp),
                     ),
                     child: Padding(
-
-                      padding: const EdgeInsets.only(top: 80.0),
+                      padding: const EdgeInsets.only(top: 60.0),
                       child: Column(
                         // mainAxisSize: MainAxisSize.min,
 
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,                        children: [
-                          Image.asset('images/rectagle_white_logo.png',width: 200, ),
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/rectagle_white_logo.png',
+                            width: 200,
+                          ),
                           // Padding(
                           //   padding: EdgeInsets.only(top: 100.0),
-                            // child: SvgPicture.asset(
-                            //   'images/login.svg',
-                            //   height: 190,
-                            // ),
-                            //
-                            //  Text(
-                            //   'স্বাগতম',
-                            //   style: GoogleFonts.hindSiliguri(
-                            //     color: Colors.black,
-                            //     textStyle: Theme.of(context).textTheme.headline4,
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w700,
-                            //   ),
-                            // ),
+                          // child: SvgPicture.asset(
+                          //   'images/login.svg',
+                          //   height: 190,
+                          // ),
+                          //
+                          //  Text(
+                          //   'স্বাগতম',
+                          //   style: GoogleFonts.hindSiliguri(
+                          //     color: Colors.black,
+                          //     textStyle: Theme.of(context).textTheme.headline4,
+                          //     fontSize: 20,
+                          //     fontWeight: FontWeight.w700,
+                          //   ),
+                          // ),
                           // ),
                           const SizedBox(
-                            height: 50,
+                            height: 20,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 20.0),
+                            padding: const EdgeInsets.only(top: 5.0),
                             child: menubar(context),
                           ),
                           Expanded(
@@ -94,7 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                               controller: _pageController,
                               physics: const ClampingScrollPhysics(),
                               onPageChanged: (int i) {
-                                FocusScope.of(context).requestFocus(FocusNode());
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
                                 if (i == 0) {
                                   setState(() {
                                     right = Colors.white;
@@ -195,11 +199,12 @@ class _LoginPageState extends State<LoginPage> {
           overlayColor: MaterialStateProperty.all(Colors.transparent),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: GoogleFonts.hindSiliguri(color: color,fontWeight: FontWeight.w600,
-            fontSize: 16.0,)
-        ),
+        child: Text(text,
+            style: GoogleFonts.hindSiliguri(
+              color: color,
+              fontWeight: FontWeight.w600,
+              fontSize: 16.0,
+            )),
       ),
     );
   }

@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -151,7 +152,8 @@ class SignInProvider extends ChangeNotifier {
     //type = 2 is from registation
     if (await userinfoverify(_email) == false) {
       gmailotpsend(_email);
-      snakbar(context, "email send, Check Inbox or Spam folder");
+      // snakbar(context, " Check Inbox or Spam folder");
+      showToast(context, "Check SPAM or INOBX folder");
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -410,6 +412,17 @@ class SignInProvider extends ChangeNotifier {
 
   void snakbar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
+  void showToast(BuildContext context, String text) {
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
   }
 
   void userinfosave(String name, email, photourl, accountid, type) {

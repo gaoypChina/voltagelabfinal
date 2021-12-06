@@ -109,7 +109,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                 child: Text(
                                   category.subcategory![index].name!,
                                   textAlign: TextAlign.center,
-                                  style: Global.bnListTitleText,
+                                  style: Global.bnListTitleCategory,
                                   // maxLines: 1,
                                   // overflow: TextOverflow.ellipsis,
                                 ),

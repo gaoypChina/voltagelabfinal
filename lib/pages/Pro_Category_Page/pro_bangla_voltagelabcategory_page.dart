@@ -229,7 +229,7 @@ class _ProBanglaVoltageCategoryListPageState
                                 child: Text(
                                   procategory.name!,
                                   overflow: TextOverflow.ellipsis,
-                                  style: Global.bnListTitleText,
+                                  style: Global.bnListTitleCategory,
 
                                 ),
                               ),

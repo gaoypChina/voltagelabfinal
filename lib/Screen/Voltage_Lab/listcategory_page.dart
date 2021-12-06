@@ -219,7 +219,7 @@ class _ListcategoryPageState extends State<ListcategoryPage> {
                             Text(
                               category.category[index].name!,
                               overflow: TextOverflow.ellipsis,
-                              style: Global.bnListTitleText,
+                              style: Global.bnListTitleCategory,
                             ),
                           ),
                         ],

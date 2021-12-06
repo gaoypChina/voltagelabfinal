@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 
@@ -59,6 +60,13 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Container(
+                          padding:  EdgeInsets.all(10),
+                          child:  Text(
+                            "আপনার মেইলের Spam / Inbox Folder চেক করুন",
+                            style: GoogleFonts.hindSiliguri(fontSize: 13, color: Colors.red, fontWeight: FontWeight.bold),
+                          ),
+                        ),
                         Container(
                           padding: const EdgeInsets.all(10),
                           child: const Text(

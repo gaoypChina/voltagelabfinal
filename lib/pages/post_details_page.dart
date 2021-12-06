@@ -355,7 +355,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         // "p": Style(fontSize: FontSize(textsize.textsize), fontFamily: 'SolaimanLipi', letterSpacing: 1.0),
 
                         "p": Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi', letterSpacing: 1.5, lineHeight:LineHeight(1.8) ),
-                        "li": Style(fontSize:  FontSize(18), fontFamily: 'SolaimanLipi', letterSpacing: 1.5, lineHeight:LineHeight(1.8)),
+                        "li": Style(fontSize:  FontSize(16), fontFamily: 'SolaimanLipi'),
                         "alt": Style(fontSize: FontSize(textsize.textsize), fontFamily: 'SolaimanLipi'),
                         "strong":  Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
                         "h1":  Style(fontSize: FontSize(24), fontFamily: 'SolaimanLipi'),

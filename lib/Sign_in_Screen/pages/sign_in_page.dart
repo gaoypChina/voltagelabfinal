@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:voltagelab/Provider/signin_provider.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/Recover_Password/recovery_password.dart';
 
@@ -64,7 +65,6 @@ class _SignInState extends State<SignIn> {
 
   @override
   void initState() {
-    
     super.initState();
   }
 
@@ -157,17 +157,18 @@ class _SignInState extends State<SignIn> {
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
                   child: ElevatedButton(
-                          onPressed: () {                            
-                            validationchack(context);
-                          },
-                          child:  Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 42.0),
-                            child: Text(
-                              'লগইন',
-                              style: GoogleFonts.hindSiliguri(fontSize: 20, fontWeight: FontWeight.w600),
-                            ),
-                          )),
+                      onPressed: () {
+                        validationchack(context);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 42.0),
+                        child: Text(
+                          'লগইন',
+                          style: GoogleFonts.hindSiliguri(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                      )),
                   // child: ElevatedButton(
                   //   onPressed: () {
                   //     validationchack(context);
@@ -207,11 +208,9 @@ class _SignInState extends State<SignIn> {
                           builder: (context) => const RecoveryPasswordPage(),
                         ));
                   },
-                  child:  Text(
-                    'পাসওয়ার্ড ভুলে গিয়েছেন?',
-                    style: GoogleFonts.hindSiliguri(color: Colors.white,
-                      fontSize: 16.0)
-                  )),
+                  child: Text('পাসওয়ার্ড ভুলে গিয়েছেন?',
+                      style: GoogleFonts.hindSiliguri(
+                          color: Colors.white, fontSize: 16.0))),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
@@ -233,13 +232,13 @@ class _SignInState extends State<SignIn> {
                     width: 100.0,
                     height: 1.0,
                   ),
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                    child: Text(
-                      'অথবা',
-                      style: GoogleFonts.hindSiliguri(color: Colors.white,
-                        fontSize: 16.0,)
-                    ),
+                    child: Text('অথবা',
+                        style: GoogleFonts.hindSiliguri(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        )),
                   ),
                   Container(
                     decoration: const BoxDecoration(
@@ -259,7 +258,7 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 // Padding(
@@ -290,24 +289,131 @@ class _SignInState extends State<SignIn> {
                 //   ),
                 // ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 5.0),
                   child: GestureDetector(
                     onTap: () {
                       signin.signInWithGoogle(context);
                     },
-                    child: Container(
-                      padding: const EdgeInsets.all(15.0),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                      ),
-                      child: const Icon(
-                        FontAwesomeIcons.google,
-                        color: Color(0xFF0084ff),
-                      ),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(15.0),
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          child: const Icon(
+                            FontAwesomeIcons.google,
+                            color: Color(0xFF0084ff),
+                          ),
+                        ),
+                        // Container(
+                        //   margin: EdgeInsets.only(top: 20),
+                        //   child: Text(
+                        //       'অথবা Google Login সমস্যা হলে রেজিস্ট্রেশন এ ক্লিক দিয়ে রেজিস্ট্রেশন করুন',
+                        //       style: GoogleFonts.hindSiliguri(
+                        //         color: Colors.white,
+                        //         fontSize: 12.0,
+                        //       )),
+                        // ),
+                        // Column(
+                        //   children: [
+                        //     Container(
+                        //       margin: EdgeInsets.only(top: 30),
+                        //       child: Text(
+                        //           'রেজিস্ট্রেশন না হলে WhatsApp Live Chat করুন',
+                        //           style: GoogleFonts.hindSiliguri(
+                        //             color: Colors.red.shade100,
+                        //             fontSize: 12.0,
+                        //           )),
+                        //     ),
+                        //     Container(
+                        //       margin: EdgeInsets.only(left: 5),
+                        //       padding: EdgeInsets.all(5),
+                        //       decoration: BoxDecoration(
+                        //           border: Border.all(
+                        //             color: Colors.blue.shade100,
+                        //           ),
+                        //           borderRadius:
+                        //               BorderRadius.all(Radius.circular(10))),
+                        //       child: InkWell(
+                        //         onTap: openwhatsapp,
+                        //         child: Column(
+                        //           // mainAxisSize: MainAxisSize.min,
+                        //           mainAxisAlignment: MainAxisAlignment.center,
+                        //           children: [
+                        //             Icon(
+                        //               Icons.chat_bubble_outlined,
+                        //               color: Color.fromRGBO(7, 94, 84, 5),
+                        //             ),
+                        //             Text("Live Chat",
+                        //                 style: GoogleFonts.lato(
+                        //                   fontSize: 14,
+                        //                   color: Colors.white,
+                        //                   fontWeight: FontWeight.bold,
+                        //                 ))
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // )
+                      ],
                     ),
                   ),
                 ),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Text(
+                      'অথবা Google Login সমস্যা হলে রেজিস্ট্রেশন এ ক্লিক দিয়ে রেজিস্ট্রেশন করুন',
+                      style: GoogleFonts.hindSiliguri(
+                        color: Colors.white,
+                        fontSize: 12.0,
+                      )),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: Text(
+                          'রেজিস্ট্রেশন না হলে WhatsApp Live Chat করুন',
+                          style: GoogleFonts.hindSiliguri(
+                            color: Colors.red.shade100,
+                            fontSize: 12.0,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.blue.shade100,
+                          ),
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(10))),
+                      child: InkWell(
+                        onTap: openwhatsapp,
+                        child: Column(
+                          // mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.chat_bubble_outlined,
+                              color: Color.fromRGBO(7, 94, 84, 5),
+                            ),
+                            Text("Live Chat",
+                                style: GoogleFonts.lato(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+
               ],
             ),
           ],
@@ -320,5 +426,19 @@ class _SignInState extends State<SignIn> {
     setState(() {
       _obscureTextPassword = !_obscureTextPassword;
     });
+  }
+
+  openwhatsapp() async {
+    var whatsapp = "+8801713509349";
+    var whatsappURl_android = "whatsapp://send?phone=" +
+        whatsapp +
+        "&text=[From: VoltageLab Login ISSUE]\n\n";
+
+    // android , web
+    // if( await canLaunch(whatsappURl_android)){
+    await launch(whatsappURl_android);
+    // }else{
+    //
+    // }
   }
 }
