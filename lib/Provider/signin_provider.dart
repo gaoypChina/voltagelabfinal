@@ -192,19 +192,30 @@ class SignInProvider extends ChangeNotifier {
     String password = 'mindofEYE@1';
 
     final smtpServer = SmtpServer(
-      host,
-      port: 587,
+      "server135.web-hosting.com",
+      port: 465,
       name: name,
-      allowInsecure: allowInsecure,
+      allowInsecure: true,
       username: username,
       password: password,
-      ssl: ssl,
+      ssl: true,
       ignoreBadCertificate: ignoreBadCertificate,
     );
+
+    // final smtpServer = SmtpServer(
+    //   host,
+    //   port: 587,
+    //   name: name,
+    //   allowInsecure: allowInsecure,
+    //   username: username,
+    //   password: password,
+    //   ssl: ssl,
+    //   ignoreBadCertificate: ignoreBadCertificate,
+    // );
     final message = Message()
       ..from = Address(username, name)
       ..recipients.add(useremail)
-      ..subject = 'Verification Code'
+      ..subject = 'VoltageLab App Verification Code'
       ..text = 'Verification code: ${box.get('verify')}';
 
     try {

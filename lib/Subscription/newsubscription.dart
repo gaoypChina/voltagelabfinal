@@ -301,7 +301,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                    const SizedBox(
                       width: 10,
                     ),
-                    Text('ভিডিও - ইলেকট্রিক্যাল, ইলেকট্রনিক্স ভিডিও',
+                    Text('ভিডিও - ইলেকট্রিক্যাল, ইলেকট্রনিক্স',
                         style: GoogleFonts.hindSiliguri(color: Colors.black)),
                   ],
                 ),
