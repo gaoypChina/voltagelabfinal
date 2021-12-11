@@ -9,7 +9,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:voltagelab/Extra_Page/bottom_navbar.dart';
 import 'package:voltagelab/Provider/connectivity_provider.dart';
 import 'package:voltagelab/Screen/Voltage_Lab/MCQ/mcq_categorylist.dart';
@@ -32,6 +31,7 @@ import 'package:voltagelab/pages/Subscription_details/subscription_details.dart'
 import 'package:voltagelab/pages/home_init_page.dart';
 import 'package:voltagelab/widget/drawer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -396,12 +396,8 @@ class _HomePageState extends State<HomePage> {
             actions: [
               IconButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          // builder: (context) => FeedBackPage(),
-                          builder: (context) => playStoreRating(),
-                        ));
+                    playStoreRating();
+                    // builder: (context) => FeedBackPage(),
                   },
                   icon: Icon(
                     Icons.feedback,
@@ -587,7 +583,6 @@ class _HomePageState extends State<HomePage> {
                             MaterialPageRoute(
                               // builder: (context) => const YoutubePlaylistPage(),
                               builder: (context) => const McqCategoryList(),
-
                             ));
                       },
                     ),
@@ -836,10 +831,9 @@ class _HomePageState extends State<HomePage> {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        // const McqCategoryList(),
-                                                    const YoutubePlaylistPage()
-                                                  ),
+                                                      builder: (context) =>
+                                                          // const McqCategoryList(),
+                                                          const YoutubePlaylistPage()),
                                                 );
                                               },
                                     subscriptionsingledata:
@@ -941,22 +935,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   playStoreRating() {
-
     try {
       launch("market://details?id=" + "org.voltagelab");
-    } on PlatformException catch(e) {
-      launch("https://play.google.com/store/apps/details?id=" + "org.voltagelab");
+    } on PlatformException catch (e) {
+      launch(
+          "https://play.google.com/store/apps/details?id=" + "org.voltagelab");
     } finally {
-      launch("https://play.google.com/store/apps/details?id=" + "org.voltagelab");
+      launch(
+          "https://play.google.com/store/apps/details?id=" + "org.voltagelab");
     }
-
   }
 
-  // Widget homepagewidget() {
-  //   final post = Provider.of<Postprovider>(context);
-  //   var box = Hive.box("userdata");
-  //   return
-  // }
+// Widget homepagewidget() {
+//   final post = Provider.of<Postprovider>(context);
+//   var box = Hive.box("userdata");
+//   return
+// }
 }
 
 // Consumer<ConnectivityProvider>(
