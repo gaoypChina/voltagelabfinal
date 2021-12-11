@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:voltagelab/Provider/connectivity_provider.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/sign_in_page.dart';
 import 'package:voltagelab/Sign_in_Screen/pages/sign_up_page.dart';
+import 'package:voltagelab/pages/Guest/guest_home_init_page.dart';
 import 'package:voltagelab/pages/Internet_Connectibity/internetdisconnect.dart';
 
 class LoginPage extends StatefulWidget {
@@ -56,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                           tileMode: TileMode.clamp),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 60.0),
+                      padding: const EdgeInsets.only(top: 40.0),
                       child: Column(
                         // mainAxisSize: MainAxisSize.min,
 
@@ -84,9 +85,9 @@ class _LoginPageState extends State<LoginPage> {
                           //   ),
                           // ),
                           // ),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          // const SizedBox(
+                          //   height: 20,
+                          // ),
                           Padding(
                             padding: const EdgeInsets.only(top: 5.0),
                             child: menubar(context),
@@ -125,7 +126,42 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                        ],
+                          Container(
+                            margin: EdgeInsets.only(top: 15),
+                            child: Text(
+                                'রেজিস্ট্রেশন / লগিন ছাড়া এপ ব্যবহার করুন',
+                                style: GoogleFonts.hindSiliguri(
+                                  color: Colors.red.shade100,
+                                  fontSize: 12.0,
+                                )),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.blue.shade100,
+                                ),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                            child: InkWell(
+                              onTap: () =>  Navigator.pushReplacement(
+                                context,MaterialPageRoute(builder: (context) => GuestHomeInitPage()),),
+                              child: Column(
+                                // mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+
+                                  Text("Guest Login",
+                                      style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ))
+                                ],
+                              ),
+                            ),
+                          ),                      ],
                       ),
                     ),
                   ),

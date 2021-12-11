@@ -201,6 +201,7 @@ class _SignInState extends State<SignIn> {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: TextButton(
+
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -208,9 +209,18 @@ class _SignInState extends State<SignIn> {
                           builder: (context) => const RecoveryPasswordPage(),
                         ));
                   },
-                  child: Text('পাসওয়ার্ড ভুলে গিয়েছেন?',
-                      style: GoogleFonts.hindSiliguri(
-                          color: Colors.white, fontSize: 16.0))),
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.blue.shade100,
+                        ),
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(10))),
+                    child: Text('পাসওয়ার্ড ভুলে গিয়েছেন?',
+                        style: GoogleFonts.hindSiliguri(
+                            color: Colors.white, fontSize: 16.0)),
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),

@@ -168,8 +168,11 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
 
   void probookmark() {
     var box = Hive.box("userdata");
-    Provider.of<PaymentProvider>(context, listen: false)
-        .payment_user__single_info_get(box.get('email'));
+    print("email_registered_check " +box.length.toString());
+    if(box.length!=0) {
+      Provider.of<PaymentProvider>(context, listen: false)
+          .payment_user__single_info_get(box.get('email'));
+    }
   }
 
   void alartmessage() {
