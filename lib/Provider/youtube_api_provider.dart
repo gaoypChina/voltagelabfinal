@@ -26,6 +26,7 @@ class YoutubeApiprovider extends ChangeNotifier {
   }
 
   Future playlistiteam(String playlistid, int maxResults) async {
+    print("max_resultsss $maxResults");
     loading = true;
     String url =
         "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${playlistid}&key=AIzaSyCNc-j6dND2JR4TZLCCvFGa-upvOZCTXLM&part=snippet&maxResults=${maxResults}&fields=items(id,snippet(title,channelTitle,resourceId(videoId)))";

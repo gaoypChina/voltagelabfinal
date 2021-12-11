@@ -14,6 +14,7 @@ import 'package:share/share.dart';
 import 'package:voltagelab/Provider/payment_provider.dart';
 import 'package:voltagelab/Provider/post_provider.dart';
 import 'package:voltagelab/Provider/otherprovider.dart';
+import 'package:voltagelab/Sign_in_Screen/login.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/Model/category_model.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/Model/post_model.dart';
 import 'package:voltagelab/Sqflite/En_VoltageLab/db/category_db.dart';
@@ -27,15 +28,16 @@ import 'package:voltagelab/Subscription/newsubscription.dart';
 import 'package:voltagelab/helper/global.dart';
 import 'package:voltagelab/model/Subscription_data_Stream_model/subscription_single_data.dart';
 import 'package:voltagelab/model/post_model.dart';
+import 'package:voltagelab/pages/Guest/guest_home_init_page.dart';
 import 'package:voltagelab/web_View/web_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class PostDetailsPage extends StatefulWidget {
   final String categoryname;
   final int categoryid;
   final Postdata postdata;
   final String sitename;
+
   const PostDetailsPage(
       {Key? key,
       required this.postdata,
@@ -168,8 +170,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
 
   void probookmark() {
     var box = Hive.box("userdata");
-    print("email_registered_check " +box.length.toString());
-    if(box.length!=0) {
+    print("email_registered_check " + box.length.toString());
+    if (box.length != 0) {
       Provider.of<PaymentProvider>(context, listen: false)
           .payment_user__single_info_get(box.get('email'));
     }
@@ -194,6 +196,60 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         )
       ],
     ).show();
+  }
+
+  void alertGuestMessage() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              "লগিন এলার্ট",
+              style: GoogleFonts.hindSiliguri(
+                  color: Colors.red.shade300,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600),
+            ),
+            content: Text(
+                "এই ফিচারটি শুধুমাত্র লগিন ইউজার দের জন্য। লগিন / রেজিস্ট্রেশন করতে চাইলে নিচের Login বাটনে ক্লিক করুন।",
+                style: Global.bnAlertText),
+            actions: <Widget>[
+              Row(
+                children: [
+                  DialogButton(
+                    width: 80,
+                    color: Colors.white,
+                    child: Text("Login",
+                        style: GoogleFonts.lato(
+                          fontSize: 14,
+                          color: Global.defaultColor,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const LoginPage()));
+                    },
+                  ),
+                  DialogButton(
+                      width: 50,
+                      color: Colors.white,
+                      child: Text("Close",
+                          style: GoogleFonts.lato(
+                            color: Colors.red.shade300,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      onPressed: () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GuestHomeInitPage()),
+                          )),
+                ],
+              )
+            ],
+          );
+        });
   }
 
   @override
@@ -239,10 +295,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   ? IconButton(
                       onPressed: () {
                         if (post.isloading == true) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                               SnackBar(
-                                  content:
-                                      Text("Please Wait For Content Loading", style: GoogleFonts.lato()),));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Please Wait For Content Loading",
+                                style: GoogleFonts.lato()),
+                          ));
                         } else {
                           if (payment.subscriptionsingledata != null &&
                               payment.subscriptionsingledata!.status == '1') {
@@ -251,7 +307,12 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                             post.getpolytechnicsavepost();
                           } else if (payment.subscriptionsingledata == null ||
                               payment.subscriptionsingledata!.status != '1') {
-                            alartmessage();
+                            var box = Hive.box("userdata");
+                            if (box.length != 0) {
+                              alartmessage();
+                            } else {
+                              alertGuestMessage();
+                            }
                           }
                         }
                       },
@@ -263,8 +324,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                       onPressed: () {
                         if (post.isloading == true) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content:
-                                  Text("Please Wait For Content Loading", style: GoogleFonts.lato(),)));
+                              content: Text(
+                            "Please Wait For Content Loading",
+                            style: GoogleFonts.lato(),
+                          )));
                         } else {
                           if (payment.subscriptionsingledata != null &&
                               payment.subscriptionsingledata!.status == '1') {
@@ -273,7 +336,12 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                             post.getvoltagelabsavepost();
                           } else if (payment.subscriptionsingledata == null ||
                               payment.subscriptionsingledata!.status != '1') {
-                            alartmessage();
+                            var box = Hive.box("userdata");
+                            if (box.length != 0) {
+                              alartmessage();
+                            } else {
+                              alertGuestMessage();
+                            }
                           }
                         }
                       },
@@ -317,10 +385,9 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                     child: Text(
                       widget.postdata.title!.rendered,
                       style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 22,
-                        fontFamily: 'SolaimanLipi'
-                      ),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                          fontFamily: 'SolaimanLipi'),
                     ),
                   ),
                 ],
@@ -338,7 +405,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                 ? SizedBox(
                     height: 300,
                     child: Center(
-                      child: Text("Loading.......",style: GoogleFonts.lato(),),
+                      child: Text(
+                        "Loading.......",
+                        style: GoogleFonts.lato(),
+                      ),
                     ),
                   )
                 : SingleChildScrollView(
@@ -357,16 +427,30 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                       style: {
                         // "p": Style(fontSize: FontSize(textsize.textsize), fontFamily: 'SolaimanLipi', letterSpacing: 1.0),
 
-                        "p": Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi', letterSpacing: 1.5, lineHeight:LineHeight(1.8) ),
-                        "li": Style(fontSize:  FontSize(16), fontFamily: 'SolaimanLipi'),
-                        "alt": Style(fontSize: FontSize(textsize.textsize), fontFamily: 'SolaimanLipi'),
-                        "strong":  Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
-                        "h1":  Style(fontSize: FontSize(24), fontFamily: 'SolaimanLipi'),
-                        "h2":  Style(fontSize: FontSize(22), fontFamily: 'SolaimanLipi'),
-                        "h3":  Style(fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
-                        "h4":  Style(fontSize: FontSize(16), fontFamily: 'SolaimanLipi'),
-                        "h5":  Style(fontSize: FontSize(12), fontFamily: 'SolaimanLipi'),
-                        "h6":  Style(fontSize: FontSize(10), fontFamily: 'SolaimanLipi')
+                        "p": Style(
+                            fontSize: FontSize(18),
+                            fontFamily: 'SolaimanLipi',
+                            letterSpacing: 1.5,
+                            lineHeight: LineHeight(1.8)),
+                        "li": Style(
+                            fontSize: FontSize(16), fontFamily: 'SolaimanLipi'),
+                        "alt": Style(
+                            fontSize: FontSize(textsize.textsize),
+                            fontFamily: 'SolaimanLipi'),
+                        "strong": Style(
+                            fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
+                        "h1": Style(
+                            fontSize: FontSize(24), fontFamily: 'SolaimanLipi'),
+                        "h2": Style(
+                            fontSize: FontSize(22), fontFamily: 'SolaimanLipi'),
+                        "h3": Style(
+                            fontSize: FontSize(18), fontFamily: 'SolaimanLipi'),
+                        "h4": Style(
+                            fontSize: FontSize(16), fontFamily: 'SolaimanLipi'),
+                        "h5": Style(
+                            fontSize: FontSize(12), fontFamily: 'SolaimanLipi'),
+                        "h6": Style(
+                            fontSize: FontSize(10), fontFamily: 'SolaimanLipi')
                       },
                     ),
                   ),
